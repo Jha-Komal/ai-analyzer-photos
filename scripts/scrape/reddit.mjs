@@ -22,12 +22,15 @@ import { isRetrievalRelevant, matchedKeywords } from "./lib/relevance.mjs";
 const OUT_FILE = new URL("../../data/raw/reddit.json", import.meta.url).pathname;
 const API_BASE = "https://arctic-shift.photon-reddit.com/api";
 // r/GooglePhotos is the highest-value, most targeted source -- give it a
-// budget large enough to walk its entire history. The others are broader
-// subs with a much lower relevant-content density; cap them to bound total
-// runtime. Override with SCRAPE_SUBREDDITS="Name:maxPages,Name2:maxPages".
+// budget large enough to walk its entire history. r/Android was tried and
+// dropped: a manual sample of its keyword matches found ~95% weren't even
+// about photos (generic troubleshooting phrases like "can't find" are
+// common across all of Android, unrelated to Google Photos specifically).
+// The remaining broader subs get a capped budget; check precision on a
+// sample before trusting their yield the way r/Android's turned out to be
+// mostly noise. Override with SCRAPE_SUBREDDITS="Name:maxPages,Name2:maxPages".
 const DEFAULT_SUBREDDIT_BUDGETS = [
   { name: "GooglePhotos", maxPages: 5000 },
-  { name: "Android", maxPages: 800 },
   { name: "GooglePixel", maxPages: 800 },
   { name: "photography", maxPages: 400 },
 ];
@@ -116,7 +119,9 @@ async function fetchCommentsForPost(postId) {
       label: `comments for ${postId}`,
       retries: 2,
     });
-    return comments.filter((c) => c.body && c.body !== "[deleted]" && c.body !== "[removed]").map(commentToDocument);
+    return comments
+      .filter((c) => c.body && c.body !== "[deleted]" && c.body !== "[removed]" && isRetrievalRelevant(c.body))
+      .map(commentToDocument);
   } catch (err) {
     console.warn(`[reddit] could not fetch comments for ${postId}: ${err.message}`);
     return [];

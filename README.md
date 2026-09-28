@@ -34,12 +34,21 @@ confirmed independent of technique (plain `curl`, headless Playwright, and
 the official OAuth token endpoint were all tested and all blocked from the
 same machine). Arctic Shift mirrors Reddit's full post/comment archive and
 was reachable, so `reddit.mjs` pages through each subreddit's history via its
-API (`GooglePhotos` gets a large budget since it's the most targeted
-source; `Android`, `GooglePixel`, `photography` are supplementary with
-smaller budgets) and applies the same local keyword filter as the other
-scrapers. No API key needed. If you're on a network where Reddit itself
-isn't blocked, the direct approach would also work, but there was no reason
-to maintain both once this one proved reliable.
+API and applies the same local keyword filter as the other scrapers. No API
+key needed. If you're on a network where Reddit itself isn't blocked, the
+direct approach would also work, but there was no reason to maintain both
+once this one proved reliable.
+
+`r/GooglePhotos` gets a large page budget since it's the most targeted
+source. **`r/Android` was tried and dropped**: a manual sample of its
+keyword-matched posts found ~95% weren't even about photos -- "can't find"
+etc. are just common troubleshooting phrases across all of Android,
+unrelated to Google Photos specifically. If you add other broad subreddits,
+sample their matches before trusting the yield the same way. Also note: an
+early version of this script pulled in *every* comment on a matched post,
+not just the ones that themselves matched a keyword -- that leaked ~85% pure
+noise into the dataset before it was caught and fixed (comments are now
+filtered the same way posts are).
 
 Each scraper writes to `data/raw/<source>.json` (native per-source schema,
 e.g. `rating`/`author`/`likes` for reviews) and is safe to re-run --
@@ -56,7 +65,12 @@ All four scrapers apply a lightweight keyword prefilter
 -- this is **not** the same as the AI relevance classifier in the spec
 (DIRECT_RETRIEVAL / ADJACENT_RETRIEVAL / NOT_RELEVANT / UNCERTAIN); that
 classification still has to run as a separate pipeline step over these raw
-documents.
+documents. Expect real noise in the raw data by design: a manual sample of
+25 keyword-matched r/googlephotos posts found roughly a third to a half
+were DIRECT_RETRIEVAL-shaped, several more were ADJACENT_RETRIEVAL (backup/
+deletion/sync -- explicitly out of scope per spec section 4), and the rest
+were NOT_RELEVANT/UNCERTAIN. That split is exactly what Prompt 1 (relevance
+classification) exists to sort out -- it hasn't been run yet.
 
 ## Analysis pipeline (not yet run)
 
