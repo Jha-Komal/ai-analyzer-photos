@@ -17,10 +17,6 @@ const MEMORY_DIMENSIONS = [
   "context",
 ] as const;
 
-function sourceOf(episode: RetrievalEpisode): string {
-  return episode.sourceDocumentId.split("_")[0];
-}
-
 function uniqueSorted(values: string[]): string[] {
   return Array.from(new Set(values)).sort();
 }
@@ -29,7 +25,6 @@ const selectClass = "rounded-lg px-2 py-1.5 text-sm";
 const selectStyle = { background: "var(--surface)", border: "1px solid var(--border)", color: "var(--foreground)" };
 
 export default function EpisodesTable({ episodes }: { episodes: RetrievalEpisode[] }) {
-  const [source, setSource] = useState("");
   const [scenario, setScenario] = useState("");
   const [outcome, setOutcome] = useState("");
   const [failureStage, setFailureStage] = useState("");
@@ -37,7 +32,6 @@ export default function EpisodesTable({ episodes }: { episodes: RetrievalEpisode
 
   const options = useMemo(
     () => ({
-      sources: uniqueSorted(episodes.map(sourceOf)),
       scenarios: uniqueSorted(episodes.map((e) => e.scenario.category)),
       outcomes: uniqueSorted(episodes.map((e) => e.outcome)),
       failureStages: uniqueSorted(episodes.map((e) => e.failureStage)),
@@ -47,26 +41,17 @@ export default function EpisodesTable({ episodes }: { episodes: RetrievalEpisode
 
   const filtered = useMemo(() => {
     return episodes.filter((e) => {
-      if (source && sourceOf(e) !== source) return false;
       if (scenario && e.scenario.category !== scenario) return false;
       if (outcome && e.outcome !== outcome) return false;
       if (failureStage && e.failureStage !== failureStage) return false;
       if (memoryCue && !(e.remembered[memoryCue as keyof RetrievalEpisode["remembered"]]?.length > 0)) return false;
       return true;
     });
-  }, [episodes, source, scenario, outcome, failureStage, memoryCue]);
+  }, [episodes, scenario, outcome, failureStage, memoryCue]);
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap gap-2">
-        <select className={selectClass} style={selectStyle} value={source} onChange={(e) => setSource(e.target.value)}>
-          <option value="">All sources</option>
-          {options.sources.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-        </select>
         <select className={selectClass} style={selectStyle} value={scenario} onChange={(e) => setScenario(e.target.value)}>
           <option value="">All scenarios</option>
           {options.scenarios.map((s) => (
@@ -116,7 +101,7 @@ export default function EpisodesTable({ episodes }: { episodes: RetrievalEpisode
         <table className="w-full text-left text-sm">
           <thead>
             <tr style={{ borderBottom: "1px solid var(--border)" }}>
-              {["Episode", "Source", "Scenario", "Target", "Remembered", "Search steps", "Outcome", "Failure"].map(
+              {["Episode", "Scenario", "Target", "Remembered", "Search steps", "Outcome", "Failure"].map(
                 (h) => (
                   <th key={h} className="whitespace-nowrap px-3 py-2 font-medium" style={{ color: "var(--text-secondary)" }}>
                     {h}
@@ -132,9 +117,6 @@ export default function EpisodesTable({ episodes }: { episodes: RetrievalEpisode
                   <Link href={`/episodes/${e.id}`} style={{ color: "var(--accent)" }}>
                     EP-{i + 1}
                   </Link>
-                </td>
-                <td className="px-3 py-2 whitespace-nowrap" style={{ color: "var(--foreground)" }}>
-                  {sourceOf(e)}
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap" style={{ color: "var(--foreground)" }}>
                   {e.scenario.category}
