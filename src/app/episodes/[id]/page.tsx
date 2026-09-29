@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { loadEpisodes } from "@/lib/data";
-import NavHeader from "@/components/NavHeader";
+import { TopNav } from "@/components/layout/TopNav";
 
 const MEMORY_DIMENSIONS = [
   "people",
@@ -27,8 +27,8 @@ export default async function EpisodeDetailPage({ params }: { params: Promise<{ 
   );
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--background)" }}>
-      <NavHeader />
+    <>
+      <TopNav title="Episode detail" subtitle={episode.id} />
       <main className="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-10">
         <Link href="/episodes" className="text-sm" style={{ color: "var(--accent)" }}>
           &larr; All episodes
@@ -108,7 +108,7 @@ export default async function EpisodeDetailPage({ params }: { params: Promise<{ 
           </a>
         </div>
       </main>
-    </div>
+    </>
   );
 }
 

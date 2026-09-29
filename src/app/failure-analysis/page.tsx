@@ -1,6 +1,6 @@
 import { loadEpisodes } from "@/lib/data";
 import { countBy, crossTab } from "@/lib/statistics/episodeStats";
-import NavHeader from "@/components/NavHeader";
+import { TopNav } from "@/components/layout/TopNav";
 
 export default async function FailureAnalysisPage() {
   const episodes = await loadEpisodes();
@@ -17,18 +17,9 @@ export default async function FailureAnalysisPage() {
   );
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--background)" }}>
-      <NavHeader />
-      <main className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-10">
-        <div>
-          <h1 className="text-xl font-medium" style={{ color: "var(--foreground)" }}>
-            Failure Analysis
-          </h1>
-          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-            Where retrieval breaks, across {episodes.length.toLocaleString()} extracted episodes.
-          </p>
-        </div>
-
+    <>
+      <TopNav title="Failure Analysis" subtitle={`Where retrieval breaks, across ${episodes.length.toLocaleString()} extracted episodes`} />
+      <div className="flex flex-col gap-6 p-6">
         <Card title="Failure stage distribution">
           <div className="flex flex-col gap-3">
             {stages.map(([stage, count]) => (
@@ -61,8 +52,8 @@ export default async function FailureAnalysisPage() {
         <Card title="Failure stage x Workaround">
           <CrossTabTable data={byWorkaround} rowLabel="Failure stage" />
         </Card>
-      </main>
-    </div>
+      </div>
+    </>
   );
 }
 

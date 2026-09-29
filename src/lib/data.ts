@@ -19,3 +19,13 @@ export function loadEpisodes(): Promise<RetrievalEpisode[]> {
 export function loadDocuments(): Promise<RawDocument[]> {
   return loadJson("data/raw/documents.json", []);
 }
+
+export type RelevanceResult = {
+  documentId: string;
+  source: string;
+  classification: "DIRECT_RETRIEVAL" | "ADJACENT_RETRIEVAL" | "NOT_RELEVANT" | "UNCERTAIN";
+};
+
+export function loadRelevant(): Promise<RelevanceResult[]> {
+  return loadJson("data/processed/relevant.json", []);
+}

@@ -1,34 +1,56 @@
 @import "tailwindcss";
 
 /*
- * Google Photos-inspired theme.
- * Surfaces/text/border tones follow Google's own Material palette
- * (Grey 50/900 canvas, Grey 700/500 secondary text, Grey 300/800 borders).
- * Categorical series colors are the dataviz skill's validated ramp
- * (blue/orange/aqua/yellow, slots 1-4) -- picked over Google's literal
- * logo colors because blue+yellow+green+red fails CVD/contrast validation
- * when used as adjacent chart series; these pass on the same bar-chart
- * adjacency check in both light and dark.
+ * Google Photos-inspired theme, using the same semantic-token + Tailwind v4
+ * `@theme inline` pattern as the Myntra sibling project so the shadcn-style
+ * component kit (button/card/badge/etc.) works unmodified against these
+ * utility classes (bg-card, text-muted, border-border, bg-primary, ...).
  */
 :root {
-  --background: #f8f9fa;
-  --surface: #ffffff;
-  --foreground: #202124;
-  --text-secondary: #5f6368;
-  --border: #dadce0;
+  --google-blue: #1a73e8;
+  --google-blue-dark: #1765cc;
+  --google-blue-light: #e8f0fe;
 
-  --accent: #1a73e8;
-  --accent-hover: #1765cc;
+  --background: #f8f9fa;
+  --foreground: #202124;
+  --muted: #5f6368;
+  --muted-background: #eef0f2;
+  --border: #dadce0;
+  --card: #ffffff;
+
+  --positive: #1baf7a;
+  --negative: #e34948;
+  --neutral: #eda100;
 
   --series-blue: #2a78d6;
   --series-orange: #eb6834;
   --series-aqua: #1baf7a;
   --series-yellow: #eda100;
+
+  /* back-compat aliases for pages still using inline var(--x) styles */
+  --surface: var(--card);
+  --text-secondary: var(--muted);
+  --accent: var(--google-blue);
+  --accent-hover: var(--google-blue-dark);
 }
 
 @theme inline {
+  --color-primary: var(--google-blue);
+  --color-primary-dark: var(--google-blue-dark);
+  --color-primary-light: var(--google-blue-light);
+  --color-accent: var(--google-blue);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-background: var(--muted-background);
+  --color-border: var(--border);
+  --color-card: var(--card);
+
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-neutral: var(--neutral);
+
   --font-sans: var(--font-roboto);
   --font-mono: var(--font-roboto-mono);
 }
@@ -36,18 +58,25 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #202124;
-    --surface: #292a2d;
     --foreground: #e8eaed;
-    --text-secondary: #9aa0a6;
+    --muted: #9aa0a6;
+    --muted-background: #26282b;
     --border: #3c4043;
+    --card: #292a2d;
 
-    --accent: #8ab4f8;
-    --accent-hover: #aecbfa;
+    --google-blue: #8ab4f8;
+    --google-blue-dark: #aecbfa;
+    --google-blue-light: #2d3748;
 
     --series-blue: #3987e5;
     --series-orange: #d95926;
     --series-aqua: #199e70;
     --series-yellow: #c98500;
+
+    --surface: var(--card);
+    --text-secondary: var(--muted);
+    --accent: var(--google-blue);
+    --accent-hover: var(--google-blue-dark);
   }
 }
 
@@ -55,4 +84,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-roboto), Roboto, Arial, sans-serif;
+}
+
+* {
+  border-color: var(--border);
 }

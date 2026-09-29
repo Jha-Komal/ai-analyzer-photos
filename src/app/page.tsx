@@ -1,133 +1,97 @@
-import { computeDocumentStats } from "@/lib/statistics/documentStats";
-import { loadDocuments, loadEpisodes } from "@/lib/data";
-import NavHeader from "@/components/NavHeader";
+import { FileText, MessageSquareText, Search, AlertTriangle, Target } from "lucide-react";
+import { TopNav } from "@/components/layout/TopNav";
+import { MetricCard } from "@/components/shared/MetricCard";
+import { Card, CardContent } from "@/components/ui/card";
+import { DistributionBarChart } from "@/components/charts/DistributionBarChart";
+import { RelevancePieChart } from "@/components/charts/RelevancePieChart";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { loadDocuments, loadRelevant, loadEpisodes } from "@/lib/data";
+import { computeDiscoveryStats } from "@/lib/aggregation";
+import { SOURCE_LABELS } from "@/lib/constants";
 
-// Fixed color per source -- never cycled, so a hue always means the same
-// source across every chart on the page (dataviz skill: "color follows the
-// entity, never its rank"). Values come from the validated categorical
-// ramp in globals.css, not Google's literal logo hues -- that combination
-// fails CVD/contrast checks when used as adjacent chart series.
-const SOURCE_META: Record<string, { label: string; color: string }> = {
-  reddit: { label: "Reddit", color: "var(--series-blue)" },
-  google_photos_community: { label: "Google Photos Community", color: "var(--series-orange)" },
-  play_store: { label: "Google Play Store", color: "var(--series-aqua)" },
-  app_store: { label: "Apple App Store", color: "var(--series-yellow)" },
-};
+export default async function DashboardPage() {
+  const [documents, relevant, episodes] = await Promise.all([loadDocuments(), loadRelevant(), loadEpisodes()]);
+  const stats = computeDiscoveryStats(documents, relevant, episodes);
 
-const TYPE_META: Record<string, { label: string; color: string }> = {
-  review: { label: "Review", color: "var(--series-blue)" },
-  discussion: { label: "Discussion", color: "var(--series-orange)" },
-  comment: { label: "Comment", color: "var(--series-aqua)" },
-};
-
-export default async function Home() {
-  const [documents, episodes] = await Promise.all([loadDocuments(), loadEpisodes()]);
-  const stats = computeDocumentStats(documents);
+  const directCount = stats.relevanceClassDistribution.DIRECT_RETRIEVAL ?? 0;
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--background)" }}>
-      <NavHeader />
-
-      <main className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-10">
-        <p className="max-w-2xl text-sm leading-6" style={{ color: "var(--text-secondary)" }}>
-          AI discovery engine for Google Photos retrieval research. Raw conversations captured from public
-          sources are shown below; the extraction/synthesis pipeline (relevance classification, retrieval
-          episode extraction, pattern discovery) runs on top of this dataset once{" "}
-          <code
-            className="rounded px-1 py-0.5 font-mono text-[0.85em]"
-            style={{ background: "var(--background)", border: "1px solid var(--border)" }}
-          >
-            OPENAI_API_KEY
-          </code>{" "}
-          is configured.
-        </p>
-
-        <section className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-          <StatCard label="Documents analyzed" value={stats.total} accent="var(--accent)" />
-          <StatCard label="Retrieval episodes" value={episodes.length} accent="var(--series-blue)" />
-          {Object.entries(SOURCE_META).map(([key, meta]) => (
-            <StatCard key={key} label={meta.label} value={stats.bySource[key] ?? 0} accent={meta.color} />
-          ))}
-        </section>
-
-        <Card title="Source distribution">
-          <DistributionBars data={stats.bySource} meta={SOURCE_META} total={stats.total} />
-          {Object.keys(stats.bySource).length === 0 && (
-            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-              No documents yet. Run <code className="font-mono">npm run scrape:all</code> to populate{" "}
-              <code className="font-mono">data/raw/documents.json</code>.
-            </p>
-          )}
-        </Card>
-
-        <Card title="Source type distribution">
-          <DistributionBars data={stats.bySourceType} meta={TYPE_META} total={stats.total} />
-        </Card>
-      </main>
-    </div>
-  );
-}
-
-function Card({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section
-      className="flex flex-col gap-4 rounded-2xl p-5"
-      style={{ background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 2px 0 rgba(60,64,67,0.1)" }}
-    >
-      <h2 className="text-base font-medium" style={{ color: "var(--foreground)" }}>
-        {title}
-      </h2>
-      {children}
-    </section>
-  );
-}
-
-function StatCard({ label, value, accent }: { label: string; value: number; accent: string }) {
-  return (
-    <div
-      className="rounded-2xl p-4"
-      style={{ background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 2px 0 rgba(60,64,67,0.1)" }}
-    >
-      <div className="mb-2 h-1 w-8 rounded-full" style={{ background: accent }} />
-      <div className="text-2xl font-medium tabular-nums" style={{ color: "var(--foreground)" }}>
-        {value.toLocaleString()}
-      </div>
-      <div className="text-xs" style={{ color: "var(--text-secondary)" }}>
-        {label}
-      </div>
-    </div>
-  );
-}
-
-function DistributionBars({
-  data,
-  meta,
-  total,
-}: {
-  data: Record<string, number>;
-  meta: Record<string, { label: string; color: string }>;
-  total: number;
-}) {
-  const entries = Object.entries(data).sort((a, b) => b[1] - a[1]);
-  return (
-    <div className="flex flex-col gap-3">
-      {entries.map(([key, count]) => {
-        const m = meta[key] ?? { label: key, color: "var(--text-secondary)" };
-        const pct = total ? (count / total) * 100 : 0;
-        return (
-          <div key={key} className="flex items-center gap-3">
-            <span className="w-48 shrink-0 text-sm" style={{ color: "var(--foreground)" }}>
-              {m.label}
-            </span>
-            <div className="h-2 flex-1 overflow-hidden rounded-full" style={{ background: "var(--background)" }}>
-              <div className="h-2 rounded-full" style={{ width: `${pct}%`, background: m.color }} />
+    <>
+      <TopNav title="Dashboard" subtitle="Core Experience -- Google Photos discovery engine (Part 1)" />
+      <div className="space-y-6 p-6">
+        <Card className="border-primary/30 bg-primary-light">
+          <CardContent className="flex items-start gap-3 pt-5">
+            <Target className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+            <div className="space-y-1.5">
+              <p className="text-sm font-semibold text-foreground">
+                Business metric: increase the % of users who successfully retrieve a photo they remember but
+                cannot precisely describe when they start searching.
+              </p>
+              <p className="text-sm text-muted">
+                The challenge is not to improve search in general. This engine exists to understand{" "}
+                <em>how people remember old visual information</em>, {" "}
+                <em>where the existing retrieval experience breaks down</em>, and to surface{" "}
+                <em>an opportunity that can meaningfully improve successful retrieval</em> -- grounded in
+                evidence from real users, not assumptions.
+              </p>
             </div>
-            <span className="w-14 shrink-0 text-right text-sm tabular-nums" style={{ color: "var(--text-secondary)" }}>
-              {count.toLocaleString()}
-            </span>
-          </div>
-        );
-      })}
-    </div>
+          </CardContent>
+        </Card>
+
+        {stats.totalDocuments === 0 ? (
+          <EmptyState
+            title="No documents yet"
+            description="Run the scrapers in scripts/scrape/ to populate data/raw/documents.json."
+          />
+        ) : (
+          <>
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
+              <MetricCard label="Documents scanned" value={stats.totalDocuments.toLocaleString()} icon={FileText} />
+              <MetricCard label="Direct retrieval" value={directCount.toLocaleString()} icon={Search} tone="positive" />
+              <MetricCard
+                label="Adjacent (not retrieval)"
+                value={(stats.relevanceClassDistribution.ADJACENT_RETRIEVAL ?? 0).toLocaleString()}
+                icon={AlertTriangle}
+                tone="negative"
+              />
+              <MetricCard label="Episodes extracted" value={stats.totalEpisodes.toLocaleString()} icon={MessageSquareText} />
+              <MetricCard
+                label="Not relevant"
+                value={(stats.relevanceClassDistribution.NOT_RELEVANT ?? 0).toLocaleString()}
+                icon={FileText}
+              />
+            </div>
+
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+              <RelevancePieChart byClassification={stats.relevanceClassDistribution} />
+              <DistributionBarChart
+                title="Source Distribution"
+                data={Object.fromEntries(Object.entries(stats.sourceDistribution).map(([k, v]) => [SOURCE_LABELS[k] ?? k, v]))}
+              />
+              <DistributionBarChart title="Scenario Distribution" data={stats.scenarioDistribution} color="var(--series-orange)" />
+              <DistributionBarChart title="Failure Stage Distribution" data={stats.failureStageDistribution} color="var(--negative)" />
+              <DistributionBarChart title="Outcome Distribution" data={stats.outcomeDistribution} color="var(--positive)" />
+              <DistributionBarChart title="Memory Dimensions Remembered" data={stats.memoryDimensionFrequency} color="var(--series-yellow)" />
+            </div>
+
+            <Card>
+              <CardContent className="pt-5 text-sm text-muted">
+                These charts describe <em>what happened</em>. The evidence-backed answer to <em>why it happens
+                and where the opportunity is</em> lives in{" "}
+                <a href="/insights" className="font-medium text-primary">
+                  Insights
+                </a>{" "}
+                (the discovery questions) and the{" "}
+                <a href="/research-report" className="font-medium text-primary">
+                  Research Report
+                </a>{" "}
+                (ranked, evidence-backed opportunity hypotheses) -- generate those once enough episodes are
+                extracted.
+              </CardContent>
+            </Card>
+          </>
+        )}
+      </div>
+    </>
   );
 }

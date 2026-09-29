@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
+import { QueryProvider } from "@/lib/query-provider";
+import { AppLayout } from "@/components/layout/AppLayout";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -24,7 +26,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${roboto.variable} ${robotoMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <QueryProvider>
+          <AppLayout>{children}</AppLayout>
+        </QueryProvider>
+      </body>
     </html>
   );
 }

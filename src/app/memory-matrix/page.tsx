@@ -1,6 +1,6 @@
 import { loadEpisodes } from "@/lib/data";
 import { computeMemoryMatrix } from "@/lib/statistics/episodeStats";
-import NavHeader from "@/components/NavHeader";
+import { TopNav } from "@/components/layout/TopNav";
 
 export default async function MemoryMatrixPage() {
   const episodes = await loadEpisodes();
@@ -8,20 +8,12 @@ export default async function MemoryMatrixPage() {
   const maxFreq = Math.max(1, ...matrix.map((r) => r.frequency));
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--background)" }}>
-      <NavHeader />
-      <main className="mx-auto flex max-w-4xl flex-col gap-6 px-6 py-10">
-        <div>
-          <h1 className="text-xl font-medium" style={{ color: "var(--foreground)" }}>
-            Memory Matrix
-          </h1>
-          <p className="max-w-2xl text-sm" style={{ color: "var(--text-secondary)" }}>
-            What users remember, and how often that dimension co-occurs with an active search step or a
-            non-trivial failure stage. Calculated directly from {episodes.length.toLocaleString()} extracted
-            episodes -- no numbers here are hard-coded.
-          </p>
-        </div>
-
+    <>
+      <TopNav
+        title="Memory Matrix"
+        subtitle={`What users remember vs. search usage and failure association, calculated from ${episodes.length.toLocaleString()} episodes`}
+      />
+      <div className="p-6">
         <div
           className="overflow-x-auto rounded-2xl"
           style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
@@ -66,7 +58,7 @@ export default async function MemoryMatrixPage() {
             </tbody>
           </table>
         </div>
-      </main>
-    </div>
+      </div>
+    </>
   );
 }
