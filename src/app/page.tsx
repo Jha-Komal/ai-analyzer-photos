@@ -1,17 +1,6 @@
-import { readFile } from "node:fs/promises";
-import path from "node:path";
-import type { RawDocument } from "@/types/document";
 import { computeDocumentStats } from "@/lib/statistics/documentStats";
-
-async function loadDocuments(): Promise<RawDocument[]> {
-  try {
-    const filePath = path.join(process.cwd(), "data", "raw", "documents.json");
-    const raw = await readFile(filePath, "utf-8");
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
-}
+import { loadDocuments, loadEpisodes } from "@/lib/data";
+import NavHeader from "@/components/NavHeader";
 
 // Fixed color per source -- never cycled, so a hue always means the same
 // source across every chart on the page (dataviz skill: "color follows the
@@ -32,20 +21,12 @@ const TYPE_META: Record<string, { label: string; color: string }> = {
 };
 
 export default async function Home() {
-  const documents = await loadDocuments();
+  const [documents, episodes] = await Promise.all([loadDocuments(), loadEpisodes()]);
   const stats = computeDocumentStats(documents);
 
   return (
     <div className="min-h-screen" style={{ background: "var(--background)" }}>
-      <header
-        className="sticky top-0 z-10 flex items-center gap-3 px-6 py-3"
-        style={{ background: "var(--surface)", borderBottom: "1px solid var(--border)" }}
-      >
-        <PinwheelLogo />
-        <span className="text-[22px] font-medium tracking-tight" style={{ color: "var(--foreground)" }}>
-          PhotoRecall Intelligence
-        </span>
-      </header>
+      <NavHeader />
 
       <main className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-10">
         <p className="max-w-2xl text-sm leading-6" style={{ color: "var(--text-secondary)" }}>
@@ -63,6 +44,7 @@ export default async function Home() {
 
         <section className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           <StatCard label="Documents analyzed" value={stats.total} accent="var(--accent)" />
+          <StatCard label="Retrieval episodes" value={episodes.length} accent="var(--series-blue)" />
           {Object.entries(SOURCE_META).map(([key, meta]) => (
             <StatCard key={key} label={meta.label} value={stats.bySource[key] ?? 0} accent={meta.color} />
           ))}
@@ -147,19 +129,5 @@ function DistributionBars({
         );
       })}
     </div>
-  );
-}
-
-// A small decorative mark echoing Google Photos' four-color pinwheel icon --
-// brand flavor for the header, not a data-encoding chart (so the
-// dataviz skill's categorical CVD-adjacency rule doesn't apply here).
-function PinwheelLogo() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 36 36" aria-hidden="true">
-      <path d="M18 18 L18 3 A15 15 0 0 1 33 18 Z" fill="#4285F4" />
-      <path d="M18 18 L33 18 A15 15 0 0 1 18 33 Z" fill="#0F9D58" />
-      <path d="M18 18 L18 33 A15 15 0 0 1 3 18 Z" fill="#EA4335" />
-      <path d="M18 18 L3 18 A15 15 0 0 1 18 3 Z" fill="#FBBC05" />
-    </svg>
   );
 }
