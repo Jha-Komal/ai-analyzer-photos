@@ -64,6 +64,10 @@ DO NOT propose features, solutions, MVPs, or AI use cases.
 RESEARCH RULES
 ==============
 
+0. Readability
+
+Write narrative sections (executive summary, prose paragraphs) in clean, readable text for a PM audience -- do NOT inline raw episode_id strings (e.g. "playstore_us_...ep0") into sentences. Where you need to cite specific supporting episodes, do it in a distinct "Evidence:" line/field (episode count and, where useful, a short quote), separate from the narrative prose itself.
+
 1. Evidence hierarchy
 
 All episodes in sample_episodes already passed DIRECT_RETRIEVAL classification -- treat them as direct evidence of retrieval behavior. When citing aggregated_statistics.relevanceClassDistribution for data-quality reporting, be clear that ADJACENT_RETRIEVAL (backup/sync/deletion problems) is explicitly NOT retrieval-failure evidence per the spec's scope, and NOT_RELEVANT/UNCERTAIN are excluded from findings entirely.

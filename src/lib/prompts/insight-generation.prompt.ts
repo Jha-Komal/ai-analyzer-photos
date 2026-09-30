@@ -33,7 +33,7 @@ QUESTIONS:
 ${questions.map((q, i) => `${i + 1}. ${q}`).join("\n")}
 
 RULES
-- Ground every answer in the episodes provided -- cite episode_id values as evidence.
+- Ground every answer in the episodes provided, but keep the "answer" text itself clean, readable prose for a PM audience -- do NOT inline raw episode_id strings (e.g. "playstore_us_...ep0") into the answer text. Put the episode_ids that support each answer ONLY in the separate "supportingEpisodeIds" field. You may still reference concrete details from an episode (a quote, a scenario, a number) without naming its ID.
 - Report prevalence as "count / denominator / %" (denominator = total episodes provided), never a bare percentage.
 - Do not generalize to "Google Photos users" as a whole -- these are episodes drawn from public reviews/discussions, not a representative sample.
 - Distinguish what's directly supported by the evidence from what you're inferring.
