@@ -154,4 +154,16 @@ export type RetrievalEpisode = {
   };
 
   confidence: number;
+
+  /** DIRECT_RETRIEVAL = a real memory-based retrieval attempt (the primary
+   * evidence for this research). ADJACENT_RETRIEVAL = the underlying document
+   * was actually a backup/sync/deletion/storage problem, not a retrieval
+   * failure -- kept here as contrast evidence per the spec's evidence
+   * hierarchy, never to be presented as a retrieval-failure finding on its
+   * own. Absent/undefined on episodes extracted before this field existed --
+   * treat as DIRECT_RETRIEVAL. */
+  relevanceClass?: "DIRECT_RETRIEVAL" | "ADJACENT_RETRIEVAL";
+  /** Only set when relevanceClass is ADJACENT_RETRIEVAL: what actually broke
+   * (e.g. "automatic backup silently failed", "account storage full"). */
+  adjacentCause?: string | null;
 };

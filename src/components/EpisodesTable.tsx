@@ -24,7 +24,12 @@ function uniqueSorted(values: string[]): string[] {
 const selectClass = "rounded-lg px-2 py-1.5 text-sm";
 const selectStyle = { background: "var(--surface)", border: "1px solid var(--border)", color: "var(--foreground)" };
 
+function relevanceOf(e: RetrievalEpisode): "DIRECT_RETRIEVAL" | "ADJACENT_RETRIEVAL" {
+  return e.relevanceClass ?? "DIRECT_RETRIEVAL";
+}
+
 export default function EpisodesTable({ episodes }: { episodes: RetrievalEpisode[] }) {
+  const [relevanceClass, setRelevanceClass] = useState("");
   const [scenario, setScenario] = useState("");
   const [outcome, setOutcome] = useState("");
   const [failureStage, setFailureStage] = useState("");
@@ -41,17 +46,28 @@ export default function EpisodesTable({ episodes }: { episodes: RetrievalEpisode
 
   const filtered = useMemo(() => {
     return episodes.filter((e) => {
+      if (relevanceClass && relevanceOf(e) !== relevanceClass) return false;
       if (scenario && e.scenario.category !== scenario) return false;
       if (outcome && e.outcome !== outcome) return false;
       if (failureStage && e.failureStage !== failureStage) return false;
       if (memoryCue && !(e.remembered[memoryCue as keyof RetrievalEpisode["remembered"]]?.length > 0)) return false;
       return true;
     });
-  }, [episodes, scenario, outcome, failureStage, memoryCue]);
+  }, [episodes, relevanceClass, scenario, outcome, failureStage, memoryCue]);
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap gap-2">
+        <select
+          className={selectClass}
+          style={selectStyle}
+          value={relevanceClass}
+          onChange={(e) => setRelevanceClass(e.target.value)}
+        >
+          <option value="">All types (direct + adjacent)</option>
+          <option value="DIRECT_RETRIEVAL">Direct retrieval only</option>
+          <option value="ADJACENT_RETRIEVAL">Adjacent (backup/sync) only</option>
+        </select>
         <select className={selectClass} style={selectStyle} value={scenario} onChange={(e) => setScenario(e.target.value)}>
           <option value="">All scenarios</option>
           {options.scenarios.map((s) => (
@@ -101,7 +117,7 @@ export default function EpisodesTable({ episodes }: { episodes: RetrievalEpisode
         <table className="w-full text-left text-sm">
           <thead>
             <tr style={{ borderBottom: "1px solid var(--border)" }}>
-              {["Episode", "Scenario", "Target", "Remembered", "Search steps", "Outcome", "Failure"].map(
+              {["Episode", "Type", "Scenario", "Target", "Remembered", "Search steps", "Outcome", "Failure"].map(
                 (h) => (
                   <th key={h} className="whitespace-nowrap px-3 py-2 font-medium" style={{ color: "var(--text-secondary)" }}>
                     {h}
@@ -117,6 +133,18 @@ export default function EpisodesTable({ episodes }: { episodes: RetrievalEpisode
                   <Link href={`/episodes/${e.id}`} style={{ color: "var(--accent)" }}>
                     EP-{i + 1}
                   </Link>
+                </td>
+                <td className="px-3 py-2 whitespace-nowrap">
+                  <span
+                    className="rounded-full px-2 py-0.5 text-xs font-medium"
+                    style={
+                      relevanceOf(e) === "DIRECT_RETRIEVAL"
+                        ? { background: "var(--positive)", color: "white", opacity: 0.85 }
+                        : { background: "var(--muted-background)", color: "var(--text-secondary)" }
+                    }
+                  >
+                    {relevanceOf(e) === "DIRECT_RETRIEVAL" ? "Direct" : "Adjacent"}
+                  </span>
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap" style={{ color: "var(--foreground)" }}>
                   {e.scenario.category}

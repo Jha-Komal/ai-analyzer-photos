@@ -1,9 +1,9 @@
 import { loadEpisodes } from "@/lib/data";
-import { countBy, crossTab } from "@/lib/statistics/episodeStats";
+import { countBy, crossTab, isDirectRetrieval } from "@/lib/statistics/episodeStats";
 import { TopNav } from "@/components/layout/TopNav";
 
 export default async function FailureAnalysisPage() {
-  const episodes = await loadEpisodes();
+  const episodes = (await loadEpisodes()).filter(isDirectRetrieval);
   const byStage = countBy(episodes, (e) => e.failureStage);
   const total = episodes.length || 1;
   const stages = Object.entries(byStage).sort((a, b) => b[1] - a[1]);

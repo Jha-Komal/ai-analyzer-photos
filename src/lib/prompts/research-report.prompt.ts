@@ -6,6 +6,8 @@ function toInputRecord(e: RetrievalEpisode) {
   return {
     episode_id: e.id,
     source_document_id: e.sourceDocumentId,
+    relevance_class: e.relevanceClass ?? "DIRECT_RETRIEVAL",
+    adjacent_cause: e.adjacentCause ?? null,
     scenario: e.scenario.category,
     scenario_description: e.scenario.description,
     target_type: e.target.type,
@@ -42,7 +44,12 @@ The challenge is not to improve search in general -- it is to understand how peo
 
 INPUT
 
-You will receive structured retrieval episodes extracted from public Google Photos reviews, Reddit discussions, and community threads. Each episode is one real user's attempt to retrieve a specific remembered photo/video. Every episode already passed a relevance filter (DIRECT_RETRIEVAL: the user was actively trying to find a visual item), so ADJACENT_RETRIEVAL/NOT_RELEVANT/UNCERTAIN documents are excluded from the episode set but still counted in aggregated_statistics.relevanceClassDistribution for data-quality reporting.
+You will receive structured episodes extracted from public Google Photos reviews, Reddit discussions, and community threads. sample_episodes mixes two relevance classes, tagged on every record -- treat them very differently throughout the report:
+
+- DIRECT_RETRIEVAL (relevance_class field): a real memory-based retrieval attempt -- the user was actively trying to find a visual item they remember. This is the primary evidence base for every retrieval-failure finding in this report.
+- ADJACENT_RETRIEVAL: the underlying document's real problem was backup/sync/deletion/storage/account access, not a retrieval failure (see each record's adjacent_cause field for what actually broke). Include these ONLY as clearly-labeled contrast evidence -- e.g. a dedicated subsection contrasting "what breaks when retrieval genuinely fails" vs. "what breaks when the item is technically gone/inaccessible." NEVER fold an ADJACENT_RETRIEVAL count into a DIRECT_RETRIEVAL percentage, and never let a "count/denominator" quantification silently mix both classes -- always state which class a denominator covers.
+
+NOT_RELEVANT/UNCERTAIN documents were excluded before episode extraction entirely (never became episodes), but are still counted in aggregated_statistics.relevanceClassDistribution for data-quality reporting.
 
 DATASET:
 ${JSON.stringify(dataset, null, 2)}
@@ -70,7 +77,7 @@ Write narrative sections (executive summary, prose paragraphs) in clean, readabl
 
 1. Evidence hierarchy
 
-All episodes in sample_episodes already passed DIRECT_RETRIEVAL classification -- treat them as direct evidence of retrieval behavior. When citing aggregated_statistics.relevanceClassDistribution for data-quality reporting, be clear that ADJACENT_RETRIEVAL (backup/sync/deletion problems) is explicitly NOT retrieval-failure evidence per the spec's scope, and NOT_RELEVANT/UNCERTAIN are excluded from findings entirely.
+Check relevance_class on every episode before using it. DIRECT_RETRIEVAL episodes are direct evidence of retrieval behavior -- the primary basis for every finding. ADJACENT_RETRIEVAL episodes (backup/sync/deletion/storage problems, see adjacent_cause) are explicitly NOT retrieval-failure evidence per the spec's scope; use them only in clearly-labeled contrast sections, never merged into a DIRECT_RETRIEVAL statistic. NOT_RELEVANT/UNCERTAIN documents never became episodes and are excluded from findings entirely (data-quality section only).
 
 2. Evidence vs inference
 

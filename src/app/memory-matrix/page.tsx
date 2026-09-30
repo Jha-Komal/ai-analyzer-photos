@@ -1,9 +1,10 @@
 import { loadEpisodes } from "@/lib/data";
-import { computeMemoryMatrix } from "@/lib/statistics/episodeStats";
+import { computeMemoryMatrix, isDirectRetrieval } from "@/lib/statistics/episodeStats";
 import { TopNav } from "@/components/layout/TopNav";
 
 export default async function MemoryMatrixPage() {
-  const episodes = await loadEpisodes();
+  const allEpisodes = await loadEpisodes();
+  const episodes = allEpisodes.filter(isDirectRetrieval);
   const matrix = computeMemoryMatrix(episodes);
   const maxFreq = Math.max(1, ...matrix.map((r) => r.frequency));
 
@@ -11,7 +12,7 @@ export default async function MemoryMatrixPage() {
     <>
       <TopNav
         title="Memory Matrix"
-        subtitle={`What users remember vs. search usage and failure association, calculated from ${episodes.length.toLocaleString()} episodes`}
+        subtitle={`What users remember vs. search usage and failure association, calculated from ${episodes.length.toLocaleString()} DIRECT_RETRIEVAL episodes (excludes ${allEpisodes.length - episodes.length} adjacent/backup-sync episodes)`}
       />
       <div className="p-6">
         <div

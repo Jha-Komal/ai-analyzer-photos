@@ -35,12 +35,25 @@ export default async function EpisodeDetailPage({ params }: { params: Promise<{ 
         </Link>
 
         <div>
+          {episode.relevanceClass === "ADJACENT_RETRIEVAL" && (
+            <span
+              className="mb-2 inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+              style={{ background: "var(--muted-background)", color: "var(--text-secondary)" }}
+            >
+              Adjacent (backup/sync/deletion, not a retrieval failure)
+            </span>
+          )}
           <h1 className="text-xl font-medium" style={{ color: "var(--foreground)" }}>
             {episode.target.type}: {episode.target.description}
           </h1>
           <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
             {episode.scenario.category} &middot; {episode.scenario.description}
           </p>
+          {episode.adjacentCause && (
+            <p className="mt-1 text-xs" style={{ color: "var(--series-orange)" }}>
+              What actually broke: {episode.adjacentCause}
+            </p>
+          )}
         </div>
 
         {/* MEMORY -> SEARCH -> RESULT -> REFORMULATION -> WORKAROUND -> OUTCOME */}

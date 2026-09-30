@@ -1,5 +1,14 @@
 import type { RetrievalEpisode } from "@/types/episode";
 
+/** True for real memory-based retrieval attempts. Episodes extracted before
+ * relevanceClass existed have no tag and are treated as direct. Use this
+ * before computing any "retrieval failure" metric (Memory Matrix, Failure
+ * Analysis) -- ADJACENT_RETRIEVAL episodes are backup/sync/deletion
+ * problems, not retrieval failures, and would skew those stats if included. */
+export function isDirectRetrieval(e: RetrievalEpisode): boolean {
+  return e.relevanceClass !== "ADJACENT_RETRIEVAL";
+}
+
 const MEMORY_DIMENSIONS = [
   "people",
   "places",

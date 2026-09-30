@@ -10,8 +10,12 @@ import { computeDiscoveryStats } from "@/lib/aggregation";
 import { SOURCE_LABELS } from "@/lib/constants";
 
 export default async function DashboardPage() {
-  const [documents, relevant, episodes] = await Promise.all([loadDocuments(), loadRelevant(), loadEpisodes()]);
-  const stats = computeDiscoveryStats(documents, relevant, episodes);
+  const [documents, relevant, allEpisodes] = await Promise.all([loadDocuments(), loadRelevant(), loadEpisodes()]);
+  // computeDiscoveryStats splits DIRECT_RETRIEVAL vs ADJACENT_RETRIEVAL
+  // internally -- scenario/failure/outcome/memory breakdowns are
+  // retrieval-specific and never include adjacent (backup/sync) episodes.
+  const stats = computeDiscoveryStats(documents, relevant, allEpisodes);
+  const adjacentEpisodeCount = stats.adjacentEpisodeCount;
 
   const directCount = stats.relevanceClassDistribution.DIRECT_RETRIEVAL ?? 0;
 
@@ -54,13 +58,24 @@ export default async function DashboardPage() {
                 icon={AlertTriangle}
                 tone="negative"
               />
-              <MetricCard label="Episodes extracted" value={stats.totalEpisodes.toLocaleString()} icon={MessageSquareText} />
               <MetricCard
-                label="Not relevant"
-                value={(stats.relevanceClassDistribution.NOT_RELEVANT ?? 0).toLocaleString()}
-                icon={FileText}
+                label="Retrieval episodes"
+                value={stats.totalEpisodes.toLocaleString()}
+                icon={MessageSquareText}
+              />
+              <MetricCard
+                label="+ adjacent episodes (contrast)"
+                value={adjacentEpisodeCount.toLocaleString()}
+                icon={AlertTriangle}
               />
             </div>
+            <p className="text-xs text-muted">
+              {stats.totalEpisodes.toLocaleString()} DIRECT_RETRIEVAL + {adjacentEpisodeCount.toLocaleString()}{" "}
+              ADJACENT_RETRIEVAL = {allEpisodes.length.toLocaleString()} total episodes feed Insights and the
+              Research Report (each clearly tagged by relevance class). Memory Matrix, Failure Analysis, and the
+              charts below use DIRECT_RETRIEVAL only, since adjacent episodes describe backup/sync/deletion
+              problems, not retrieval failures.
+            </p>
 
             <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
               <RelevancePieChart byClassification={stats.relevanceClassDistribution} />

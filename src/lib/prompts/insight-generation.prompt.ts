@@ -3,6 +3,8 @@ import type { RetrievalEpisode } from "@/types/episode";
 function toInputRecord(e: RetrievalEpisode) {
   return {
     episode_id: e.id,
+    relevance_class: e.relevanceClass ?? "DIRECT_RETRIEVAL",
+    adjacent_cause: e.adjacentCause ?? null,
     scenario: e.scenario.category,
     target_type: e.target.type,
     remembered: Object.fromEntries(Object.entries(e.remembered).filter(([, v]) => v.length > 0)),
@@ -29,12 +31,16 @@ TASK
 
 Answer each of the following discovery questions using ONLY the evidence in the dataset below. Each episode is one real user's attempt to retrieve a specific remembered photo/video, already extracted from public Google Photos reviews and discussions.
 
+The dataset mixes two relevance classes -- treat them very differently:
+- DIRECT_RETRIEVAL: a real memory-based retrieval attempt. This is the primary evidence for every question below.
+- ADJACENT_RETRIEVAL: the underlying complaint was actually backup/sync/deletion/storage, not a retrieval failure (see each one's adjacent_cause). Use these ONLY as clearly-labeled contrast/context -- e.g. "unlike the N retrieval-failure episodes, these M adjacent cases show the item was technically inaccessible rather than hard to find." NEVER count an ADJACENT_RETRIEVAL episode toward a retrieval-failure statistic, and never blend the two into a single unlabeled percentage.
+
 QUESTIONS:
 ${questions.map((q, i) => `${i + 1}. ${q}`).join("\n")}
 
 RULES
 - Ground every answer in the episodes provided, but keep the "answer" text itself clean, readable prose for a PM audience -- do NOT inline raw episode_id strings (e.g. "playstore_us_...ep0") into the answer text. Put the episode_ids that support each answer ONLY in the separate "supportingEpisodeIds" field. You may still reference concrete details from an episode (a quote, a scenario, a number) without naming its ID.
-- Report prevalence as "count / denominator / %" (denominator = total episodes provided), never a bare percentage.
+- Report prevalence as "count / denominator / %", and always state which relevance class(es) the denominator covers (e.g. "138/524 DIRECT_RETRIEVAL episodes") -- never a bare percentage, and never a denominator that silently mixes both classes.
 - Do not generalize to "Google Photos users" as a whole -- these are episodes drawn from public reviews/discussions, not a representative sample.
 - Distinguish what's directly supported by the evidence from what you're inferring.
 - If the dataset can't answer a question, say so explicitly rather than guessing.

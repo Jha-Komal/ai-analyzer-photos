@@ -1,12 +1,16 @@
 import type { RawDocument } from "@/types/document";
 import type { RetrievalEpisode } from "@/types/episode";
-import { countBy } from "./statistics/episodeStats";
+import { countBy, isDirectRetrieval } from "./statistics/episodeStats";
 
 export type DiscoveryStats = {
   totalDocuments: number;
   relevanceClassDistribution: Record<string, number>;
   sourceDistribution: Record<string, number>;
 
+  // All fields below are computed from DIRECT_RETRIEVAL episodes ONLY --
+  // ADJACENT_RETRIEVAL episodes (backup/sync/deletion, not retrieval
+  // failures) are summarized separately so they never silently skew a
+  // retrieval-failure statistic. See adjacentEpisodeCount / adjacentCauseFrequency.
   totalEpisodes: number;
   scenarioDistribution: Record<string, number>;
   targetTypeDistribution: Record<string, number>;
@@ -15,6 +19,9 @@ export type DiscoveryStats = {
   workaroundDistribution: Record<string, number>;
   forgottenCategoryFrequency: Record<string, number>;
   memoryDimensionFrequency: Record<string, number>;
+
+  adjacentEpisodeCount: number;
+  adjacentCauseFrequency: Record<string, number>;
 };
 
 function bump(record: Record<string, number>, key: string | null | undefined): void {
@@ -25,12 +32,15 @@ function bump(record: Record<string, number>, key: string | null | undefined): v
 export function computeDiscoveryStats(
   documents: RawDocument[],
   relevant: { source: string; classification: string }[],
-  episodes: RetrievalEpisode[],
+  allEpisodes: RetrievalEpisode[],
 ): DiscoveryStats {
   const relevanceClassDistribution: Record<string, number> = {};
   const sourceDistribution: Record<string, number> = {};
   for (const doc of documents) bump(sourceDistribution, doc.source);
   for (const r of relevant) bump(relevanceClassDistribution, r.classification);
+
+  const episodes = allEpisodes.filter(isDirectRetrieval);
+  const adjacentEpisodes = allEpisodes.filter((e) => !isDirectRetrieval(e));
 
   const forgottenCategoryFrequency: Record<string, number> = {};
   const memoryDimensionFrequency: Record<string, number> = {};
@@ -54,6 +64,9 @@ export function computeDiscoveryStats(
     }
   }
 
+  const adjacentCauseFrequency: Record<string, number> = {};
+  for (const e of adjacentEpisodes) bump(adjacentCauseFrequency, e.adjacentCause ?? undefined);
+
   return {
     totalDocuments: documents.length,
     relevanceClassDistribution,
@@ -67,5 +80,8 @@ export function computeDiscoveryStats(
     workaroundDistribution: countBy(episodes, (e) => e.workaround ?? "NONE"),
     forgottenCategoryFrequency,
     memoryDimensionFrequency,
+
+    adjacentEpisodeCount: adjacentEpisodes.length,
+    adjacentCauseFrequency,
   };
 }
