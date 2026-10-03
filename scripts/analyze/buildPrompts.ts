@@ -2,7 +2,7 @@
 // prompts (the exact same code the API routes use) and writes them to files
 // so they can be handed to a Claude Code subagent instead of a live
 // ANTHROPIC_API_KEY-gated fetch call.
-import { loadDocuments, loadRelevant, loadEpisodes } from "../../src/lib/data";
+import { loadDocuments, loadRelevant, loadEpisodesWithTaxonomy } from "../../src/lib/data";
 import { computeDiscoveryStats } from "../../src/lib/aggregation";
 import { sampleEpisodesStratified } from "../../src/lib/sampling";
 import { buildInsightGenerationPrompt } from "../../src/lib/prompts/insight-generation.prompt";
@@ -11,7 +11,7 @@ import { DISCOVERY_QUESTIONS } from "../../src/lib/constants";
 import { writeFile } from "node:fs/promises";
 
 async function run() {
-  const [documents, relevant, allEpisodes] = await Promise.all([loadDocuments(), loadRelevant(), loadEpisodes()]);
+  const [documents, relevant, allEpisodes] = await Promise.all([loadDocuments(), loadRelevant(), loadEpisodesWithTaxonomy()]);
   // aggregated_statistics (inside computeDiscoveryStats) stays exact/complete
   // over the FULL corpus regardless of sampling below -- only the qualitative
   // episode payload embedded in the prompt is capped, to stay safely under

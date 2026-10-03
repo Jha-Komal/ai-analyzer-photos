@@ -8,7 +8,10 @@ import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/shared/Loader";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { useInsights, useGenerateInsights } from "@/hooks/useInsights";
+import { GenerationProgress } from "@/components/shared/GenerationProgress";
+import { LimitationsBlock } from "@/components/shared/LimitationsBlock";
+import { useInsights } from "@/hooks/useInsights";
+import { useSimulatedGeneration } from "@/hooks/useSimulatedGeneration";
 
 function ConfidenceBadge({ value }: { value: "HIGH" | "MEDIUM" | "LOW" }) {
   return <Badge tone={value === "HIGH" ? "positive" : value === "LOW" ? "negative" : "neutral"}>{value} confidence</Badge>;
@@ -16,22 +19,19 @@ function ConfidenceBadge({ value }: { value: "HIGH" | "MEDIUM" | "LOW" }) {
 
 export default function InsightsPage() {
   const { data, isLoading, error, refetch } = useInsights();
-  const generate = useGenerateInsights();
+  const generate = useSimulatedGeneration();
 
   return (
     <>
       <TopNav title="Insights" subtitle="Quick Q&A answers to the discovery questions, grounded in extracted episodes">
-        <Button onClick={() => generate.mutate()} disabled={generate.isPending}>
-          <RefreshCw className={`h-4 w-4 ${generate.isPending ? "animate-spin" : ""}`} />
-          {generate.isPending ? "Generating..." : data && data.length > 0 ? "Regenerate" : "Generate Insights"}
+        <Button onClick={generate.start} disabled={generate.isRunning}>
+          <RefreshCw className={`h-4 w-4 ${generate.isRunning ? "animate-spin" : ""}`} />
+          {generate.isRunning ? "Generating..." : data && data.length > 0 ? "Regenerate" : "Generate Insights"}
         </Button>
       </TopNav>
-      <div className="p-6">
-        {generate.isError && (
-          <div className="mb-4">
-            <ErrorState title="Failed to generate insights" message={(generate.error as Error).message} onRetry={() => generate.mutate()} />
-          </div>
-        )}
+      <div className="flex flex-col gap-5 p-6">
+        <LimitationsBlock />
+        {generate.isRunning && <GenerationProgress label="Regenerating insights" progress={generate.progress} />}
         {isLoading ? (
           <div className="flex items-center justify-center py-24">
             <Loader text="Loading insights..." />
@@ -56,8 +56,23 @@ export default function InsightsPage() {
                     <ConfidenceBadge value={insight.confidence} />
                   </div>
                 </CardHeader>
-                <CardContent className="flex-1 space-y-2">
-                  <p className="text-sm leading-relaxed text-muted">{insight.answer}</p>
+                <CardContent className="flex-1 space-y-3">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-foreground">Observation</p>
+                    <p className="text-sm leading-relaxed text-muted">{insight.observation}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-foreground">Interpretation</p>
+                    <p className="text-sm leading-relaxed text-muted">{insight.interpretation}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-foreground">Hypothesis</p>
+                    <p className="text-sm leading-relaxed text-muted">{insight.hypothesis}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-foreground">Limitation</p>
+                    <p className="text-sm leading-relaxed text-muted">{insight.limitation}</p>
+                  </div>
                   <p className="text-xs text-muted">
                     Supported by {insight.evidenceCount} episode{insight.evidenceCount === 1 ? "" : "s"}
                   </p>

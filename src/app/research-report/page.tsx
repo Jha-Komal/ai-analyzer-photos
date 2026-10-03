@@ -7,7 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/shared/Loader";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { useResearchReport, useGenerateResearchReport } from "@/hooks/useResearchReport";
+import { GenerationProgress } from "@/components/shared/GenerationProgress";
+import { LimitationsBlock } from "@/components/shared/LimitationsBlock";
+import { useResearchReport } from "@/hooks/useResearchReport";
+import { useSimulatedGeneration } from "@/hooks/useSimulatedGeneration";
 
 const SEPARATOR_RE = /^=+$/;
 const ALL_CAPS_HEADING_RE = /^[A-Z0-9][A-Z0-9\s×x\-.,'/&]*[A-Z0-9.]$/;
@@ -62,7 +65,7 @@ function ReportBody({ content }: { content: string }) {
 
 export default function ResearchReportPage() {
   const { data: report, isLoading, error, refetch } = useResearchReport();
-  const generate = useGenerateResearchReport();
+  const generate = useSimulatedGeneration();
 
   return (
     <>
@@ -70,17 +73,14 @@ export default function ResearchReportPage() {
         title="Research Report"
         subtitle="Evidence synthesis: data quality, discovery questions, failure-stage decomposition, ranked opportunity hypotheses"
       >
-        <Button onClick={() => generate.mutate()} disabled={generate.isPending}>
-          <RefreshCw className={`h-4 w-4 ${generate.isPending ? "animate-spin" : ""}`} />
-          {generate.isPending ? "Generating..." : report ? "Regenerate" : "Generate Report"}
+        <Button onClick={generate.start} disabled={generate.isRunning}>
+          <RefreshCw className={`h-4 w-4 ${generate.isRunning ? "animate-spin" : ""}`} />
+          {generate.isRunning ? "Generating..." : report ? "Regenerate" : "Generate Report"}
         </Button>
       </TopNav>
-      <div className="p-6">
-        {generate.isError && (
-          <div className="mb-4">
-            <ErrorState title="Failed to generate report" message={(generate.error as Error).message} onRetry={() => generate.mutate()} />
-          </div>
-        )}
+      <div className="flex flex-col gap-5 p-6">
+        <LimitationsBlock />
+        {generate.isRunning && <GenerationProgress label="Regenerating report" progress={generate.progress} />}
         {isLoading ? (
           <div className="flex items-center justify-center py-24">
             <Loader text="Loading research report..." />

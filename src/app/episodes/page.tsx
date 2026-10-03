@@ -1,9 +1,9 @@
-import { loadEpisodes } from "@/lib/data";
+import { loadEpisodesWithTaxonomy } from "@/lib/data";
 import { TopNav } from "@/components/layout/TopNav";
 import EpisodesTable from "@/components/EpisodesTable";
 
 export default async function EpisodesPage() {
-  const episodes = await loadEpisodes();
+  const episodes = await loadEpisodesWithTaxonomy();
 
   return (
     <>

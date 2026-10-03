@@ -2,48 +2,23 @@ import type { RetrievalEpisode } from "@/types/episode";
 
 /** True for real memory-based retrieval attempts. Episodes extracted before
  * relevanceClass existed have no tag and are treated as direct. Use this
- * before computing any "retrieval failure" metric (Memory Matrix, Failure
- * Analysis) -- ADJACENT_RETRIEVAL episodes are backup/sync/deletion
- * problems, not retrieval failures, and would skew those stats if included. */
+ * before computing any "retrieval failure" metric -- ADJACENT_RETRIEVAL
+ * episodes are backup/sync/deletion problems, not retrieval failures, and
+ * would skew those stats if included. */
 export function isDirectRetrieval(e: RetrievalEpisode): boolean {
   return e.relevanceClass !== "ADJACENT_RETRIEVAL";
 }
 
-const MEMORY_DIMENSIONS = [
-  "people",
-  "places",
-  "objects",
-  "events",
-  "activities",
-  "visualAttributes",
-  "textInImage",
-  "time",
-  "relationships",
-  "context",
-] as const;
-
-export type MemoryMatrixRow = {
-  dimension: string;
-  frequency: number;
-  searchUsage: number;
-  failureAssociation: number;
-};
-
-/** Memory Matrix (spec page 5): per remembered-dimension frequency, how
- * often that dimension co-occurs with an actual search action, and how
- * often episodes carrying it end in a non-NONE failure stage. */
-export function computeMemoryMatrix(episodes: RetrievalEpisode[]): MemoryMatrixRow[] {
-  return MEMORY_DIMENSIONS.map((dim) => {
-    const withDim = episodes.filter((e) => e.remembered[dim]?.length > 0);
-    const withSearch = withDim.filter((e) => e.searchJourney.some((s) => s.action === "SEARCH"));
-    const withFailure = withDim.filter((e) => e.failureStage !== "NONE" && e.failureStage !== "UNKNOWN");
-    return {
-      dimension: dim,
-      frequency: withDim.length,
-      searchUsage: withDim.length ? Math.round((withSearch.length / withDim.length) * 100) : 0,
-      failureAssociation: withDim.length ? Math.round((withFailure.length / withDim.length) * 100) : 0,
-    };
-  }).sort((a, b) => b.frequency - a.frequency);
+/** The primary analysis population for Part 1 (spec: isolate
+ * VAGUE_MEMORY_RETRIEVAL with strong-enough evidence). Episodes outside this
+ * -- other scope classes, or thin evidence -- are kept as contrast/excluded
+ * data, never deleted, never headlined as a retrieval-failure finding. An
+ * episode with no taxonomy yet (not classified, or ADJACENT_RETRIEVAL which
+ * the classifier skips) does not qualify. */
+export function isPrimaryAnalysis(e: RetrievalEpisode): boolean {
+  const t = e.taxonomy;
+  if (!t) return false;
+  return t.scopeClass === "VAGUE_MEMORY_RETRIEVAL" && (t.evidenceStrength === "A" || t.evidenceStrength === "B");
 }
 
 export function countBy<T extends string>(episodes: RetrievalEpisode[], pick: (e: RetrievalEpisode) => T): Record<string, number> {
@@ -53,6 +28,31 @@ export function countBy<T extends string>(episodes: RetrievalEpisode[], pick: (e
     out[key] = (out[key] ?? 0) + 1;
   }
   return out;
+}
+
+/** Cross-tab where the row key is multi-valued per episode (e.g. an episode
+ * can carry several memoryClues) -- each episode bumps every (row, col)
+ * pair for every row value it has, not just one. Same output shape as
+ * crossTab so both render with the same table component. */
+export function crossTabMultiRow<T extends string>(
+  episodes: RetrievalEpisode[],
+  rowKeys: (e: RetrievalEpisode) => string[],
+  colKey: (e: RetrievalEpisode) => T,
+): { rows: string[]; cols: string[]; table: Record<string, Record<string, number>> } {
+  const table: Record<string, Record<string, number>> = {};
+  const rowSet = new Set<string>();
+  const colSet = new Set<string>();
+  for (const e of episodes) {
+    const rs = rowKeys(e);
+    const c = colKey(e);
+    colSet.add(c);
+    for (const r of rs) {
+      rowSet.add(r);
+      table[r] ??= {};
+      table[r][c] = (table[r][c] ?? 0) + 1;
+    }
+  }
+  return { rows: Array.from(rowSet), cols: Array.from(colSet), table };
 }
 
 /** Cross-tab: failure stage x a second dimension, both as counts. */

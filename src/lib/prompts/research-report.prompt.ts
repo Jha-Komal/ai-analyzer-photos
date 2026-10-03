@@ -1,6 +1,7 @@
 import type { DiscoveryStats } from "../aggregation";
 import type { RetrievalEpisode } from "@/types/episode";
 import { DISCOVERY_QUESTIONS } from "../constants";
+import { isPrimaryAnalysis } from "../statistics/episodeStats";
 
 function toInputRecord(e: RetrievalEpisode) {
   return {
@@ -16,18 +17,33 @@ function toInputRecord(e: RetrievalEpisode) {
     search_journey: e.searchJourney.map((s) => ({ action: s.action, query: s.query })),
     outcome: e.outcome,
     workaround: e.workaround,
-    failure_stage: e.failureStage,
+    failure_stage_legacy: e.failureStage,
     evidence_quote: e.evidence.directQuote,
     confidence: e.confidence,
+    taxonomy: e.taxonomy
+      ? {
+          scope_class: e.taxonomy.scopeClass,
+          memory_specificity: e.taxonomy.memorySpecificity,
+          memory_clues: e.taxonomy.memoryClues,
+          observed_failure: e.taxonomy.observedFailure,
+          possible_system_explanation: e.taxonomy.possibleSystemExplanation,
+          evidence_strength: e.taxonomy.evidenceStrength,
+          rationale: e.taxonomy.rationale,
+        }
+      : null,
   };
 }
 
 export function buildResearchReportPrompt(stats: DiscoveryStats, episodes: RetrievalEpisode[]): string {
+  const primary = episodes.filter(isPrimaryAnalysis);
+  const contrast = episodes.filter((e) => !isPrimaryAnalysis(e));
   const dataset = {
     aggregated_statistics: stats,
-    sample_episodes: episodes.map(toInputRecord),
-    sample_episode_count: episodes.length,
-    note: "aggregated_statistics is exact and complete over the FULL analyzed corpus (all documents/episodes processed so far, not just the sample below) -- use it for quantification. sample_episodes is a representative subset for qualitative grounding, evidence quotes, and pattern-finding, not the full corpus.",
+    primary_episode_count: primary.length,
+    primary_episodes: primary.map(toInputRecord),
+    contrast_episode_count: contrast.length,
+    contrast_episodes: contrast.map(toInputRecord),
+    note: "aggregated_statistics (including aggregated_statistics.taxonomyStats) is exact and complete over the FULL analyzed corpus -- use it for quantification. primary_episodes/contrast_episodes below are a representative sample capped for context-window size, for qualitative grounding, evidence quotes, and pattern-finding, not the full corpus -- do not claim a count of primary_episodes.length as the true total; use aggregated_statistics.taxonomyStats.primaryAnalysisCount for that.",
   };
 
   return `ROLE
@@ -44,12 +60,16 @@ The challenge is not to improve search in general -- it is to understand how peo
 
 INPUT
 
-You will receive structured episodes extracted from public Google Photos reviews, Reddit discussions, and community threads. sample_episodes mixes two relevance classes, tagged on every record -- treat them very differently throughout the report:
+You will receive structured episodes extracted from public Google Photos reviews, Reddit discussions, and community threads, already run through a derived taxonomy pass (each episode's "taxonomy" field, null if not yet classified or if ADJACENT_RETRIEVAL).
 
-- DIRECT_RETRIEVAL (relevance_class field): a real memory-based retrieval attempt -- the user was actively trying to find a visual item they remember. This is the primary evidence base for every retrieval-failure finding in this report.
-- ADJACENT_RETRIEVAL: the underlying document's real problem was backup/sync/deletion/storage/account access, not a retrieval failure (see each record's adjacent_cause field for what actually broke). Include these ONLY as clearly-labeled contrast evidence -- e.g. a dedicated subsection contrasting "what breaks when retrieval genuinely fails" vs. "what breaks when the item is technically gone/inaccessible." NEVER fold an ADJACENT_RETRIEVAL count into a DIRECT_RETRIEVAL percentage, and never let a "count/denominator" quantification silently mix both classes -- always state which class a denominator covers.
+PRIMARY vs CONTRAST POPULATION -- this is the main grouping for the whole report:
 
-NOT_RELEVANT/UNCERTAIN documents were excluded before episode extraction entirely (never became episodes), but are still counted in aggregated_statistics.relevanceClassDistribution for data-quality reporting.
+- primary_episodes: taxonomy.scope_class = VAGUE_MEMORY_RETRIEVAL AND taxonomy.evidence_strength in [A, B]. This is the ONLY population every retrieval-failure finding, percentage, and headline chart should be quantified against. aggregated_statistics.taxonomyStats carries the exact, full-corpus counts for this population; primary_episodes in the DATASET below is a capped sample for qualitative grounding only.
+- contrast_episodes: everything else -- other scope classes (PRECISE_SEARCH_FAILURE: user had a precise target but search still failed; ORGANIZATION_OR_NAVIGATION: album/folder/navigation problem; CONTENT_AVAILABILITY_OR_SYNC: backup/sync/deletion, see adjacent_cause; GENERAL_SEARCH_COMPLAINT: not enough journey evidence; UNCLEAR), weaker evidence (C/D), or taxonomy: null. Include these ONLY as clearly-labeled contrast evidence -- e.g. a subsection contrasting "what breaks for vague-memory retrieval" vs. "what breaks when the real problem is organization/navigation or content availability." NEVER fold a contrast_episodes count into a primary_episodes percentage, and never let a "count/denominator" quantification silently mix the two.
+
+Within that, relevance_class (DIRECT_RETRIEVAL vs ADJACENT_RETRIEVAL) still matters as a secondary tag -- ADJACENT_RETRIEVAL episodes always land in contrast_episodes. NOT_RELEVANT/UNCERTAIN documents were excluded before episode extraction entirely (never became episodes), but are still counted in aggregated_statistics.relevanceClassDistribution for data-quality reporting.
+
+Treat taxonomy.observed_failure as the headline failure classification. failure_stage_legacy (QUERY_FORMULATION, QUERY_UNDERSTANDING, SEMANTIC_RETRIEVAL, etc.) is kept on each record only for traceability/debugging -- it is an earlier, more speculative internal-cause labeling and must never be presented as a proven technical cause. Likewise taxonomy.possible_system_explanation is a hypothesis about Google's internals, never an observed fact -- always label it "possible system explanation -- inferred from user evidence, not directly observed" wherever it appears.
 
 DATASET:
 ${JSON.stringify(dataset, null, 2)}
@@ -77,7 +97,11 @@ Write narrative sections (executive summary, prose paragraphs) in clean, readabl
 
 1. Evidence hierarchy
 
-Check relevance_class on every episode before using it. DIRECT_RETRIEVAL episodes are direct evidence of retrieval behavior -- the primary basis for every finding. ADJACENT_RETRIEVAL episodes (backup/sync/deletion/storage problems, see adjacent_cause) are explicitly NOT retrieval-failure evidence per the spec's scope; use them only in clearly-labeled contrast sections, never merged into a DIRECT_RETRIEVAL statistic. NOT_RELEVANT/UNCERTAIN documents never became episodes and are excluded from findings entirely (data-quality section only).
+Check taxonomy.scope_class and taxonomy.evidence_strength on every episode before using it. Only primary_episodes (VAGUE_MEMORY_RETRIEVAL, evidence strength A/B) are the basis for a retrieval-failure finding. contrast_episodes (other scope classes, weak evidence, or ADJACENT_RETRIEVAL/adjacent_cause episodes) are explicitly NOT primary retrieval-failure evidence; use them only in clearly-labeled contrast sections, never merged into a primary_episodes statistic. NOT_RELEVANT/UNCERTAIN documents never became episodes and are excluded from findings entirely (data-quality section only).
+
+1b. Language
+
+Never convert a dataset pattern into a population claim. Do not write "Google Photos fails to understand contextual memory" or "users primarily remember episodic context" -- write "in this dataset, some users provided contextual clues but reported no useful result" or "contextual clues appeared frequently among the qualifying episodes in this dataset." Every observed-failure or memory claim stays scoped to "in this dataset" / "among qualifying episodes," never "users."
 
 2. Evidence vs inference
 
@@ -117,6 +141,7 @@ STEP 1 -- DATA QUALITY
 Report:
 * total documents scanned, and the relevance classification breakdown (DIRECT_RETRIEVAL / ADJACENT_RETRIEVAL / NOT_RELEVANT / UNCERTAIN) with count/total/%
 * total episodes extracted from DIRECT_RETRIEVAL documents
+* taxonomyStats.scopeClassDistribution -- how many DIRECT_RETRIEVAL episodes landed in each scope class, and specifically how many qualify as primary_episodes (VAGUE_MEMORY_RETRIEVAL, evidence strength A/B) vs contrast
 * episodes by source, by scenario, by target type
 
 Identify: overrepresented sources, missing/weak fields, important evidence gaps, areas relying heavily on inference.
@@ -129,40 +154,35 @@ STEP 2 -- ANSWER THE DISCOVERY QUESTIONS
 
 ${DISCOVERY_QUESTIONS.map((q, i) => `Q${i + 1}. ${q}`).join("\n\n")}
 
-For each question report: the pattern found, count/denominator/%, evidence episode_ids, affected scenarios, confidence (HIGH/MEDIUM/LOW). If the dataset can't answer it, say "Insufficient evidence in the current dataset."
+Answer every question against primary_episodes only (state the denominator as aggregated_statistics.taxonomyStats.primaryAnalysisCount). For each question report: the pattern found, count/denominator/%, evidence episode_ids, affected scenarios, confidence (HIGH/MEDIUM/LOW). If the dataset can't answer it, say "Insufficient evidence in the current dataset."
 
 ==================================================
-STEP 3 -- FAILURE-STAGE DECOMPOSITION
-======================================
+STEP 3 -- OBSERVED-FAILURE DECOMPOSITION
+=========================================
 
-Using aggregated_statistics.failureStageDistribution and the sample episodes, decompose "successful retrieval" into the chain:
+Using aggregated_statistics.taxonomyStats.observedFailureDistribution (primary_episodes only) as the headline, report count/denominator/%, representative evidence, which scenarios/segments it concentrates in, and confidence for each of: EXPRESSION_DIFFICULTY, NO_USEFUL_RESULTS, TARGET_HARD_TO_LOCATE, TARGET_HARD_TO_RECOGNIZE, REFINEMENT_FAILED, PRODUCT_LOCATION_CONFUSION, SUCCESS_AFTER_REFORMULATION, SUCCESS_AFTER_BROWSING, ABANDONED_OR_NOT_FOUND, NO_FAILURE_REPORTED, UNKNOWN.
 
-MEMORY_EXPRESSION (can the user express what they remember?)
--> QUERY_FORMULATION (can they turn it into a query?)
--> QUERY_UNDERSTANDING (does Google Photos understand the clues?)
--> SEMANTIC_RETRIEVAL (do relevant results surface?)
--> RESULT_EVALUATION (can the user recognize the right result?)
--> RECOVERY (can the user recover after an initial failure?)
+Do NOT headline failure_stage_legacy or its values (MEMORY_EXPRESSION, QUERY_FORMULATION, QUERY_UNDERSTANDING, SEMANTIC_RETRIEVAL, RESULT_EVALUATION, RECOVERY) as if they were a proven internal mechanism -- QUERY_UNDERSTANDING and SEMANTIC_RETRIEVAL in particular describe a hypothesis about Google's internals, not something the user reported observing. You may add one short secondary paragraph cross-referencing aggregated_statistics.failureStageDistribution for traceability, explicitly labeled "legacy/internal-hypothesis labeling, not the headline finding."
 
-For each stage report: count/denominator/%, representative evidence, which scenarios/segments it concentrates in, confidence.
+End this step with the exact sentence: "Observed failure stages describe what users reported happening. They do not identify Google's internal technical cause."
 
 ==================================================
 STEP 4 -- RECURRING BEHAVIORAL CHAINS
 ======================================
 
-Find repeated sequences (e.g. SEARCH -> REFORMULATE -> MANUAL_SCROLL -> GIVE_UP). Derive the actual chains from search_journey data. For each: chain, supporting episode count, affected scenarios, typical failure stage, typical workaround, typical outcome, confidence.
+Find repeated sequences (e.g. SEARCH -> REFORMULATE -> MANUAL_SCROLL -> GIVE_UP) within primary_episodes. Derive the actual chains from search_journey data. For each: chain, supporting episode count, affected scenarios, typical taxonomy.observed_failure, typical workaround, typical outcome, confidence.
 
 ==================================================
-STEP 5 -- SCENARIO x FAILURE-STAGE MATRIX
-===========================================
+STEP 5 -- SCENARIO x OBSERVED-FAILURE MATRIX
+=============================================
 
-Rows: scenario categories. Columns: failure stages. For each relevant intersection rate EVIDENCE_VOLUME, WORKAROUND_FRICTION, and EVIDENCE_CONFIDENCE as HIGH/MEDIUM/LOW/INSUFFICIENT.
+Primary_episodes only. Rows: scenario categories. Columns: taxonomy.observed_failure values. For each relevant intersection rate EVIDENCE_VOLUME, WORKAROUND_FRICTION, and EVIDENCE_CONFIDENCE as HIGH/MEDIUM/LOW/INSUFFICIENT.
 
 ==================================================
 STEP 6 -- RANKED OPPORTUNITY HYPOTHESES (TOP 3-5)
 ====================================================
 
-An opportunity is a user outcome, NOT a feature. Format:
+Primary_episodes only. An opportunity is a user outcome, NOT a feature. Format:
 
 "Help [segment/scenario] successfully retrieve [target type] when they remember [what] but have forgotten [what], because [problem] currently causes [observable friction/failure]."
 
@@ -172,7 +192,7 @@ OPPORTUNITY:
 TARGET SEGMENT/SCENARIO:
 WHAT USERS REMEMBER:
 WHAT USERS HAVE FORGOTTEN:
-PRIMARY FAILURE STAGE:
+PRIMARY OBSERVED FAILURE:
 CURRENT WORKAROUND:
 EVIDENCE: episode count / denominator / %, episode_ids, sources
 WORKAROUND FRICTION: HIGH/MEDIUM/LOW
@@ -204,7 +224,53 @@ Identify what secondary research (public reviews/discussions) cannot reliably es
 STEP 10 -- WHAT SHOULD WE VALIDATE NEXT?
 ===========================================
 
-Recommend 1-3 scenario/segment + failure-stage combinations for primary research. For each: segment/scenario, hypothesized root problem, why it may affect the retrieval-success metric, supporting evidence, missing evidence, what must be validated in interviews. Do not choose a solution.
+Recommend 1-3 scenario/segment + observed-failure combinations for primary research. For each: segment/scenario, hypothesized root problem, why it may affect the retrieval-success metric, supporting evidence, missing evidence, what must be validated in interviews. Do not choose a solution.
+
+==================================================
+STEP 11 -- COMPETING HYPOTHESES (DO NOT PICK A WINNER)
+=========================================================
+
+Generate 3-5 competing hypotheses about why retrieval fails within primary_episodes, at the problem/discovery level only -- no feature ideas. These are a different thing from the ranked opportunities in Step 6: opportunities are ranked by priority, but hypotheses here must NOT be ranked or declared a winner -- primary research (interviews), not this report, decides which one holds up.
+
+Examples of the KIND of hypothesis this step produces (structure only -- do not hard-code these as true, generate only what the current data supports):
+- "People may retain situational context about a photo even when precise searchable attributes have faded."
+- "Some users appear able to express meaningful clues, yet still report no useful candidate results."
+- "Some retrieval failures may compound because users do not have an effective next step after the first attempt fails."
+- "Some apparent search failures are actually organization or content-state problems rather than vague-memory retrieval problems."
+
+For each hypothesis return:
+
+HYPOTHESIS:
+SUPPORTING EVIDENCE: (reference actual episode_ids or aggregated_statistics findings -- never invent evidence)
+COUNTER-EVIDENCE: (actively search for it; never omit this field)
+ALTERNATIVE EXPLANATIONS:
+CONFIDENCE: HIGH | MEDIUM | LOW
+CONFIDENCE REASON:
+WHAT INTERVIEWS MUST TEST:
+WHAT WOULD DISPROVE IT:
+
+==================================================
+STEP 12 -- LIMITATIONS
+=======================
+
+Reproduce this block verbatim (adapt only the lead-in sentence if needed, never the two lists):
+
+THIS DATA CAN HELP US:
+- identify recurring reported behaviors
+- observe reported memory clues
+- compare patterns inside this collected dataset
+- generate research hypotheses
+- decide what interviews should investigate
+
+THIS DATA CANNOT TELL US:
+- prevalence across all Google Photos users
+- actual product retrieval-success rate
+- Google's true internal technical failure
+- causal relationships
+- final target segment
+- final root cause
+- which solution to build
+- which opportunity has the highest business impact
 
 ==================================================
 FINAL OUTPUT
@@ -214,16 +280,18 @@ Return sections in this order:
 1. Executive summary
 2. Dataset quality and limitations
 3. Answers to the discovery questions
-4. Failure-stage decomposition
+4. Observed-failure decomposition
 5. Recurring behavioral chains
-6. Scenario x failure-stage matrix
+6. Scenario x observed-failure matrix
 7. Ranked opportunity hypotheses
 8. Contradictory evidence
 9. Known vs inferred vs unknown
 10. Primary research gaps -> interview questions
 11. Recommended segments/problems to validate
+12. Competing hypotheses (not ranked, no winner declared)
+13. Limitations
 
-FINAL CHECK BEFORE ANSWERING -- confirm internally that: no feature has been proposed; all percentages include denominators; behavioral segments are evidence-based, not invented demographics; contradictory evidence is included; hypotheses are not presented as validated problems.
+FINAL CHECK BEFORE ANSWERING -- confirm internally that: no feature has been proposed; all percentages include denominators and are computed over primary_episodes (never a bare percentage, never a denominator that silently mixes primary and contrast); behavioral segments are evidence-based, not invented demographics; contradictory evidence is included; opportunities are not presented as validated problems; competing hypotheses each have counter-evidence, an alternative explanation, and are not ranked or declared a winner; no final target segment or persona is selected; no solution is recommended; the limitations block is present verbatim.
 
-Required reasoning path: BUSINESS METRIC -> EVIDENCE -> BEHAVIOR -> FAILURE STAGE -> OPPORTUNITY -> PRIMARY RESEARCH. Do not proceed to solution design.`;
+Required reasoning path: BUSINESS METRIC -> EVIDENCE -> BEHAVIOR -> OBSERVED FAILURE -> OPPORTUNITY -> COMPETING HYPOTHESES -> PRIMARY RESEARCH. Do not proceed to solution design.`;
 }

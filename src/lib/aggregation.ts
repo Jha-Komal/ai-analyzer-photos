@@ -1,6 +1,6 @@
 import type { RawDocument } from "@/types/document";
 import type { RetrievalEpisode } from "@/types/episode";
-import { countBy, isDirectRetrieval } from "./statistics/episodeStats";
+import { countBy, crossTab, crossTabMultiRow, isDirectRetrieval, isPrimaryAnalysis } from "./statistics/episodeStats";
 
 export type DiscoveryStats = {
   totalDocuments: number;
@@ -15,6 +15,8 @@ export type DiscoveryStats = {
   scenarioDistribution: Record<string, number>;
   targetTypeDistribution: Record<string, number>;
   outcomeDistribution: Record<string, number>;
+  // Legacy/internal-hypothesis stage -- kept for traceability only. Do not
+  // headline this; see taxonomyStats.observedFailureDistribution instead.
   failureStageDistribution: Record<string, number>;
   workaroundDistribution: Record<string, number>;
   forgottenCategoryFrequency: Record<string, number>;
@@ -22,6 +24,34 @@ export type DiscoveryStats = {
 
   adjacentEpisodeCount: number;
   adjacentCauseFrequency: Record<string, number>;
+
+  taxonomyStats: TaxonomyStats;
+};
+
+export type TaxonomyStats = {
+  // Denominator context: how many of the DIRECT_RETRIEVAL episodes have been
+  // run through the taxonomy classifier, and how many of those qualify for
+  // the primary analysis population (scopeClass=VAGUE_MEMORY_RETRIEVAL,
+  // evidenceStrength A/B). Every distribution below is computed ONLY over
+  // the primary population -- always read percentages against
+  // primaryAnalysisCount, never classifiedEpisodeCount or totalEpisodes.
+  classifiedEpisodeCount: number;
+  primaryAnalysisCount: number;
+
+  scopeClassDistribution: Record<string, number>;
+
+  // Computed over the primary population only.
+  memorySpecificityDistribution: Record<string, number>;
+  memoryClueFrequency: Record<string, number>;
+  observedFailureDistribution: Record<string, number>;
+  evidenceStrengthDistribution: Record<string, number>;
+
+  // Cross-tabs, primary population only. Co-occurrence, not causation.
+  memoryClueByObservedFailure: ReturnType<typeof crossTab<string>>;
+  memoryClueByOutcome: ReturnType<typeof crossTab<string>>;
+  memorySpecificityByObservedFailure: ReturnType<typeof crossTab<string>>;
+  memorySpecificityByOutcome: ReturnType<typeof crossTab<string>>;
+  observedFailureByWorkaround: ReturnType<typeof crossTab<string>>;
 };
 
 function bump(record: Record<string, number>, key: string | null | undefined): void {
@@ -67,6 +97,30 @@ export function computeDiscoveryStats(
   const adjacentCauseFrequency: Record<string, number> = {};
   for (const e of adjacentEpisodes) bump(adjacentCauseFrequency, e.adjacentCause ?? undefined);
 
+  const classified = episodes.filter((e) => e.taxonomy);
+  const primary = episodes.filter(isPrimaryAnalysis);
+
+  const memoryClueFrequency: Record<string, number> = {};
+  for (const e of primary) for (const clue of e.taxonomy?.memoryClues ?? []) bump(memoryClueFrequency, clue);
+
+  const taxonomyStats: TaxonomyStats = {
+    classifiedEpisodeCount: classified.length,
+    primaryAnalysisCount: primary.length,
+
+    scopeClassDistribution: countBy(classified, (e) => e.taxonomy!.scopeClass),
+
+    memorySpecificityDistribution: countBy(primary, (e) => e.taxonomy!.memorySpecificity),
+    memoryClueFrequency,
+    observedFailureDistribution: countBy(primary, (e) => e.taxonomy!.observedFailure),
+    evidenceStrengthDistribution: countBy(primary, (e) => e.taxonomy!.evidenceStrength),
+
+    memoryClueByObservedFailure: crossTabMultiRow(primary, (e) => e.taxonomy?.memoryClues ?? [], (e) => e.taxonomy!.observedFailure),
+    memoryClueByOutcome: crossTabMultiRow(primary, (e) => e.taxonomy?.memoryClues ?? [], (e) => e.outcome),
+    memorySpecificityByObservedFailure: crossTab(primary, (e) => e.taxonomy!.memorySpecificity, (e) => e.taxonomy!.observedFailure),
+    memorySpecificityByOutcome: crossTab(primary, (e) => e.taxonomy!.memorySpecificity, (e) => e.outcome),
+    observedFailureByWorkaround: crossTab(primary, (e) => e.taxonomy!.observedFailure, (e) => e.workaround ?? "NONE"),
+  };
+
   return {
     totalDocuments: documents.length,
     relevanceClassDistribution,
@@ -83,5 +137,7 @@ export function computeDiscoveryStats(
 
     adjacentEpisodeCount: adjacentEpisodes.length,
     adjacentCauseFrequency,
+
+    taxonomyStats,
   };
 }

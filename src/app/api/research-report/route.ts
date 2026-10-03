@@ -1,4 +1,4 @@
-import { loadDocuments, loadRelevant, loadEpisodes } from "@/lib/data";
+import { loadDocuments, loadRelevant, loadEpisodesWithTaxonomy } from "@/lib/data";
 import { computeDiscoveryStats } from "@/lib/aggregation";
 import { generateResearchReport } from "@/lib/ai-service";
 import { getResearchReport, saveResearchReport } from "@/lib/store";
@@ -15,7 +15,7 @@ export async function GET() {
 /** Regenerates the research report from whatever documents/episodes already exist. */
 export async function POST() {
   try {
-    const [documents, relevant, episodes] = await Promise.all([loadDocuments(), loadRelevant(), loadEpisodes()]);
+    const [documents, relevant, episodes] = await Promise.all([loadDocuments(), loadRelevant(), loadEpisodesWithTaxonomy()]);
 
     if (episodes.length === 0) {
       return fail("No episodes extracted yet -- run episode extraction first.", 409);

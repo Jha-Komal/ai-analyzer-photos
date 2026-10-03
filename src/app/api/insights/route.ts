@@ -1,4 +1,4 @@
-import { loadEpisodes } from "@/lib/data";
+import { loadEpisodesWithTaxonomy } from "@/lib/data";
 import { generateInsights } from "@/lib/ai-service";
 import { getInsights, saveInsights } from "@/lib/store";
 import { DISCOVERY_QUESTIONS } from "@/lib/constants";
@@ -15,7 +15,7 @@ export async function GET() {
 /** Regenerates insights from whatever episodes already exist. */
 export async function POST() {
   try {
-    const episodes = await loadEpisodes();
+    const episodes = await loadEpisodesWithTaxonomy();
     if (episodes.length === 0) {
       return fail("No episodes extracted yet -- run episode extraction first.", 409);
     }

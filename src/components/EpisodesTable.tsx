@@ -34,12 +34,20 @@ export default function EpisodesTable({ episodes }: { episodes: RetrievalEpisode
   const [outcome, setOutcome] = useState("");
   const [failureStage, setFailureStage] = useState("");
   const [memoryCue, setMemoryCue] = useState("");
+  const [scopeClass, setScopeClass] = useState("");
+  const [memorySpecificity, setMemorySpecificity] = useState("");
+  const [observedFailure, setObservedFailure] = useState("");
+  const [evidenceStrength, setEvidenceStrength] = useState("");
 
   const options = useMemo(
     () => ({
       scenarios: uniqueSorted(episodes.map((e) => e.scenario.category)),
       outcomes: uniqueSorted(episodes.map((e) => e.outcome)),
       failureStages: uniqueSorted(episodes.map((e) => e.failureStage)),
+      scopeClasses: uniqueSorted(episodes.map((e) => e.taxonomy?.scopeClass).filter((v) => !!v) as string[]),
+      memorySpecificities: uniqueSorted(episodes.map((e) => e.taxonomy?.memorySpecificity).filter((v) => !!v) as string[]),
+      observedFailures: uniqueSorted(episodes.map((e) => e.taxonomy?.observedFailure).filter((v) => !!v) as string[]),
+      evidenceStrengths: uniqueSorted(episodes.map((e) => e.taxonomy?.evidenceStrength).filter((v) => !!v) as string[]),
     }),
     [episodes],
   );
@@ -51,9 +59,13 @@ export default function EpisodesTable({ episodes }: { episodes: RetrievalEpisode
       if (outcome && e.outcome !== outcome) return false;
       if (failureStage && e.failureStage !== failureStage) return false;
       if (memoryCue && !(e.remembered[memoryCue as keyof RetrievalEpisode["remembered"]]?.length > 0)) return false;
+      if (scopeClass && e.taxonomy?.scopeClass !== scopeClass) return false;
+      if (memorySpecificity && e.taxonomy?.memorySpecificity !== memorySpecificity) return false;
+      if (observedFailure && e.taxonomy?.observedFailure !== observedFailure) return false;
+      if (evidenceStrength && e.taxonomy?.evidenceStrength !== evidenceStrength) return false;
       return true;
     });
-  }, [episodes, relevanceClass, scenario, outcome, failureStage, memoryCue]);
+  }, [episodes, relevanceClass, scenario, outcome, failureStage, memoryCue, scopeClass, memorySpecificity, observedFailure, evidenceStrength]);
 
   return (
     <div className="flex flex-col gap-4">
@@ -105,6 +117,53 @@ export default function EpisodesTable({ episodes }: { episodes: RetrievalEpisode
             </option>
           ))}
         </select>
+        <select className={selectClass} style={selectStyle} value={scopeClass} onChange={(e) => setScopeClass(e.target.value)}>
+          <option value="">All scope classes</option>
+          {options.scopeClasses.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+        <select
+          className={selectClass}
+          style={selectStyle}
+          value={memorySpecificity}
+          onChange={(e) => setMemorySpecificity(e.target.value)}
+        >
+          <option value="">All memory specificities</option>
+          {options.memorySpecificities.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+        <select
+          className={selectClass}
+          style={selectStyle}
+          value={observedFailure}
+          onChange={(e) => setObservedFailure(e.target.value)}
+        >
+          <option value="">All observed failures</option>
+          {options.observedFailures.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+        <select
+          className={selectClass}
+          style={selectStyle}
+          value={evidenceStrength}
+          onChange={(e) => setEvidenceStrength(e.target.value)}
+        >
+          <option value="">All evidence strengths</option>
+          {options.evidenceStrengths.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
         <span className="ml-auto self-center text-sm" style={{ color: "var(--text-secondary)" }}>
           {filtered.length} of {episodes.length}
         </span>
@@ -117,7 +176,7 @@ export default function EpisodesTable({ episodes }: { episodes: RetrievalEpisode
         <table className="w-full text-left text-sm">
           <thead>
             <tr style={{ borderBottom: "1px solid var(--border)" }}>
-              {["Episode", "Type", "Scenario", "Target", "Remembered", "Search steps", "Outcome", "Failure"].map(
+              {["Episode", "Type", "Scenario", "Target", "Remembered", "Search steps", "Outcome", "Failure", "Scope class", "Observed failure"].map(
                 (h) => (
                   <th key={h} className="whitespace-nowrap px-3 py-2 font-medium" style={{ color: "var(--text-secondary)" }}>
                     {h}
@@ -163,6 +222,12 @@ export default function EpisodesTable({ episodes }: { episodes: RetrievalEpisode
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap" style={{ color: "var(--foreground)" }}>
                   {e.failureStage}
+                </td>
+                <td className="px-3 py-2 whitespace-nowrap" style={{ color: "var(--foreground)" }}>
+                  {e.taxonomy?.scopeClass ?? "—"}
+                </td>
+                <td className="px-3 py-2 whitespace-nowrap" style={{ color: "var(--foreground)" }}>
+                  {e.taxonomy?.observedFailure ?? "—"}
                 </td>
               </tr>
             ))}

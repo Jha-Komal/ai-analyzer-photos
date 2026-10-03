@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { loadEpisodes } from "@/lib/data";
+import { loadEpisodesWithTaxonomy } from "@/lib/data";
 import { TopNav } from "@/components/layout/TopNav";
 
 const MEMORY_DIMENSIONS = [
@@ -18,7 +18,7 @@ const MEMORY_DIMENSIONS = [
 
 export default async function EpisodeDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const episodes = await loadEpisodes();
+  const episodes = await loadEpisodesWithTaxonomy();
   const episode = episodes.find((e) => e.id === id);
   if (!episode) notFound();
 
@@ -55,6 +55,37 @@ export default async function EpisodeDetailPage({ params }: { params: Promise<{ 
             </p>
           )}
         </div>
+
+        {episode.taxonomy ? (
+          <div
+            className="rounded-2xl p-4 text-sm"
+            style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+          >
+            <h2 className="mb-3 text-sm font-medium" style={{ color: "var(--foreground)" }}>
+              Taxonomy
+            </h2>
+            <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              <TaxonomyField label="Scope class" value={episode.taxonomy.scopeClass} />
+              <TaxonomyField label="Memory specificity" value={episode.taxonomy.memorySpecificity} />
+              <TaxonomyField label="Observed failure" value={episode.taxonomy.observedFailure} />
+              <TaxonomyField label="Evidence strength" value={episode.taxonomy.evidenceStrength} />
+              <TaxonomyField label="Memory clues" value={episode.taxonomy.memoryClues.join(", ") || "none"} />
+            </dl>
+            {episode.taxonomy.possibleSystemExplanation.length > 0 && (
+              <p className="mt-3 text-xs" style={{ color: "var(--text-secondary)" }}>
+                Possible system explanation (inferred from user evidence, not directly observed):{" "}
+                {episode.taxonomy.possibleSystemExplanation.join(", ")}
+              </p>
+            )}
+            <p className="mt-2 text-xs italic" style={{ color: "var(--text-secondary)" }}>
+              {episode.taxonomy.rationale}
+            </p>
+          </div>
+        ) : (
+          <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
+            Not yet run through the taxonomy classifier.
+          </p>
+        )}
 
         {/* MEMORY -> SEARCH -> RESULT -> REFORMULATION -> WORKAROUND -> OUTCOME */}
         <ol className="flex flex-col gap-3">
@@ -122,6 +153,17 @@ export default async function EpisodeDetailPage({ params }: { params: Promise<{ 
         </div>
       </main>
     </>
+  );
+}
+
+function TaxonomyField({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <dt className="text-xs" style={{ color: "var(--text-secondary)" }}>
+        {label}
+      </dt>
+      <dd style={{ color: "var(--foreground)" }}>{value}</dd>
+    </div>
   );
 }
 
