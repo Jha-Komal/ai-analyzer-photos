@@ -16,11 +16,17 @@ export default async function DashboardPage() {
   // DIRECT_RETRIEVAL, taxonomyStats further isolates the primary analysis
   // population (scopeClass=VAGUE_MEMORY_RETRIEVAL) from everything else.
   const stats = computeDiscoveryStats(documents, relevant, allEpisodes);
+  // adjacentEpisodeCount/legacyEpisodeCount are EXTRACTED-EPISODE counts
+  // (episodes.json), not document-level relevance-classification counts
+  // (relevant.json) -- those two are different units (e.g. 2,779 documents
+  // were tagged DIRECT_RETRIEVAL before extraction, but only 524 of them
+  // actually yielded an extracted episode). Mixing the two previously
+  // produced a meaningless "excluded/contrast" figure; relevanceClassDistribution
+  // is still used below, but only in the explicitly document-level RelevancePieChart.
   const adjacentEpisodeCount = stats.adjacentEpisodeCount;
-
-  const directCount = stats.relevanceClassDistribution.DIRECT_RETRIEVAL ?? 0;
+  const legacyEpisodeCount = stats.totalEpisodes;
   const qualifiedVagueMemoryCount = stats.taxonomyStats.primaryAnalysisCount;
-  const excludedContrastCount = directCount - qualifiedVagueMemoryCount;
+  const excludedContrastCount = legacyEpisodeCount - qualifiedVagueMemoryCount;
 
   return (
     <>
@@ -54,7 +60,7 @@ export default async function DashboardPage() {
           <>
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
               <MetricCard label="Documents scanned" value={stats.totalDocuments.toLocaleString()} icon={FileText} />
-              <MetricCard label="Legacy retrieval episodes" value={directCount.toLocaleString()} icon={MessageSquareText} />
+              <MetricCard label="Legacy retrieval episodes" value={legacyEpisodeCount.toLocaleString()} icon={MessageSquareText} />
               <MetricCard
                 label="Qualified vague-memory episodes"
                 value={qualifiedVagueMemoryCount.toLocaleString()}
@@ -68,13 +74,13 @@ export default async function DashboardPage() {
               />
               <MetricCard
                 label="Adjacent (backup/sync, not retrieval)"
-                value={(stats.relevanceClassDistribution.ADJACENT_RETRIEVAL ?? 0).toLocaleString()}
+                value={adjacentEpisodeCount.toLocaleString()}
                 icon={AlertTriangle}
                 tone="negative"
               />
             </div>
             <p className="text-xs text-muted">
-              {directCount.toLocaleString()} legacy DIRECT_RETRIEVAL episodes were run through a taxonomy
+              {legacyEpisodeCount.toLocaleString()} legacy DIRECT_RETRIEVAL episodes were run through a taxonomy
               classifier; {qualifiedVagueMemoryCount.toLocaleString()} qualify as VAGUE_MEMORY_RETRIEVAL and are
               the primary analysis population for every finding below, in Insights, and in the Research Report.
               The other {excludedContrastCount.toLocaleString()} (precise-search-failure, organization/navigation,
@@ -97,7 +103,7 @@ export default async function DashboardPage() {
 
             <details className="rounded-2xl border border-border bg-card p-4">
               <summary className="cursor-pointer text-sm font-medium text-muted">
-                Legacy failure stage (debug/traceability only, {directCount.toLocaleString()} DIRECT_RETRIEVAL
+                Legacy failure stage (debug/traceability only, {legacyEpisodeCount.toLocaleString()} DIRECT_RETRIEVAL
                 episodes, not the headline metric)
               </summary>
               <p className="mt-3 text-xs text-muted">
