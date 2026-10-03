@@ -7,7 +7,6 @@ import { RelevancePieChart } from "@/components/charts/RelevancePieChart";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { loadDocuments, loadRelevant, loadEpisodes } from "@/lib/data";
 import { computeDiscoveryStats } from "@/lib/aggregation";
-import { SOURCE_LABELS } from "@/lib/constants";
 
 export default async function DashboardPage() {
   const [documents, relevant, allEpisodes] = await Promise.all([loadDocuments(), loadRelevant(), loadEpisodes()]);
@@ -79,10 +78,6 @@ export default async function DashboardPage() {
 
             <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
               <RelevancePieChart byClassification={stats.relevanceClassDistribution} />
-              <DistributionBarChart
-                title="Source Distribution"
-                data={Object.fromEntries(Object.entries(stats.sourceDistribution).map(([k, v]) => [SOURCE_LABELS[k] ?? k, v]))}
-              />
               <DistributionBarChart title="Scenario Distribution" data={stats.scenarioDistribution} color="var(--series-orange)" />
               <DistributionBarChart title="Failure Stage Distribution" data={stats.failureStageDistribution} color="var(--negative)" />
               <DistributionBarChart title="Outcome Distribution" data={stats.outcomeDistribution} color="var(--positive)" />
