@@ -80,12 +80,12 @@ Use the dataset to:
 
 1. understand how people remember and forget visual information
 2. identify where retrieval breaks down (memory expression, query formulation, system understanding, result surfacing, result evaluation, or recovery)
-3. identify behavioral segments (by scenario, by remembered-dimension pattern)
+3. identify candidate behavioral patterns (by scenario, by remembered-dimension pattern) -- never call one a "target segment"; that selection happens only after primary research
 4. identify recurring decision/failure patterns
-5. rank opportunity hypotheses
+5. surface competing research hypotheses -- do not rank them or declare a winner
 6. identify what must be validated in 5-6 user interviews
 
-DO NOT propose features, solutions, MVPs, or AI use cases.
+DO NOT propose features, solutions, MVPs, or AI use cases. DO NOT rank opportunities or declare a leading candidate -- this report stops at competing hypotheses, not a chosen one.
 
 ==================================================
 RESEARCH RULES
@@ -160,9 +160,9 @@ Answer every question against primary_episodes only (state the denominator as ag
 STEP 3 -- OBSERVED-FAILURE DECOMPOSITION
 =========================================
 
-Using aggregated_statistics.taxonomyStats.observedFailureDistribution (primary_episodes only) as the headline, report count/denominator/%, representative evidence, which scenarios/segments it concentrates in, and confidence for each of: EXPRESSION_DIFFICULTY, NO_USEFUL_RESULTS, TARGET_HARD_TO_LOCATE, TARGET_HARD_TO_RECOGNIZE, REFINEMENT_FAILED, PRODUCT_LOCATION_CONFUSION, SUCCESS_AFTER_REFORMULATION, SUCCESS_AFTER_BROWSING, ABANDONED_OR_NOT_FOUND, NO_FAILURE_REPORTED, UNKNOWN.
+Using aggregated_statistics.taxonomyStats.observedFailureDistribution (primary_episodes only) as the headline, report count/denominator/%, representative evidence, which scenarios/candidate behavioral patterns it concentrates in, and confidence for each of: EXPRESSION_DIFFICULTY, NO_USEFUL_RESULTS, TARGET_HARD_TO_LOCATE, TARGET_HARD_TO_RECOGNIZE, REFINEMENT_FAILED, PRODUCT_LOCATION_CONFUSION, SUCCESS_AFTER_REFORMULATION, SUCCESS_AFTER_BROWSING, ABANDONED_OR_NOT_FOUND, NO_FAILURE_REPORTED, UNKNOWN.
 
-Do NOT headline failure_stage_legacy or its values (MEMORY_EXPRESSION, QUERY_FORMULATION, QUERY_UNDERSTANDING, SEMANTIC_RETRIEVAL, RESULT_EVALUATION, RECOVERY) as if they were a proven internal mechanism -- QUERY_UNDERSTANDING and SEMANTIC_RETRIEVAL in particular describe a hypothesis about Google's internals, not something the user reported observing. You may add one short secondary paragraph cross-referencing aggregated_statistics.failureStageDistribution for traceability, explicitly labeled "legacy/internal-hypothesis labeling, not the headline finding."
+Do NOT headline failure_stage_legacy or its values (MEMORY_EXPRESSION, QUERY_FORMULATION, QUERY_UNDERSTANDING, SEMANTIC_RETRIEVAL, RESULT_EVALUATION, RECOVERY) as if they were a proven internal mechanism -- QUERY_UNDERSTANDING, SEMANTIC_RETRIEVAL, and RESULT_EVALUATION in particular describe a hypothesis about Google's internals or an unverified inference about the user's experience, not something the user reported observing. These three may appear only in a secondary/debug paragraph, or under possible_system_explanation explicitly labeled as a hypothesis. You may add one short secondary paragraph cross-referencing aggregated_statistics.failureStageDistribution for traceability, explicitly labeled "legacy/internal-hypothesis labeling, not the headline finding."
 
 End this step with the exact sentence: "Observed failure stages describe what users reported happening. They do not identify Google's internal technical cause."
 
@@ -179,34 +179,34 @@ STEP 5 -- SCENARIO x OBSERVED-FAILURE MATRIX
 Primary_episodes only. Rows: scenario categories. Columns: taxonomy.observed_failure values. For each relevant intersection rate EVIDENCE_VOLUME, WORKAROUND_FRICTION, and EVIDENCE_CONFIDENCE as HIGH/MEDIUM/LOW/INSUFFICIENT.
 
 ==================================================
-STEP 6 -- RANKED OPPORTUNITY HYPOTHESES (TOP 3-5)
-====================================================
+STEP 6 -- COMPETING RESEARCH HYPOTHESES (NO RANKING, NO WINNER)
+==================================================
 
-Primary_episodes only. An opportunity is a user outcome, NOT a feature. Format:
+Primary_episodes only. Generate 3-5 competing hypotheses about why retrieval fails, at the problem/discovery level only -- no feature ideas, no ranking, no declared winner, no priority tier (no P1/P2/P3), no "highest opportunity," no target segment selection. Primary research (interviews), not this report, decides which hypothesis holds up. Label them Hypothesis A, Hypothesis B, Hypothesis C, etc. -- a letter, never a rank number.
 
-"Help [segment/scenario] successfully retrieve [target type] when they remember [what] but have forgotten [what], because [problem] currently causes [observable friction/failure]."
+Examples of the KIND of hypothesis this step produces (structure only -- do not hard-code these as true, generate only what the current data supports):
+- "People may retain situational context about a photo even when precise searchable attributes have faded."
+- "Some users appear able to express meaningful clues, yet still report no useful candidate results."
+- "Some retrieval failures may compound because users do not have an effective next step after the first attempt fails."
+- "Some apparent search failures are actually organization or content-state problems rather than vague-memory retrieval problems."
 
-For each, return:
+For each hypothesis return only:
 
-OPPORTUNITY:
-TARGET SEGMENT/SCENARIO:
-WHAT USERS REMEMBER:
-WHAT USERS HAVE FORGOTTEN:
-PRIMARY OBSERVED FAILURE:
-CURRENT WORKAROUND:
-EVIDENCE: episode count / denominator / %, episode_ids, sources
-WORKAROUND FRICTION: HIGH/MEDIUM/LOW
-WHY IT MATTERS TO SUCCESSFUL RETRIEVAL:
-KNOWN: / INFERRED: / UNKNOWN:
-EVIDENCE CONFIDENCE:
-PRIORITY: P1 (high potential) / P2 (medium) / P3 (lower/uncertain) -- do not calculate a fake numeric score, reason qualitatively from evidence volume x failure severity x addressability
-PRIMARY RESEARCH QUESTION: what must 5-6 user interviews validate before this is a confirmed root problem?
+HYPOTHESIS (A/B/C...):
+OBSERVATION SUPPORTING IT: (reference actual episode_ids or aggregated_statistics findings -- never invent evidence)
+COUNTER-EVIDENCE: (actively search for it; never omit this field)
+ALTERNATIVE EXPLANATION:
+CONFIDENCE: HIGH | MEDIUM | LOW (confidence in the hypothesis itself -- never a priority/rank)
+WHAT INTERVIEWS MUST TEST:
+WHAT WOULD DISPROVE IT:
+
+Do not add a PRIORITY, RANK, or "WHY IT MATTERS MOST" field to any hypothesis. Do not single one out as the leading or most promising hypothesis anywhere in this step or in the executive summary.
 
 ==================================================
-STEP 7 -- CHALLENGE THE LEADING HYPOTHESES
+STEP 7 -- CHALLENGE THE HYPOTHESES
 =============================================
 
-For each major opportunity, actively search for contradictory evidence. Report: contradiction, hypothesis challenged, whether it suggests a different segment, impact on confidence. Do not hide contradictions.
+For each hypothesis in Step 6, actively search for contradictory evidence. Report: contradiction, hypothesis challenged, whether it suggests a different candidate behavioral pattern, impact on confidence. Do not hide contradictions.
 
 ==================================================
 STEP 8 -- RESEARCH STATUS
@@ -221,36 +221,13 @@ STEP 9 -- PRIMARY RESEARCH GAPS -> INTERVIEW QUESTIONS
 Identify what secondary research (public reviews/discussions) cannot reliably establish, e.g.: exactly what triggered the search, how memory degraded over time, what the user tried before giving up, what would have resolved it, whether they eventually found it another way, how they'd describe the item unprompted. Convert the most important gaps into concrete questions for 5-6 user interviews.
 
 ==================================================
-STEP 10 -- WHAT SHOULD WE VALIDATE NEXT?
-===========================================
+STEP 10 -- CANDIDATE BEHAVIORAL PATTERNS TO VALIDATE NEXT
+=============================================================
 
-Recommend 1-3 scenario/segment + observed-failure combinations for primary research. For each: segment/scenario, hypothesized root problem, why it may affect the retrieval-success metric, supporting evidence, missing evidence, what must be validated in interviews. Do not choose a solution.
-
-==================================================
-STEP 11 -- COMPETING HYPOTHESES (DO NOT PICK A WINNER)
-=========================================================
-
-Generate 3-5 competing hypotheses about why retrieval fails within primary_episodes, at the problem/discovery level only -- no feature ideas. These are a different thing from the ranked opportunities in Step 6: opportunities are ranked by priority, but hypotheses here must NOT be ranked or declared a winner -- primary research (interviews), not this report, decides which one holds up.
-
-Examples of the KIND of hypothesis this step produces (structure only -- do not hard-code these as true, generate only what the current data supports):
-- "People may retain situational context about a photo even when precise searchable attributes have faded."
-- "Some users appear able to express meaningful clues, yet still report no useful candidate results."
-- "Some retrieval failures may compound because users do not have an effective next step after the first attempt fails."
-- "Some apparent search failures are actually organization or content-state problems rather than vague-memory retrieval problems."
-
-For each hypothesis return:
-
-HYPOTHESIS:
-SUPPORTING EVIDENCE: (reference actual episode_ids or aggregated_statistics findings -- never invent evidence)
-COUNTER-EVIDENCE: (actively search for it; never omit this field)
-ALTERNATIVE EXPLANATIONS:
-CONFIDENCE: HIGH | MEDIUM | LOW
-CONFIDENCE REASON:
-WHAT INTERVIEWS MUST TEST:
-WHAT WOULD DISPROVE IT:
+Recommend 1-3 scenario + observed-failure combinations for primary research, described as "candidate behavioral patterns" -- never as a chosen target segment. For each: scenario/pattern, hypothesized root problem, why it may affect the retrieval-success metric, supporting evidence, missing evidence, what must be validated in interviews. Do not choose a solution. Do not declare one pattern the final target.
 
 ==================================================
-STEP 12 -- LIMITATIONS
+STEP 11 -- LIMITATIONS
 =======================
 
 Reproduce this block verbatim (adapt only the lead-in sentence if needed, never the two lists):
@@ -277,21 +254,20 @@ FINAL OUTPUT
 ============
 
 Return sections in this order:
-1. Executive summary
+1. Executive summary (do not name a leading hypothesis or a target segment here either)
 2. Dataset quality and limitations
 3. Answers to the discovery questions
 4. Observed-failure decomposition
 5. Recurring behavioral chains
 6. Scenario x observed-failure matrix
-7. Ranked opportunity hypotheses
+7. Competing research hypotheses (Hypothesis A/B/C..., not ranked, no winner declared)
 8. Contradictory evidence
 9. Known vs inferred vs unknown
 10. Primary research gaps -> interview questions
-11. Recommended segments/problems to validate
-12. Competing hypotheses (not ranked, no winner declared)
-13. Limitations
+11. Candidate behavioral patterns to validate next
+12. Limitations
 
-FINAL CHECK BEFORE ANSWERING -- confirm internally that: no feature has been proposed; all percentages include denominators and are computed over primary_episodes (never a bare percentage, never a denominator that silently mixes primary and contrast); behavioral segments are evidence-based, not invented demographics; contradictory evidence is included; opportunities are not presented as validated problems; competing hypotheses each have counter-evidence, an alternative explanation, and are not ranked or declared a winner; no final target segment or persona is selected; no solution is recommended; the limitations block is present verbatim.
+FINAL CHECK BEFORE ANSWERING -- confirm internally that: no feature has been proposed; no opportunity ranking, priority tier (P1/P2/P3), or "highest opportunity" language appears anywhere; all percentages include denominators and are computed over primary_episodes (never a bare percentage, never a denominator that silently mixes primary and contrast); candidate behavioral patterns are evidence-based, not invented demographics, and none is called a "target segment"; contradictory evidence is included; competing hypotheses each have counter-evidence, an alternative explanation, and are not ranked, lettered by priority, or declared a winner; no final target segment or persona is selected; no solution is recommended; the limitations block is present verbatim.
 
-Required reasoning path: BUSINESS METRIC -> EVIDENCE -> BEHAVIOR -> OBSERVED FAILURE -> OPPORTUNITY -> COMPETING HYPOTHESES -> PRIMARY RESEARCH. Do not proceed to solution design.`;
+Required reasoning path: BUSINESS METRIC -> EVIDENCE -> BEHAVIOR -> OBSERVED FAILURE -> COMPETING HYPOTHESES -> PRIMARY RESEARCH. Do not proceed to solution design, and do not collapse the competing hypotheses into one chosen direction.`;
 }

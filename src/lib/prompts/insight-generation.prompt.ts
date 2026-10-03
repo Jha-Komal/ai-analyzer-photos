@@ -46,9 +46,9 @@ Answer each of the following discovery questions using ONLY the evidence in the 
 
 PRIMARY vs CONTRAST POPULATION
 
-primary_episodes (${primary.length}) are the episodes that qualify for this research problem: taxonomy.scope_class = VAGUE_MEMORY_RETRIEVAL and taxonomy.evidence_strength in [A, B]. This is the ONLY population every answer should be quantified against.
+primary_episodes (${primary.length}) are the episodes that qualify for this research problem: taxonomy.scope_class = VAGUE_MEMORY_RETRIEVAL. This is the ONLY population every answer should be quantified against. evidence_strength (A/B/C/D) is NOT a filter here -- it's a per-episode data-quality signal you may cite (e.g. "most strongly supported by the A/B-strength subset") but it never changes who counts as primary.
 
-contrast_episodes (${contrast.length}) are everything else -- other scope classes (PRECISE_SEARCH_FAILURE, ORGANIZATION_OR_NAVIGATION, CONTENT_AVAILABILITY_OR_SYNC, GENERAL_SEARCH_COMPLAINT, UNCLEAR), weaker evidence (C/D), ADJACENT_RETRIEVAL episodes, or episodes not yet classified (taxonomy: null). Use these ONLY as clearly-labeled contrast/context (e.g. "unlike the primary population, these N episodes were actually an organization/navigation problem, not a vague-memory retrieval problem"). NEVER count a contrast episode toward a primary-population statistic, and never blend the two into a single unlabeled percentage.
+contrast_episodes (${contrast.length}) are everything else -- other scope classes (PRECISE_SEARCH_FAILURE, ORGANIZATION_OR_NAVIGATION, CONTENT_AVAILABILITY_OR_SYNC, GENERAL_SEARCH_COMPLAINT, UNCLEAR), ADJACENT_RETRIEVAL episodes, or episodes not yet classified (taxonomy: null). Use these ONLY as clearly-labeled contrast/context (e.g. "unlike the primary population, these N episodes were actually an organization/navigation problem, not a vague-memory retrieval problem"). NEVER count a contrast episode toward a primary-population statistic, and never blend the two into a single unlabeled percentage.
 
 QUESTIONS:
 ${questions.map((q, i) => `${i + 1}. ${q}`).join("\n")}
@@ -58,9 +58,14 @@ RULES
 - Report prevalence as "count / denominator / %", and the denominator must be primary_episodes.length unless you are explicitly in a labeled contrast statement -- never a bare percentage.
 - Do not generalize to "Google Photos users" as a whole, and do not state a pattern as a population fact (e.g. never "users primarily remember X" -- instead "X appeared frequently among the qualifying episodes in this dataset").
 - Never present taxonomy.observed_failure or failure_stage_legacy as a proven technical cause inside Google Photos -- both describe what the user reported, not Google's internals.
-- Distinguish what's directly supported by the evidence (observation) from what it might mean (interpretation) from what should be tested next (hypothesis).
+- Keep observation, interpretation, and hypothesis genuinely separate layers -- do not let an interpreted claim leak into "observation." A fact belongs in observation ONLY if it is a count/denominator/% or a directly-quoted/paraphrased detail -- no "may," "suggests," "appears to," or any reasoning word belongs there. Example of the required separation:
+  observation: "58.2% of qualifying episodes include contextual/situational memory (clue type 'context' or 'activity')."
+  interpretation: "Situational context may remain accessible when precise details fade."
+  hypothesis: "Users may struggle to translate situational memory into an effective retrieval attempt."
+  If you catch yourself writing a reasoning word in "observation," move that sentence to "interpretation" instead.
 - If the dataset can't answer a question, say so explicitly in "observation" rather than guessing, and leave "interpretation"/"hypothesis" minimal.
 - Do not propose product solutions or features, and do not recommend one in "hypothesis" -- a hypothesis is something primary research should test, not a fix.
+- Never call a scenario or remembered-dimension pattern a "target segment" -- describe it as a candidate behavioral pattern. Final target selection happens only after primary research.
 
 DATASET:
 primary_episodes (${primary.length}): ${JSON.stringify(primary.map(toInputRecord), null, 2)}

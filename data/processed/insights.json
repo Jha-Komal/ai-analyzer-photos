@@ -1,160 +1,170 @@
 [
   {
-    "id": "83050191-0043-487d-a9d3-a6c1c4b2fe41",
+    "id": "32e211d8-8431-461d-9251-fa214a5eb083",
     "question": "What kinds of old photos, videos, screenshots, or documents do users struggle to retrieve?",
-    "answer": "The struggling target is overwhelmingly an ordinary photo: 187/220 DIRECT_RETRIEVAL episodes involve a photo, with video a distant second at 25/220 DIRECT_RETRIEVAL episodes, and screenshots or documents rare (6/220 DIRECT_RETRIEVAL combined). By declared scenario, the largest single group is unclassified personal photos (100/220 DIRECT_RETRIEVAL), followed by hobby/creative content (24/220), family or memorial photos (22/220), work-related photos (17/220), friends (14/220), pets (9/220), and travel (7/220); screenshots and documents as scenarios each account for only 4-5 episodes, too few to characterize confidently on their own. A recurring content type that cuts across these scenario labels is the app's own auto-generated output -- collages, auto-made animations, memory reels, and auto-assembled movies that users say they cannot relocate after being notified of them (24/220 DIRECT_RETRIEVAL episodes). Because the sample is drawn from public app-store reviews and forum posts rather than a representative user base, these proportions describe this dataset, not Google Photos users generally.",
+    "observation": "Among the 157 qualifying (VAGUE_MEMORY_RETRIEVAL) episodes, the target is an ordinary photo in 142/157 (90.4%), video in 9/157 (5.7%), screenshot in 5/157 (3.2%), and document in 1/157 (0.6%).",
+    "interpretation": "Vague-memory retrieval in this dataset is almost entirely a casual-photo problem, not a document- or screenshot-retrieval problem.",
+    "hypothesis": "Users retrieving documents or screenshots from memory may rely on different cues than photo-retrieval users, or may be underrepresented here because they give up or complain less publicly about those item types.",
+    "limitation": "Target type is inferred from a short complaint, not confirmed by the user; the underlying scenario labels also skew toward OTHER/UNKNOWN (91/157), so this dataset has limited power to say anything about non-photo item types specifically.",
     "confidence": "HIGH",
     "supportingEpisodeIds": [
-      "playstore_us_fa03a662-314b-4a65-9f9a-673ab4a48ce6_ep0",
-      "playstore_us_c1e3fcf2-a0f9-4f47-9896-a4d79be4416d_ep1",
-      "playstore_us_c1e3fcf2-a0f9-4f47-9896-a4d79be4416d_ep2",
-      "playstore_us_d954fa4a-9e95-46b4-a0de-f8b168460f41_ep0",
-      "playstore_us_af69923b-3140-4c9d-90f3-66ad0547587d_ep0",
-      "playstore_us_e7f24415-daf4-4ba9-b08a-a038775e408d_ep0",
-      "playstore_us_031da991-96ec-418a-8017-1463e43e8c48_ep0",
-      "playstore_us_7ca957a7-156f-433b-8597-3e68a0e6c038_ep0"
+      "playstore_us_baae6c40-9512-4fd1-b632-33ef151faaed_ep0",
+      "playstore_us_af95884a-ef09-48f4-9ef7-9de4efbf7568_ep0",
+      "playstore_us_0f9ad393-91cc-45eb-bcc2-4882bfbae5f3_ep0",
+      "playstore_us_b83d8437-28ca-4f9d-a453-36dd41556022_ep0",
+      "playstore_us_6dbbe3c7-21d6-4e60-9cab-a0321bcecade_ep0"
     ],
-    "evidenceCount": 220
+    "evidenceCount": 142
   },
   {
-    "id": "2f19e4ba-7aa0-4edf-aba0-3c8f6d05dfde",
+    "id": "106cf7d1-8dee-4f64-aa6c-b1c18a022af0",
     "question": "What information do people actually remember about a photo when they start searching?",
-    "answer": "The most commonly recalled element is surrounding circumstance rather than the photo's visual content: some form of situational context (why they need it now, what they were doing, a notification they got) appears in 135/220 DIRECT_RETRIEVAL episodes, an activity tied to the moment in 91/220, and a rough time period in 87/220. Concrete descriptors of what is actually depicted are much rarer -- an object in 28/220, a relationship in 24/220, a named person in 22/220, a specific event in 19/220, a visual attribute like a color or clothing in 15/220, a place in 7/220, and text visible in the image in only 4/220. In other words, across this sample people tend to start from what was happening (context, activity, rough time) more often than from a literal description of the image itself, and it's common for several of these categories to co-occur in a single episode's stated memory.",
-    "confidence": "HIGH",
-    "supportingEpisodeIds": [
-      "playstore_us_f3c15b3e-56b0-4f98-be38-96079cb190b5_ep0",
-      "playstore_us_55a130ce-02b5-41c9-bac7-7958e6acd0bf_ep1",
-      "playstore_us_b7c27524-875f-49ed-b721-e0cd8c99d5e6_ep0",
-      "playstore_us_fa03a662-314b-4a65-9f9a-673ab4a48ce6_ep0",
-      "playstore_us_c1e3fcf2-a0f9-4f47-9896-a4d79be4416d_ep1",
-      "playstore_us_638655a9-1c8c-4dd8-943f-bbf98ac518bc_ep0"
-    ],
-    "evidenceCount": 220
-  },
-  {
-    "id": "b0d1b437-ba11-4b7e-bacd-557575347308",
-    "question": "What information have they forgotten by the time they search?",
-    "answer": "The most frequently forgotten thing is organizational -- where the item physically lives, e.g. which folder, album, or archive it ended up in -- named in 99/220 DIRECT_RETRIEVAL episodes, followed by not being able to pin an exact date or time in 55/220. Loss of a precise content identifier (which exact photo among several similar ones, a person's name, or a specific visual detail) is captured, in some form, across roughly 140/220 episodes, though this is a broad bucket that overlaps with the other two. Notably, 33/220 DIRECT_RETRIEVAL episodes report nothing explicitly forgotten at all -- the user states a complete, specific memory -- and of those, 26/33 still ended in NOT_FOUND or ABANDONED, meaning the memory gap is not always what stands between the user and the photo; sometimes the stated memory is intact and the search still fails. This nothing-forgotten-but-still-failed pattern is direct evidence worth flagging to whoever answers question 6.",
-    "confidence": "HIGH",
-    "supportingEpisodeIds": [
-      "playstore_us_6e4bb4de-a9dc-42b7-aa74-d731c174bdb0_ep0",
-      "playstore_us_2580df0f-fc97-4631-9442-482b94f27e59_ep0",
-      "playstore_us_e958f85e-e1c1-444f-bc2a-451db3bf0ede_ep0",
-      "playstore_us_3c709f6e-13b0-4c5f-bf3f-5a3b86d1e2d0_ep0",
-      "playstore_us_3c709f6e-13b0-4c5f-bf3f-5a3b86d1e2d0_ep1",
-      "playstore_us_c8c256d0-9440-4bd1-ae64-e1cbbb3104a4_ep1",
-      "playstore_us_e0e1f582-2cbb-4b94-9df1-d64bda876211_ep0"
-    ],
-    "evidenceCount": 220
-  },
-  {
-    "id": "dae37ff2-4dbd-4535-820b-37fe8fbba2fa",
-    "question": "How do users formulate a search when their memory is incomplete?",
-    "answer": "Typing a search query is the default first move: 148/220 DIRECT_RETRIEVAL episodes open with a SEARCH step (67%), versus 31/220 that start by browsing the timeline, 18/220 that open an album directly, and 14/220 that manually scroll from the start. Among the 153/220 episodes that use search at all, the terms people type lean on the same situational cues identified in question 2 -- context in 89/153, activity in 66/153, and time in 52/153 -- more often than concrete visual terms like an object (22/153), a person (18/153), or a visual attribute (14/153). Concretely, this looks like searching a rough theme or occasion (a holiday, a birthday, a notification topic) or a single salient noun (truck, cabinet, passport) rather than a compound descriptive phrase, and when a first search fails, going straight to manual scrolling or timeline/date browsing is a common fallback path.",
-    "confidence": "HIGH",
-    "supportingEpisodeIds": [
-      "playstore_us_1bfd4fad-8b05-477b-b18c-bfa8ef5bcc85_ep0",
-      "playstore_us_55a130ce-02b5-41c9-bac7-7958e6acd0bf_ep0",
-      "playstore_us_e7f24415-daf4-4ba9-b08a-a038775e408d_ep0",
-      "playstore_us_2580df0f-fc97-4631-9442-482b94f27e59_ep0",
-      "playstore_us_c61958f2-ac44-4588-9bfb-38a4413549b9_ep0",
-      "playstore_us_f4661179-ecab-4e7d-9675-409b41ae5ba0_ep0"
-    ],
-    "evidenceCount": 220
-  },
-  {
-    "id": "73c4a20c-c373-4c79-80d2-6d3e64242e86",
-    "question": "How do users reformulate their search after an initial attempt fails?",
-    "answer": "Explicit reformulation attempts are a minority behavior: only 11/220 DIRECT_RETRIEVAL episodes show a recorded second query step (a repeated search, an explicit synonym swap, or a stated reformulation), and of those only 4/11 led to success. The strategies actually used include swapping in a synonym (typing a more generic word for the object after the specific one failed), getting more geographically specific (searching a city name after the country name returned nothing), pasting in remembered text from the photo itself, or abandoning the free-text query in favor of a structured filter like a date range. More broadly, 17/220 DIRECT_RETRIEVAL episodes have an outcome of FOUND_AFTER_REFORMULATION, which is larger than the 11 with an explicit second-query step -- suggesting that reformulating more often means switching to an entirely different retrieval strategy (browsing, date filtering) rather than iterating on search wording, and the search_steps field likely undercounts silent retries that reviewers didn't narrate in detail.",
+    "observation": "Among the 157 qualifying episodes, the most common memory clue present is rough_time (64/157, 40.8%), followed by activity (58/157, 36.9%) and context (46/157, 29.3%); person appears in 20/157 (12.7%) and object in 18/157 (11.5%). Only 4/157 (2.5%) mention a specific place, 5/157 mention visible text, and 17/157 (10.8%) carry no identifiable memory clue.",
+    "interpretation": "Situational and temporal context -- roughly when something happened, or what was going on -- appears more available to users than literal visual descriptors like place, color, or on-screen text.",
+    "hypothesis": "Users may be better able to describe the circumstances surrounding a photo than its literal visual content, and a retrieval path that depends on literal descriptors may serve this group worse than one that can use situational context.",
+    "limitation": "memoryClues is derived from a short public complaint, not a structured recall interview; a clue's absence from the text doesn't prove the user doesn't remember it -- they may simply not have mentioned it.",
     "confidence": "MEDIUM",
     "supportingEpisodeIds": [
-      "playstore_us_638655a9-1c8c-4dd8-943f-bbf98ac518bc_ep0",
+      "playstore_us_baae6c40-9512-4fd1-b632-33ef151faaed_ep0",
+      "playstore_us_af95884a-ef09-48f4-9ef7-9de4efbf7568_ep0",
+      "playstore_us_b83d8437-28ca-4f9d-a453-36dd41556022_ep0",
+      "playstore_us_6dbbe3c7-21d6-4e60-9cab-a0321bcecade_ep0",
+      "playstore_us_47c90ad3-7c20-4f90-8dfb-b06701b74502_ep0"
+    ],
+    "evidenceCount": 64
+  },
+  {
+    "id": "df58102e-c4a5-4c29-a461-68edac54a936",
+    "question": "What information have they forgotten by the time they search?",
+    "observation": "126/157 (80.3%) qualifying episodes name at least one forgotten item; the single most common is an exact date (23 episodes), followed by various specific-content/visual-detail labels (52 episodes combined across near-duplicate taxonomy labels) and location (12 episodes). 31/157 (19.7%) name no specific forgotten item in the text.",
+    "interpretation": "Exact timing and precise visual/content specifics look like the first things to fade, while the broader situational memory captured above tends to persist.",
+    "hypothesis": "If exact date and literal content detail are what's missing, a retrieval path that depends heavily on exact metadata (date) or literal content matching may structurally underserve this group even when situational memory is intact.",
+    "limitation": "The underlying 'forgotten' taxonomy has real label drift across extraction passes (SPECIFIC_CONTENT, SPECIFIC_PHOTO_CONTENT, PHOTO_CONTENT, VISUAL_CONTENT all describe the same idea) -- the 52-episode 'specific content' figure is a manual grouping of near-duplicates, not a single extracted field.",
+    "confidence": "MEDIUM",
+    "supportingEpisodeIds": [
+      "playstore_us_da1b0b7a-06b7-4775-9e0d-727ab4c2869b_ep0",
+      "playstore_us_07a92595-bc3c-457f-a481-77e08fbb51f5_ep0",
+      "playstore_us_38bd0bbc-d95f-40df-ac49-bc9d3df0e411_ep0",
+      "playstore_us_e7f24415-daf4-4ba9-b08a-a038775e408d_ep0",
+      "playstore_us_b648804d-8358-4a01-ae8e-b57669469d96_ep0"
+    ],
+    "evidenceCount": 126
+  },
+  {
+    "id": "0bfd2295-15b9-46b0-8f34-4acf4723e99e",
+    "question": "How do users formulate a search when their memory is incomplete?",
+    "observation": "34/157 (21.7%) qualifying episodes have a captured search query; 29 of those 34 (85.3%) are 3 words or fewer (e.g. 'truck', 'cabinet', 'passport'). A further 74/157 (47.1%) show a SEARCH action in the journey but the query text itself wasn't captured by extraction. The remaining 49/157 (31.2%) show no search action at all -- they went straight to browsing.",
+    "interpretation": "Where query text is actually known, formulation leans toward short literal keywords rather than full natural-language descriptions, even though users often have richer situational memory available (see the memory-clue finding above).",
+    "hypothesis": "Users may default to short keyword search out of habit or interface expectation rather than because situational memory can't be expressed -- if so, a retrieval path that could accept a fuller situational description might capture memory this corpus shows users do have.",
+    "limitation": "Query text is only confirmed for 34/157 episodes; for the 74 with a search action but no captured text, and the 49 with no search action, we cannot confirm query style at all -- the 85.3% short-keyword figure describes only the smaller, known-query subset, not the full 157.",
+    "confidence": "MEDIUM",
+    "supportingEpisodeIds": [
+      "playstore_us_6dbbe3c7-21d6-4e60-9cab-a0321bcecade_ep0",
+      "playstore_us_1bfd4fad-8b05-477b-b18c-bfa8ef5bcc85_ep0",
+      "playstore_us_55a130ce-02b5-41c9-bac7-7958e6acd0bf_ep0",
+      "playstore_us_b7c27524-875f-49ed-b721-e0cd8c99d5e6_ep0",
+      "playstore_us_e7f24415-daf4-4ba9-b08a-a038775e408d_ep0"
+    ],
+    "evidenceCount": 34
+  },
+  {
+    "id": "0155e8c7-8f6d-4699-a89a-1a95ca9ab7ea",
+    "question": "How do users reformulate their search after an initial attempt fails?",
+    "observation": "17/157 (10.8%) qualifying episodes are tagged observedFailure=SUCCESS_AFTER_REFORMULATION (changing the query/clue succeeded); 1/157 (0.6%) is tagged REFINEMENT_FAILED (reformulation attempted and still failed). Only 4/157 episodes show an explicit REFORMULATE action recorded in the search journey -- most reformulation is visible only in the before/after outcome, not as a distinct logged step.",
+    "interpretation": "Reformulation works for a meaningful minority when it's attempted, but it's rarely visible as a distinct, repeated step in these complaints -- most users who reformulate appear to do it once, if at all.",
+    "hypothesis": "Users may not have an established pattern of iterative query refinement (try, adjust, try again) for photo retrieval the way they might for web search -- if confirmed, a single early refinement nudge could capture much of this 10.8%.",
+    "limitation": "The search-journey log is reconstructed from a complaint's prose, not an instrumented UI trace, so an unreported reformulation attempt would look identical to one that never happened; this likely undercounts real reformulation behavior.",
+    "confidence": "LOW",
+    "supportingEpisodeIds": [
+      "playstore_us_5813c7ea-ff5a-4197-8ac0-15734256b21e_ep0",
+      "playstore_us_7c9b2022-2c6f-4794-80d3-f90df8d2c484_ep0",
+      "playstore_us_dfffa932-bf42-4fd5-95a9-f915925493f7_ep0",
       "playstore_us_cba74328-7c78-4db2-9e06-c8b478518265_ep0",
-      "playstore_us_bd1afa26-2281-4093-a462-b9b6f1f4f0b5_ep0",
-      "playstore_us_736272c2-d1b6-4f2e-97b5-c980643ccb7d_ep0",
-      "playstore_us_7c9b2022-2c6f-4794-80d3-f90df8d2c484_ep0"
+      "playstore_us_280a18e3-28e3-448a-b222-34372b454ae6_ep0"
     ],
     "evidenceCount": 17
   },
   {
-    "id": "08079945-f15f-445e-8ebb-58697b808760",
+    "id": "aa0a78b1-b8d7-43a9-b39f-ffbe70ae8f28",
     "question": "Does Google Photos fail to understand the clues the user does provide?",
-    "answer": "Yes, in this sample the breakdown is attributed to the system's matching, not the user's memory, in a majority of cases: failure_stage is SEMANTIC_RETRIEVAL in 64/220 DIRECT_RETRIEVAL episodes and QUERY_UNDERSTANDING in 50/220, together 114/220 (52%) of DIRECT_RETRIEVAL episodes. Concrete examples include a literal-keyword mismatch (searching a bird's exact label returns photos of trains by a river instead, because the label also reads as a transportation term), a working synonym replacing one that stopped working (a word for an amplifier stops matching, but the more generic word for the device does), visual-attribute queries returning nothing (a query for a person in a particular clothing color returns no results), and a compound query returning zero results even though Google Photos had itself auto-generated a matching album with a thumbnail from that exact photo. This is reinforced by the 26 episodes noted in question 3 where the user reported no forgotten detail at all yet the search still failed, and several reviewers describe search as having gotten worse after a change to an AI-based search feature, though that before/after comparison is the user's own characterization rather than something this dataset can independently verify.",
-    "confidence": "HIGH",
+    "observation": "61/157 (38.9%) qualifying episodes are tagged observedFailure=NO_USEFUL_RESULTS -- the user provided some retrieval clue or action but reported no useful candidates. This is the single largest observed-failure category in the primary population.",
+    "interpretation": "This is the largest point where something breaks after the user has already provided a clue, but the data only shows the user-facing outcome (no useful results), not which internal step actually failed.",
+    "hypothesis": "possibleSystemExplanation tags appear on many of these episodes as unverified hypotheses -- indexing (64 taxonomy tags across the primary population), ranking (49), semantic_matching (28), query_interpretation (28), metadata_gap (26) -- any of these could explain the 38.9% figure, but none is confirmed by this evidence; only user interviews or engineering telemetry could distinguish them.",
+    "limitation": "possibleSystemExplanation is an inferred guess about Google's internals from the outside, grounded in nothing the user can actually observe -- it must never be read as 'Google Photos fails to understand clues X% of the time.' The honest answer to this question is: we see the outcome, not the cause.",
+    "confidence": "LOW",
     "supportingEpisodeIds": [
-      "playstore_us_c8c256d0-9440-4bd1-ae64-e1cbbb3104a4_ep1",
-      "playstore_us_638655a9-1c8c-4dd8-943f-bbf98ac518bc_ep0",
-      "playstore_us_3c709f6e-13b0-4c5f-bf3f-5a3b86d1e2d0_ep0",
-      "playstore_us_3c709f6e-13b0-4c5f-bf3f-5a3b86d1e2d0_ep1",
-      "playstore_us_e0e1f582-2cbb-4b94-9df1-d64bda876211_ep0",
-      "playstore_us_736272c2-d1b6-4f2e-97b5-c980643ccb7d_ep0",
-      "playstore_us_bd1afa26-2281-4093-a462-b9b6f1f4f0b5_ep0"
+      "playstore_us_af95884a-ef09-48f4-9ef7-9de4efbf7568_ep0",
+      "playstore_us_9bae19b0-2f3a-41a7-a22e-d54a09dfbbb7_ep0",
+      "playstore_us_c78446e3-b577-4963-84ee-6310f0bf013c_ep0",
+      "playstore_us_1819eb4d-8184-48e3-bc29-a5ef33db0203_ep0",
+      "playstore_us_1f18ea8d-b74b-46a1-a6c0-32553358e791_ep0"
     ],
-    "evidenceCount": 114
+    "evidenceCount": 61
   },
   {
-    "id": "5b18dba4-3942-4576-95b7-a95018643bb3",
+    "id": "6f0b1688-2e62-4315-9fc7-0950ad15ccd3",
     "question": "Are potentially relevant results difficult for the user to evaluate or recognize?",
-    "answer": "The RESULT_EVALUATION failure stage is recorded in 48/220 DIRECT_RETRIEVAL episodes (22%), so this is a substantial breakdown point, but the concrete quotes behind that tag describe a somewhat different problem than classic which-of-these-thumbnails-is-it ambiguity. Most of these episodes describe excessive volume and unpredictable placement -- needing to scroll 30+ minutes through thousands of photos, an edited photo's copy landing on an unrelated date, a newly saved photo appearing under a random past date instead of the current day, or archived vacation photos only partially resurfacing (about 7 of 300+ recovered) -- rather than seeing several visually similar candidates and being unable to tell them apart. That distinction is an inference from reading the quotes rather than something the dataset's fields state directly, so it should be treated as a hypothesis: results are hard to locate and confirm because of volume and misplacement, with less direct evidence here of genuine visual-recognition ambiguity among displayed candidates.",
-    "confidence": "MEDIUM",
+    "observation": "0/157 qualifying episodes are tagged observedFailure=TARGET_HARD_TO_RECOGNIZE (candidate results existed but the user couldn't confidently identify the right one). A related but distinct pattern, TARGET_HARD_TO_LOCATE (results may exist but are buried or require excessive scanning), appears in 22/157 (14.0%).",
+    "interpretation": "In this corpus, the dominant surfaced complaint is not finding candidates at all, or having to scan too much to find them -- not failing to recognize a correct result once it was seen.",
+    "hypothesis": "Insufficient evidence in the current dataset to say result-evaluation/recognition is a meaningful failure mode here; it may genuinely be rare, or users may simply not describe this specific moment in a public complaint even when it happens.",
+    "limitation": "Zero observed instances of one category is itself a finding to treat cautiously -- public complaints bias toward 'I couldn't find it at all' over the more subtle 'I found candidates but wasn't sure which one,' since the latter is a harder experience to put into words.",
+    "confidence": "LOW",
     "supportingEpisodeIds": [
-      "playstore_us_eaaf5390-af79-4350-9fa6-a0d1a1607010_ep0",
-      "playstore_us_09fa1b34-cbd7-4eca-ba12-f2c4ecd8de51_ep0",
-      "playstore_us_a7068bdc-1b96-4763-a540-805150887ad4_ep0",
-      "playstore_us_ce157c45-4371-4d8e-a2c1-3c68c23ef83c_ep0",
-      "playstore_us_af69923b-3140-4c9d-90f3-66ad0547587d_ep0"
+      "playstore_us_baae6c40-9512-4fd1-b632-33ef151faaed_ep0",
+      "playstore_us_b83d8437-28ca-4f9d-a453-36dd41556022_ep0",
+      "playstore_us_47c90ad3-7c20-4f90-8dfb-b06701b74502_ep0"
     ],
-    "evidenceCount": 48
+    "evidenceCount": 0
   },
   {
-    "id": "57752350-bf00-4e59-96f8-c8b9c880c2fc",
+    "id": "a55d44ba-7fe6-47ef-944d-b4f68c6cbf39",
     "question": "What workarounds do users fall back on after a search fails (browsing, asking someone, giving up)?",
-    "answer": "The dominant fallback is brute-force browsing: manual or timeline scrolling is the recorded workaround in 28/220 DIRECT_RETRIEVAL episodes (13%), followed by browsing albums or the timeline as a distinct workaround in 8/220, filtering by date in 5/220, and checking a different storage location such as the device gallery or a shared album in 6/220 combined. Trying a synonym (3/220) or searching by a different attribute, such as visible text instead of a description (2/220), are recorded but rare. Explicitly asking another person or contacting support appears in only 1/220 DIRECT_RETRIEVAL episode, and outright abandonment is the final outcome in 6/220 DIRECT_RETRIEVAL episodes. It's worth noting that the majority of NOT_FOUND episodes (157/220 DIRECT_RETRIEVAL) have no workaround recorded at all in this dataset -- the review or complaint simply ends at the failure -- so this likely undercounts what users eventually did, rather than showing that most people take no further action. By contrast, the 80 ADJACENT_RETRIEVAL episodes (a different, backup/sync-related class) skew even more toward giving up (13/80 explicit give-up), since those items were often technically inaccessible rather than just hard to find.",
+    "observation": "Among the 157 qualifying episodes, 42/157 (26.8%) name an explicit workaround action: 13 MANUAL_SCROLL, 7 TIMELINE_SCROLLING, 5 DATE_FILTERING, 2 explicit GIVE_UP, and single-digit counts for the rest (object search, external search, asking another person, etc.); the remaining 115/157 (73.2%) name none. Separately, taxonomy.observedFailure tags 26/157 (16.6%) ABANDONED_OR_NOT_FOUND and 11/157 (7.0%) SUCCESS_AFTER_BROWSING.",
+    "interpretation": "Manual scrolling/timeline browsing is the dominant named workaround when one is named at all, and abandonment (giving up, whether explicitly stated or just implied by an unresolved complaint) is more common than any single active workaround.",
+    "hypothesis": "If browsing/scrolling is the main fallback, a cheap improvement to chronological/visual browsing (not search) could capture real value even without improving search itself.",
+    "limitation": "The 73.2% 'no logged workaround' figure very likely undercounts real workaround behavior -- it means the complaint's text didn't describe a follow-up action, not that the user took none.",
     "confidence": "MEDIUM",
     "supportingEpisodeIds": [
-      "playstore_us_eaaf5390-af79-4350-9fa6-a0d1a1607010_ep0",
-      "playstore_us_23675ade-3874-4451-90ea-4eec0a8178c5_ep0",
-      "playstore_us_7c9b2022-2c6f-4794-80d3-f90df8d2c484_ep0",
-      "playstore_us_4b25d104-6a63-40db-8a6f-f79017b7e522_ep0",
-      "playstore_us_6467506e-0594-4cfe-b98c-9762a72c060e_ep0",
-      "playstore_us_a4eabc5f-5f05-407d-8831-ad9a278a4964_ep0",
-      "playstore_us_052e12c5-83d8-4e5d-ba53-f7fadc37bbe1_ep0"
+      "playstore_us_c4b71877-cf1f-4ef2-953f-dff811a0a78c_ep0",
+      "playstore_us_eca448db-d838-457c-9d46-9c7b0449fa32_ep0",
+      "playstore_us_ab1f0542-c81d-499c-af72-dae7bc59ded7_ep0",
+      "playstore_us_e46d6aba-29e5-44df-8ec4-645b2b356fd9_ep0",
+      "playstore_us_b2893852-e4ad-420a-a49f-b73247dda680_ep0"
     ],
-    "evidenceCount": 59
+    "evidenceCount": 42
   },
   {
-    "id": "a7c032d1-626e-47fe-9dbc-ccf45ab085ff",
+    "id": "caa8679d-1992-4de7-86b8-e0bfec9c3ba2",
     "question": "At which stage does retrieval most often break down (expressing memory, formulating a query, the system understanding it, relevant results surfacing, evaluating results, or recovering from failure)?",
-    "answer": "Across 220 DIRECT_RETRIEVAL episodes, the single largest failure_stage is SEMANTIC_RETRIEVAL at 64/220 (29%), followed closely by QUERY_UNDERSTANDING at 50/220 (23%) and RESULT_EVALUATION at 48/220 (22%); RECOVERY (not knowing where to look after being told an item was moved, archived, or auto-organized) accounts for 27/220 (12%), QUERY_FORMULATION for 10/220 (5%), and MEMORY_EXPRESSION -- being unable to even articulate what's being looked for -- is the rarest breakdown at 3/220 (1%); the remaining 18/220 (8%) had no failure (outcome NONE). Combining the two system-matching stages, 114/220 DIRECT_RETRIEVAL episodes (52%) break down before or at the point where the system interprets the query, more than double the volume attributed to evaluating results after they surface (48/220) or recovering from a known-relocated item (27/220). For contrast, all 80 ADJACENT_RETRIEVAL episodes are tagged RECOVERY by definition, since those are backup/sync/deletion complaints where the item was technically inaccessible rather than a memory-search failure -- that 80/80 figure should not be blended with the DIRECT_RETRIEVAL RECOVERY count above.",
+    "observation": "Ranked by frequency among the 157 qualifying episodes (taxonomy.observedFailure): NO_USEFUL_RESULTS 61 (38.9%), ABANDONED_OR_NOT_FOUND 26 (16.6%), TARGET_HARD_TO_LOCATE 22 (14.0%), SUCCESS_AFTER_REFORMULATION 17 (10.8%), NO_FAILURE_REPORTED 12 (7.6%), SUCCESS_AFTER_BROWSING 11 (7.0%), EXPRESSION_DIFFICULTY 5 (3.2%), PRODUCT_LOCATION_CONFUSION 2 (1.3%), REFINEMENT_FAILED 1 (0.6%).",
+    "interpretation": "The most common observed breakdown is 'provided a clue, got nothing useful back,' not 'couldn't express memory in the first place' -- EXPRESSION_DIFFICULTY is the smallest named category (3.2%), so in this corpus memory expression is rarely the stated bottleneck; getting a useful result back from a provided clue is.",
+    "hypothesis": "If EXPRESSION_DIFFICULTY is genuinely rare, effort aimed at helping users describe their memory may have less headroom than effort aimed at the retrieval step itself -- though see the limitation on possibleSystemExplanation above before treating 'the retrieval step' as a confirmed, specific target.",
+    "limitation": "These are observed user-facing outcomes (taxonomy.observedFailure), deliberately not mapped onto Google's internal pipeline stages (query understanding, semantic retrieval, result evaluation, etc.) -- that legacy mapping existed in an earlier pass of this analysis and is kept only as secondary/debug data because it asserted an internal mechanism this dataset cannot actually prove.",
     "confidence": "HIGH",
     "supportingEpisodeIds": [
-      "playstore_us_c8c256d0-9440-4bd1-ae64-e1cbbb3104a4_ep1",
-      "playstore_us_e0c3dbc6-bf1e-4a75-a4ef-a4cd60b9393d_ep0",
-      "playstore_us_2580df0f-fc97-4631-9442-482b94f27e59_ep0",
-      "playstore_us_eaaf5390-af79-4350-9fa6-a0d1a1607010_ep0",
-      "playstore_us_6467506e-0594-4cfe-b98c-9762a72c060e_ep0",
-      "playstore_us_e958f85e-e1c1-444f-bc2a-451db3bf0ede_ep0",
-      "playstore_us_a69ee60c-a7e0-41bc-a425-c40184c6e413_ep0"
+      "playstore_us_af95884a-ef09-48f4-9ef7-9de4efbf7568_ep0",
+      "playstore_us_9bae19b0-2f3a-41a7-a22e-d54a09dfbbb7_ep0",
+      "playstore_us_0f9ad393-91cc-45eb-bcc2-4882bfbae5f3_ep0",
+      "playstore_us_6dbbe3c7-21d6-4e60-9cab-a0321bcecade_ep0",
+      "playstore_us_38bd0bbc-d95f-40df-ac49-bc9d3df0e411_ep0"
     ],
-    "evidenceCount": 220
+    "evidenceCount": 61
   },
   {
-    "id": "a6c3fca4-3ae9-495e-b554-a61c27761bba",
+    "id": "f686008e-f417-4db3-95e2-ce3763f3e4fa",
     "question": "How do these behaviors differ across scenarios (travel, family, documents, screenshots, etc.)?",
-    "answer": "Among scenarios with enough DIRECT_RETRIEVAL episodes to compare, WORK (17 episodes) skews heavily toward system-matching failures -- SEMANTIC_RETRIEVAL in 9/17 and QUERY_UNDERSTANDING in 6/17, with zero RECOVERY-stage episodes -- suggesting that once a work photo is edited or organized, the described block is almost always the search not matching, not the user being lost in the app. FAMILY (22 episodes) also concentrates in SEMANTIC_RETRIEVAL (7/22) and QUERY_UNDERSTANDING (5/22) but includes emotionally weighted cases (deceased relatives, memorials) with unusually complete remembered detail (names, relationships, events). HOBBY (24 episodes) is in this sample dominated by a specific content type -- app-generated collages, animations, and stylized-photo albums the user can't relocate -- and skews toward QUERY_UNDERSTANDING (9/24) and RECOVERY (6/24) rather than semantic mismatch. TRAVEL is a small sample (7 DIRECT_RETRIEVAL episodes) spread thinly across RESULT_EVALUATION, SEMANTIC_RETRIEVAL, QUERY_UNDERSTANDING and QUERY_FORMULATION (roughly 1-2 each), and typically involves large photo volumes (hundreds of photos from one trip) with only partial recovery. DOCUMENT (4 episodes) and SCREENSHOT (5 episodes) scenarios are too thin in this sample to characterize a distinct pattern with confidence, beyond the general observation that text-in-image search worked well the times it was tried. The catch-all OTHER scenario (100 episodes) roughly mirrors the overall DIRECT_RETRIEVAL distribution reported in question 9 and does not represent a single coherent use case, so it should not be read as its own scenario pattern.",
-    "confidence": "MEDIUM",
+    "observation": "Scenario labeling is dominated by OTHER (63/157, 40.1%) and UNKNOWN (28/157, 17.8%) -- together 58.0% of the primary population has no specific scenario. Among labeled scenarios, FAMILY (16), FRIENDS (10), and WORK (10) are the largest. Within FAMILY (n=16), NO_USEFUL_RESULTS is 8/16 (50%); within WORK (n=10), NO_USEFUL_RESULTS is 7/10 (70%); within HOBBY (n=8), SUCCESS_AFTER_BROWSING is 3/8, comparatively more common than in other scenarios.",
+    "interpretation": "Where a scenario is identifiable, NO_USEFUL_RESULTS looks consistently dominant across FAMILY and WORK specifically, suggesting the pattern isn't limited to one context; HOBBY may lean more toward successful manual browsing, though its N is small.",
+    "hypothesis": "Candidate behavioral pattern worth testing in interviews: does scenario (family vs. work vs. hobby) change which workaround a user reaches for, independent of the underlying failure mode? HOBBY's browsing-success tilt is the single most interesting signal here, not a confirmed pattern.",
+    "limitation": "58.0% OTHER/UNKNOWN scenario coverage severely limits this answer -- most within-scenario counts are small enough (n=8-16) that a single episode shifts the percentage by 6-12 points; none of this should be read as a stable scenario-level pattern without primary research, and none of these groups should be treated as a target segment.",
+    "confidence": "LOW",
     "supportingEpisodeIds": [
-      "playstore_us_974a51b8-852f-4f59-a369-29a49449fec3_ep0",
-      "playstore_us_6f79da39-5b67-4de0-832a-646b45d2546f_ep0",
-      "playstore_us_6e4bb4de-a9dc-42b7-aa74-d731c174bdb0_ep0",
-      "playstore_us_29386691-8411-4d92-ae19-eb98897bdd93_ep0",
-      "playstore_us_c1e3fcf2-a0f9-4f47-9896-a4d79be4416d_ep2",
-      "playstore_us_bda6d2e2-8e37-42a8-b58c-586fb9e52d31_ep0",
-      "playstore_us_af69923b-3140-4c9d-90f3-66ad0547587d_ep0",
-      "playstore_us_ce157c45-4371-4d8e-a2c1-3c68c23ef83c_ep0",
-      "playstore_us_e7f24415-daf4-4ba9-b08a-a038775e408d_ep0",
-      "playstore_us_cba74328-7c78-4db2-9e06-c8b478518265_ep0"
+      "playstore_us_b7c27524-875f-49ed-b721-e0cd8c99d5e6_ep0",
+      "playstore_us_f3c15b3e-56b0-4f98-be38-96079cb190b5_ep0",
+      "playstore_us_07a92595-bc3c-457f-a481-77e08fbb51f5_ep0",
+      "playstore_us_38bd0bbc-d95f-40df-ac49-bc9d3df0e411_ep0",
+      "playstore_us_6e4bb4de-a9dc-42b7-aa74-d731c174bdb0_ep0"
     ],
-    "evidenceCount": 220
+    "evidenceCount": 16
   }
 ]

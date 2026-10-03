@@ -9,16 +9,17 @@ export function isDirectRetrieval(e: RetrievalEpisode): boolean {
   return e.relevanceClass !== "ADJACENT_RETRIEVAL";
 }
 
-/** The primary analysis population for Part 1 (spec: isolate
- * VAGUE_MEMORY_RETRIEVAL with strong-enough evidence). Episodes outside this
- * -- other scope classes, or thin evidence -- are kept as contrast/excluded
- * data, never deleted, never headlined as a retrieval-failure finding. An
- * episode with no taxonomy yet (not classified, or ADJACENT_RETRIEVAL which
- * the classifier skips) does not qualify. */
+/** The primary analysis population for Part 1: every episode taxonomy has
+ * classified as VAGUE_MEMORY_RETRIEVAL. Other scope classes (precise-search
+ * failure, organization/navigation, content-availability/sync, general
+ * complaint, unclear) are kept as labeled contrast data, never deleted,
+ * never headlined as a retrieval-failure finding. evidenceStrength is NOT a
+ * gate here -- it's a data-quality dimension to report *within* the primary
+ * population (see taxonomyStats.evidenceStrengthDistribution), not a filter
+ * that silently shrinks it. An episode with no taxonomy yet (not classified,
+ * or ADJACENT_RETRIEVAL, which the classifier skips) does not qualify. */
 export function isPrimaryAnalysis(e: RetrievalEpisode): boolean {
-  const t = e.taxonomy;
-  if (!t) return false;
-  return t.scopeClass === "VAGUE_MEMORY_RETRIEVAL" && (t.evidenceStrength === "A" || t.evidenceStrength === "B");
+  return e.taxonomy?.scopeClass === "VAGUE_MEMORY_RETRIEVAL";
 }
 
 export function countBy<T extends string>(episodes: RetrievalEpisode[], pick: (e: RetrievalEpisode) => T): Record<string, number> {

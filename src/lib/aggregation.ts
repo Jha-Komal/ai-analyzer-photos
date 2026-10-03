@@ -31,10 +31,11 @@ export type DiscoveryStats = {
 export type TaxonomyStats = {
   // Denominator context: how many of the DIRECT_RETRIEVAL episodes have been
   // run through the taxonomy classifier, and how many of those qualify for
-  // the primary analysis population (scopeClass=VAGUE_MEMORY_RETRIEVAL,
-  // evidenceStrength A/B). Every distribution below is computed ONLY over
-  // the primary population -- always read percentages against
-  // primaryAnalysisCount, never classifiedEpisodeCount or totalEpisodes.
+  // the primary analysis population (scopeClass=VAGUE_MEMORY_RETRIEVAL --
+  // evidenceStrength is NOT a gate, see evidenceStrengthDistribution for the
+  // quality breakdown within this population). Every distribution below is
+  // computed ONLY over the primary population -- always read percentages
+  // against primaryAnalysisCount, never classifiedEpisodeCount or totalEpisodes.
   classifiedEpisodeCount: number;
   primaryAnalysisCount: number;
 

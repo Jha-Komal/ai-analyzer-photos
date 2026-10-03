@@ -1,22 +1,26 @@
-import { FileText, MessageSquareText, Search, AlertTriangle, Target } from "lucide-react";
+import { FileText, MessageSquareText, Search, AlertTriangle, Target, CircleSlash } from "lucide-react";
 import { TopNav } from "@/components/layout/TopNav";
 import { MetricCard } from "@/components/shared/MetricCard";
 import { Card, CardContent } from "@/components/ui/card";
 import { DistributionBarChart } from "@/components/charts/DistributionBarChart";
 import { RelevancePieChart } from "@/components/charts/RelevancePieChart";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { loadDocuments, loadRelevant, loadEpisodes } from "@/lib/data";
+import { loadDocuments, loadRelevant, loadEpisodesWithTaxonomy } from "@/lib/data";
 import { computeDiscoveryStats } from "@/lib/aggregation";
 
 export default async function DashboardPage() {
-  const [documents, relevant, allEpisodes] = await Promise.all([loadDocuments(), loadRelevant(), loadEpisodes()]);
+  const [documents, relevant, allEpisodes] = await Promise.all([loadDocuments(), loadRelevant(), loadEpisodesWithTaxonomy()]);
   // computeDiscoveryStats splits DIRECT_RETRIEVAL vs ADJACENT_RETRIEVAL
-  // internally -- scenario/failure/outcome/memory breakdowns are
-  // retrieval-specific and never include adjacent (backup/sync) episodes.
+  // internally -- scenario/outcome/memory breakdowns are retrieval-specific
+  // and never include adjacent (backup/sync) episodes. Within
+  // DIRECT_RETRIEVAL, taxonomyStats further isolates the primary analysis
+  // population (scopeClass=VAGUE_MEMORY_RETRIEVAL) from everything else.
   const stats = computeDiscoveryStats(documents, relevant, allEpisodes);
   const adjacentEpisodeCount = stats.adjacentEpisodeCount;
 
   const directCount = stats.relevanceClassDistribution.DIRECT_RETRIEVAL ?? 0;
+  const qualifiedVagueMemoryCount = stats.taxonomyStats.primaryAnalysisCount;
+  const excludedContrastCount = directCount - qualifiedVagueMemoryCount;
 
   return (
     <>
@@ -50,39 +54,61 @@ export default async function DashboardPage() {
           <>
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
               <MetricCard label="Documents scanned" value={stats.totalDocuments.toLocaleString()} icon={FileText} />
-              <MetricCard label="Direct retrieval" value={directCount.toLocaleString()} icon={Search} tone="positive" />
+              <MetricCard label="Legacy retrieval episodes" value={directCount.toLocaleString()} icon={MessageSquareText} />
               <MetricCard
-                label="Adjacent (not retrieval)"
+                label="Qualified vague-memory episodes"
+                value={qualifiedVagueMemoryCount.toLocaleString()}
+                icon={Search}
+                tone="positive"
+              />
+              <MetricCard
+                label="Excluded/contrast episodes"
+                value={excludedContrastCount.toLocaleString()}
+                icon={CircleSlash}
+              />
+              <MetricCard
+                label="Adjacent (backup/sync, not retrieval)"
                 value={(stats.relevanceClassDistribution.ADJACENT_RETRIEVAL ?? 0).toLocaleString()}
                 icon={AlertTriangle}
                 tone="negative"
               />
-              <MetricCard
-                label="Retrieval episodes"
-                value={stats.totalEpisodes.toLocaleString()}
-                icon={MessageSquareText}
-              />
-              <MetricCard
-                label="+ adjacent episodes (contrast)"
-                value={adjacentEpisodeCount.toLocaleString()}
-                icon={AlertTriangle}
-              />
             </div>
             <p className="text-xs text-muted">
-              {stats.totalEpisodes.toLocaleString()} DIRECT_RETRIEVAL + {adjacentEpisodeCount.toLocaleString()}{" "}
-              ADJACENT_RETRIEVAL = {allEpisodes.length.toLocaleString()} total episodes feed Insights and the
-              Research Report (each clearly tagged by relevance class). Memory Matrix, Failure Analysis, and the
-              charts below use DIRECT_RETRIEVAL only, since adjacent episodes describe backup/sync/deletion
-              problems, not retrieval failures.
+              {directCount.toLocaleString()} legacy DIRECT_RETRIEVAL episodes were run through a taxonomy
+              classifier; {qualifiedVagueMemoryCount.toLocaleString()} qualify as VAGUE_MEMORY_RETRIEVAL and are
+              the primary analysis population for every finding below, in Insights, and in the Research Report.
+              The other {excludedContrastCount.toLocaleString()} (precise-search-failure, organization/navigation,
+              content-availability/sync, general complaint, or unclear) plus {adjacentEpisodeCount.toLocaleString()}{" "}
+              ADJACENT_RETRIEVAL episodes are kept only as labeled contrast data, never folded into a
+              retrieval-failure statistic.
             </p>
 
             <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
               <RelevancePieChart byClassification={stats.relevanceClassDistribution} />
               <DistributionBarChart title="Scenario Distribution" data={stats.scenarioDistribution} color="var(--series-orange)" />
-              <DistributionBarChart title="Failure Stage Distribution" data={stats.failureStageDistribution} color="var(--negative)" />
+              <DistributionBarChart
+                title="Observed Failure Distribution (qualified vague-memory episodes)"
+                data={stats.taxonomyStats.observedFailureDistribution}
+                color="var(--negative)"
+              />
               <DistributionBarChart title="Outcome Distribution" data={stats.outcomeDistribution} color="var(--positive)" />
               <DistributionBarChart title="Memory Dimensions Remembered" data={stats.memoryDimensionFrequency} color="var(--series-yellow)" />
             </div>
+
+            <details className="rounded-2xl border border-border bg-card p-4">
+              <summary className="cursor-pointer text-sm font-medium text-muted">
+                Legacy failure stage (debug/traceability only, {directCount.toLocaleString()} DIRECT_RETRIEVAL
+                episodes, not the headline metric)
+              </summary>
+              <p className="mt-3 text-xs text-muted">
+                Observed failure stages above describe what users reported happening. Legacy failure stage
+                (including QUERY_UNDERSTANDING, SEMANTIC_RETRIEVAL, RESULT_EVALUATION) describes an earlier,
+                more speculative labeling of Google&rsquo;s internal mechanism and is not proven fact.
+              </p>
+              <div className="mt-3">
+                <DistributionBarChart title="Failure Stage Distribution (legacy)" data={stats.failureStageDistribution} color="var(--muted)" />
+              </div>
+            </details>
 
             <Card>
               <CardContent className="pt-5 text-sm text-muted">
@@ -95,8 +121,8 @@ export default async function DashboardPage() {
                 <a href="/research-report" className="font-medium text-primary">
                   Research Report
                 </a>{" "}
-                (ranked, evidence-backed opportunity hypotheses) -- generate those once enough episodes are
-                extracted.
+                (competing research hypotheses, not ranked -- no target segment or solution is chosen yet) --
+                generate those once enough episodes are extracted.
               </CardContent>
             </Card>
           </>
