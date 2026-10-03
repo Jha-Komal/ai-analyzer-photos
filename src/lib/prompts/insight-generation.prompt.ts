@@ -1,5 +1,5 @@
 import type { RetrievalEpisode } from "@/types/episode";
-import { isPrimaryAnalysis } from "../statistics/episodeStats";
+import { deriveObservedBreakdown, isPrimaryAnalysis } from "../statistics/episodeStats";
 
 function toInputRecord(e: RetrievalEpisode) {
   return {
@@ -22,6 +22,10 @@ function toInputRecord(e: RetrievalEpisode) {
           memory_specificity: e.taxonomy.memorySpecificity,
           memory_clues: e.taxonomy.memoryClues,
           observed_failure: e.taxonomy.observedFailure,
+          // Breakdown-only view (WHERE it broke) -- see the note in RULES
+          // below. The top-level `outcome` field above is the separate
+          // "what eventually happened" finding.
+          observed_breakdown: deriveObservedBreakdown(e),
           evidence_strength: e.taxonomy.evidenceStrength,
         }
       : null,
@@ -57,7 +61,8 @@ RULES
 - Ground every answer in the episodes provided, but keep every text field clean, readable prose for a PM audience -- do NOT inline raw episode_id strings (e.g. "playstore_us_...ep0") into any text field. Put the episode_ids that support each answer ONLY in the separate "supportingEpisodeIds" field. You may still reference concrete details from an episode (a quote, a scenario, a number) without naming its ID.
 - Report prevalence as "count / denominator / %", and the denominator must be primary_episodes.length unless you are explicitly in a labeled contrast statement -- never a bare percentage.
 - Do not generalize to "Google Photos users" as a whole, and do not state a pattern as a population fact (e.g. never "users primarily remember X" -- instead "X appeared frequently among the qualifying episodes in this dataset").
-- Never present taxonomy.observed_failure or failure_stage_legacy as a proven technical cause inside Google Photos -- both describe what the user reported, not Google's internals.
+- Never present taxonomy.observed_failure, taxonomy.observed_breakdown, or failure_stage_legacy as a proven technical cause inside Google Photos -- these describe what the user reported, not Google's internals.
+- taxonomy.observed_breakdown (WHERE retrieval broke: EXPRESSION_DIFFICULTY, NO_USEFUL_RESULTS, TARGET_HARD_TO_LOCATE, TARGET_HARD_TO_RECOGNIZE, REFINEMENT_DIFFICULTY, PRODUCT_LOCATION_CONFUSION, or UNKNOWN_BREAKDOWN) is a different thing from "outcome" (WHAT eventually happened: FOUND_DIRECTLY, FOUND_AFTER_REFORMULATION, FOUND_AFTER_WORKAROUND, NOT_FOUND, ABANDONED, UNKNOWN). Never merge the two into one ranked list or one statistic -- an episode can correctly have observed_breakdown=NO_USEFUL_RESULTS and outcome=FOUND_AFTER_REFORMULATION at the same time. UNKNOWN_BREAKDOWN is an expected, honest value (the episode's taxonomy.observed_failure was itself an outcome-flavored value with no recorded breakdown type) -- report it plainly, don't guess a specific breakdown for it.
 - Keep observation, interpretation, and hypothesis genuinely separate layers -- do not let an interpreted claim leak into "observation." A fact belongs in observation ONLY if it is a count/denominator/% or a directly-quoted/paraphrased detail -- no "may," "suggests," "appears to," or any reasoning word belongs there. Example of the required separation:
   observation: "58.2% of qualifying episodes include contextual/situational memory (clue type 'context' or 'activity')."
   interpretation: "Situational context may remain accessible when precise details fade."

@@ -1,6 +1,6 @@
 import type { RawDocument } from "@/types/document";
 import type { RetrievalEpisode } from "@/types/episode";
-import { countBy, crossTab, crossTabMultiRow, isDirectRetrieval, isPrimaryAnalysis } from "./statistics/episodeStats";
+import { countBy, crossTab, crossTabMultiRow, deriveObservedBreakdown, isDirectRetrieval, isPrimaryAnalysis } from "./statistics/episodeStats";
 
 export type DiscoveryStats = {
   totalDocuments: number;
@@ -16,7 +16,7 @@ export type DiscoveryStats = {
   targetTypeDistribution: Record<string, number>;
   outcomeDistribution: Record<string, number>;
   // Legacy/internal-hypothesis stage -- kept for traceability only. Do not
-  // headline this; see taxonomyStats.observedFailureDistribution instead.
+  // headline this; see taxonomyStats.observedBreakdownDistribution instead.
   failureStageDistribution: Record<string, number>;
   workaroundDistribution: Record<string, number>;
   forgottenCategoryFrequency: Record<string, number>;
@@ -44,7 +44,13 @@ export type TaxonomyStats = {
   // Computed over the primary population only.
   memorySpecificityDistribution: Record<string, number>;
   memoryClueFrequency: Record<string, number>;
+  // Raw taxonomy.observedFailure distribution -- mixes breakdown types with
+  // outcome/resolution states. Kept for traceability/debugging only; use
+  // observedBreakdownDistribution for any headline chart or report section.
   observedFailureDistribution: Record<string, number>;
+  // Breakdown-only view (WHERE retrieval broke, not what eventually
+  // happened) -- see deriveObservedBreakdown(). This is the one to headline.
+  observedBreakdownDistribution: Record<string, number>;
   evidenceStrengthDistribution: Record<string, number>;
 
   // Cross-tabs, primary population only. Co-occurrence, not causation.
@@ -113,6 +119,7 @@ export function computeDiscoveryStats(
     memorySpecificityDistribution: countBy(primary, (e) => e.taxonomy!.memorySpecificity),
     memoryClueFrequency,
     observedFailureDistribution: countBy(primary, (e) => e.taxonomy!.observedFailure),
+    observedBreakdownDistribution: countBy(primary, deriveObservedBreakdown),
     evidenceStrengthDistribution: countBy(primary, (e) => e.taxonomy!.evidenceStrength),
 
     memoryClueByObservedFailure: crossTabMultiRow(primary, (e) => e.taxonomy?.memoryClues ?? [], (e) => e.taxonomy!.observedFailure),

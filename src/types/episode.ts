@@ -240,3 +240,18 @@ export type EpisodeTaxonomy = {
   model: string;
   processedAt: string;
 };
+
+/** Derived (computed, never stored) from ObservedFailure -- isolates WHERE
+ * retrieval broke down from WHAT eventually happened. ObservedFailure mixes
+ * breakdown types (EXPRESSION_DIFFICULTY, NO_USEFUL_RESULTS, ...) with
+ * outcome/resolution states (SUCCESS_AFTER_REFORMULATION,
+ * ABANDONED_OR_NOT_FOUND, ...) -- the latter belong in Outcome, not here.
+ * See deriveObservedBreakdown() in lib/statistics/episodeStats.ts. */
+export type ObservedBreakdown =
+  | "EXPRESSION_DIFFICULTY"
+  | "NO_USEFUL_RESULTS"
+  | "TARGET_HARD_TO_LOCATE"
+  | "TARGET_HARD_TO_RECOGNIZE"
+  | "REFINEMENT_DIFFICULTY"
+  | "PRODUCT_LOCATION_CONFUSION"
+  | "UNKNOWN_BREAKDOWN";

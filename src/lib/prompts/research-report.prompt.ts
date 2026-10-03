@@ -1,7 +1,7 @@
 import type { DiscoveryStats } from "../aggregation";
 import type { RetrievalEpisode } from "@/types/episode";
 import { DISCOVERY_QUESTIONS } from "../constants";
-import { isPrimaryAnalysis } from "../statistics/episodeStats";
+import { deriveObservedBreakdown, isPrimaryAnalysis } from "../statistics/episodeStats";
 
 function toInputRecord(e: RetrievalEpisode) {
   return {
@@ -26,6 +26,12 @@ function toInputRecord(e: RetrievalEpisode) {
           memory_specificity: e.taxonomy.memorySpecificity,
           memory_clues: e.taxonomy.memoryClues,
           observed_failure: e.taxonomy.observedFailure,
+          // Breakdown-only view of observed_failure (WHERE retrieval broke),
+          // with outcome-flavored values (SUCCESS_AFTER_*, ABANDONED_OR_NOT_FOUND,
+          // NO_FAILURE_REPORTED) collapsed to UNKNOWN_BREAKDOWN. Use this field,
+          // not observed_failure, for any breakdown-type finding -- use the
+          // separate top-level `outcome` field for resolution/outcome findings.
+          observed_breakdown: deriveObservedBreakdown(e),
           possible_system_explanation: e.taxonomy.possibleSystemExplanation,
           evidence_strength: e.taxonomy.evidenceStrength,
           rationale: e.taxonomy.rationale,
@@ -64,12 +70,17 @@ You will receive structured episodes extracted from public Google Photos reviews
 
 PRIMARY vs CONTRAST POPULATION -- this is the main grouping for the whole report:
 
-- primary_episodes: taxonomy.scope_class = VAGUE_MEMORY_RETRIEVAL AND taxonomy.evidence_strength in [A, B]. This is the ONLY population every retrieval-failure finding, percentage, and headline chart should be quantified against. aggregated_statistics.taxonomyStats carries the exact, full-corpus counts for this population; primary_episodes in the DATASET below is a capped sample for qualitative grounding only.
+- primary_episodes: taxonomy.scope_class = VAGUE_MEMORY_RETRIEVAL. This is the ONLY population every retrieval-failure finding, percentage, and headline chart should be quantified against -- evidence_strength (A/B/C/D) is NOT a filter on this population, it's a data-quality signal you may cite within it (see aggregated_statistics.taxonomyStats.evidenceStrengthDistribution). aggregated_statistics.taxonomyStats carries the exact, full-corpus counts for this population; primary_episodes in the DATASET below is a capped sample for qualitative grounding only.
 - contrast_episodes: everything else -- other scope classes (PRECISE_SEARCH_FAILURE: user had a precise target but search still failed; ORGANIZATION_OR_NAVIGATION: album/folder/navigation problem; CONTENT_AVAILABILITY_OR_SYNC: backup/sync/deletion, see adjacent_cause; GENERAL_SEARCH_COMPLAINT: not enough journey evidence; UNCLEAR), weaker evidence (C/D), or taxonomy: null. Include these ONLY as clearly-labeled contrast evidence -- e.g. a subsection contrasting "what breaks for vague-memory retrieval" vs. "what breaks when the real problem is organization/navigation or content availability." NEVER fold a contrast_episodes count into a primary_episodes percentage, and never let a "count/denominator" quantification silently mix the two.
 
 Within that, relevance_class (DIRECT_RETRIEVAL vs ADJACENT_RETRIEVAL) still matters as a secondary tag -- ADJACENT_RETRIEVAL episodes always land in contrast_episodes. NOT_RELEVANT/UNCERTAIN documents were excluded before episode extraction entirely (never became episodes), but are still counted in aggregated_statistics.relevanceClassDistribution for data-quality reporting.
 
-Treat taxonomy.observed_failure as the headline failure classification. failure_stage_legacy (QUERY_FORMULATION, QUERY_UNDERSTANDING, SEMANTIC_RETRIEVAL, etc.) is kept on each record only for traceability/debugging -- it is an earlier, more speculative internal-cause labeling and must never be presented as a proven technical cause. Likewise taxonomy.possible_system_explanation is a hypothesis about Google's internals, never an observed fact -- always label it "possible system explanation -- inferred from user evidence, not directly observed" wherever it appears.
+taxonomy.observed_failure mixes two different things: WHERE retrieval broke down (a breakdown type) and WHAT eventually happened (an outcome/resolution state). Keep these separate throughout the report:
+- taxonomy.observed_breakdown is the breakdown-only view (EXPRESSION_DIFFICULTY, NO_USEFUL_RESULTS, TARGET_HARD_TO_LOCATE, TARGET_HARD_TO_RECOGNIZE, REFINEMENT_DIFFICULTY, PRODUCT_LOCATION_CONFUSION, or UNKNOWN_BREAKDOWN) -- use this, never raw observed_failure, for any "where it broke" finding.
+- the top-level "outcome" field (FOUND_DIRECTLY, FOUND_AFTER_REFORMULATION, FOUND_AFTER_WORKAROUND, NOT_FOUND, ABANDONED, UNKNOWN) is the separate "what eventually happened" finding. Never merge the two into one chart or one ranked list.
+raw observed_failure is kept on each record only for traceability -- do not headline it directly.
+
+failure_stage_legacy (QUERY_FORMULATION, QUERY_UNDERSTANDING, SEMANTIC_RETRIEVAL, etc.) is kept on each record only for traceability/debugging -- it is an earlier, more speculative internal-cause labeling and must never be presented as a proven technical cause. Likewise taxonomy.possible_system_explanation is a hypothesis about Google's internals, never an observed fact -- always label it "possible system explanation -- inferred from user evidence, not directly observed" wherever it appears.
 
 DATASET:
 ${JSON.stringify(dataset, null, 2)}
@@ -157,26 +168,30 @@ ${DISCOVERY_QUESTIONS.map((q, i) => `Q${i + 1}. ${q}`).join("\n\n")}
 Answer every question against primary_episodes only (state the denominator as aggregated_statistics.taxonomyStats.primaryAnalysisCount). For each question report: the pattern found, count/denominator/%, evidence episode_ids, affected scenarios, confidence (HIGH/MEDIUM/LOW). If the dataset can't answer it, say "Insufficient evidence in the current dataset."
 
 ==================================================
-STEP 3 -- OBSERVED-FAILURE DECOMPOSITION
-=========================================
+STEP 3 -- OBSERVED RETRIEVAL BREAKDOWN (NOT OUTCOME)
+=======================================================
 
-Using aggregated_statistics.taxonomyStats.observedFailureDistribution (primary_episodes only) as the headline, report count/denominator/%, representative evidence, which scenarios/candidate behavioral patterns it concentrates in, and confidence for each of: EXPRESSION_DIFFICULTY, NO_USEFUL_RESULTS, TARGET_HARD_TO_LOCATE, TARGET_HARD_TO_RECOGNIZE, REFINEMENT_FAILED, PRODUCT_LOCATION_CONFUSION, SUCCESS_AFTER_REFORMULATION, SUCCESS_AFTER_BROWSING, ABANDONED_OR_NOT_FOUND, NO_FAILURE_REPORTED, UNKNOWN.
+Using aggregated_statistics.taxonomyStats.observedBreakdownDistribution (primary_episodes only) as the headline, report count/denominator/%, representative evidence, which scenarios/candidate behavioral patterns it concentrates in, and confidence for each of exactly these 7 breakdown types: EXPRESSION_DIFFICULTY, NO_USEFUL_RESULTS, TARGET_HARD_TO_LOCATE, TARGET_HARD_TO_RECOGNIZE, REFINEMENT_DIFFICULTY, PRODUCT_LOCATION_CONFUSION, UNKNOWN_BREAKDOWN.
+
+Do NOT include SUCCESS_AFTER_REFORMULATION, SUCCESS_AFTER_BROWSING, ABANDONED_OR_NOT_FOUND, or NO_FAILURE_REPORTED in this step -- those are outcome/resolution states, not breakdown types, and belong in a separate Outcome Distribution finding (aggregated_statistics.outcomeDistribution / each episode's "outcome" field: FOUND_DIRECTLY, FOUND_AFTER_REFORMULATION, FOUND_AFTER_WORKAROUND, NOT_FOUND, ABANDONED, UNKNOWN). An episode can correctly show breakdown=NO_USEFUL_RESULTS and outcome=FOUND_AFTER_REFORMULATION at the same time -- that is not a contradiction, report both.
+
+UNKNOWN_BREAKDOWN is expected and should be reported plainly, not explained away -- it means the episode's taxonomy.observed_failure was itself an outcome-flavored value (no breakdown type was ever recorded for it), not a gap to fill by guessing. Do not infer a specific breakdown type for an UNKNOWN_BREAKDOWN episode from anything else in the record.
 
 Do NOT headline failure_stage_legacy or its values (MEMORY_EXPRESSION, QUERY_FORMULATION, QUERY_UNDERSTANDING, SEMANTIC_RETRIEVAL, RESULT_EVALUATION, RECOVERY) as if they were a proven internal mechanism -- QUERY_UNDERSTANDING, SEMANTIC_RETRIEVAL, and RESULT_EVALUATION in particular describe a hypothesis about Google's internals or an unverified inference about the user's experience, not something the user reported observing. These three may appear only in a secondary/debug paragraph, or under possible_system_explanation explicitly labeled as a hypothesis. You may add one short secondary paragraph cross-referencing aggregated_statistics.failureStageDistribution for traceability, explicitly labeled "legacy/internal-hypothesis labeling, not the headline finding."
 
-End this step with the exact sentence: "Observed failure stages describe what users reported happening. They do not identify Google's internal technical cause."
+End this step with the exact sentence: "Observed retrieval breakdown describes where users reported getting stuck, separate from what eventually happened. It does not identify Google's internal technical cause."
 
 ==================================================
 STEP 4 -- RECURRING BEHAVIORAL CHAINS
 ======================================
 
-Find repeated sequences (e.g. SEARCH -> REFORMULATE -> MANUAL_SCROLL -> GIVE_UP) within primary_episodes. Derive the actual chains from search_journey data. For each: chain, supporting episode count, affected scenarios, typical taxonomy.observed_failure, typical workaround, typical outcome, confidence.
+Find repeated sequences (e.g. SEARCH -> REFORMULATE -> MANUAL_SCROLL -> GIVE_UP) within primary_episodes. Derive the actual chains from search_journey data. For each: chain, supporting episode count, affected scenarios, typical taxonomy.observed_breakdown, typical workaround, typical outcome, confidence. (Breakdown and outcome stay two separate columns here too -- never merge them into one label.)
 
 ==================================================
-STEP 5 -- SCENARIO x OBSERVED-FAILURE MATRIX
-=============================================
+STEP 5 -- SCENARIO x OBSERVED-BREAKDOWN MATRIX
+=================================================
 
-Primary_episodes only. Rows: scenario categories. Columns: taxonomy.observed_failure values. For each relevant intersection rate EVIDENCE_VOLUME, WORKAROUND_FRICTION, and EVIDENCE_CONFIDENCE as HIGH/MEDIUM/LOW/INSUFFICIENT.
+Primary_episodes only. Rows: scenario categories. Columns: the 7 taxonomy.observed_breakdown values (EXPRESSION_DIFFICULTY, NO_USEFUL_RESULTS, TARGET_HARD_TO_LOCATE, TARGET_HARD_TO_RECOGNIZE, REFINEMENT_DIFFICULTY, PRODUCT_LOCATION_CONFUSION, UNKNOWN_BREAKDOWN) -- not outcome states. For each relevant intersection rate EVIDENCE_VOLUME, WORKAROUND_FRICTION, and EVIDENCE_CONFIDENCE as HIGH/MEDIUM/LOW/INSUFFICIENT.
 
 ==================================================
 STEP 6 -- COMPETING RESEARCH HYPOTHESES (NO RANKING, NO WINNER)
@@ -257,9 +272,9 @@ Return sections in this order:
 1. Executive summary (do not name a leading hypothesis or a target segment here either)
 2. Dataset quality and limitations
 3. Answers to the discovery questions
-4. Observed-failure decomposition
+4. Observed retrieval breakdown (separate from outcome)
 5. Recurring behavioral chains
-6. Scenario x observed-failure matrix
+6. Scenario x observed-breakdown matrix
 7. Competing research hypotheses (Hypothesis A/B/C..., not ranked, no winner declared)
 8. Contradictory evidence
 9. Known vs inferred vs unknown
@@ -267,7 +282,7 @@ Return sections in this order:
 11. Candidate behavioral patterns to validate next
 12. Limitations
 
-FINAL CHECK BEFORE ANSWERING -- confirm internally that: no feature has been proposed; no opportunity ranking, priority tier (P1/P2/P3), or "highest opportunity" language appears anywhere; all percentages include denominators and are computed over primary_episodes (never a bare percentage, never a denominator that silently mixes primary and contrast); candidate behavioral patterns are evidence-based, not invented demographics, and none is called a "target segment"; contradictory evidence is included; competing hypotheses each have counter-evidence, an alternative explanation, and are not ranked, lettered by priority, or declared a winner; no final target segment or persona is selected; no solution is recommended; the limitations block is present verbatim.
+FINAL CHECK BEFORE ANSWERING -- confirm internally that: no feature has been proposed; no opportunity ranking, priority tier (P1/P2/P3), or "highest opportunity" language appears anywhere; all percentages include denominators and are computed over primary_episodes (never a bare percentage, never a denominator that silently mixes primary and contrast); the observed retrieval breakdown (Step 3) never includes SUCCESS_AFTER_REFORMULATION, SUCCESS_AFTER_BROWSING, ABANDONED_OR_NOT_FOUND, or NO_FAILURE_REPORTED -- those stay in Outcome Distribution, reported separately; UNKNOWN_BREAKDOWN is reported as-is, not explained away; candidate behavioral patterns are evidence-based, not invented demographics, and none is called a "target segment"; contradictory evidence is included; competing hypotheses each have counter-evidence, an alternative explanation, and are not ranked, lettered by priority, or declared a winner; no final target segment or persona is selected; no solution is recommended; the limitations block is present verbatim.
 
-Required reasoning path: BUSINESS METRIC -> EVIDENCE -> BEHAVIOR -> OBSERVED FAILURE -> COMPETING HYPOTHESES -> PRIMARY RESEARCH. Do not proceed to solution design, and do not collapse the competing hypotheses into one chosen direction.`;
+Required reasoning path: BUSINESS METRIC -> EVIDENCE -> BEHAVIOR -> OBSERVED BREAKDOWN -> OUTCOME -> COMPETING HYPOTHESES -> PRIMARY RESEARCH. Do not proceed to solution design, and do not collapse the competing hypotheses into one chosen direction.`;
 }

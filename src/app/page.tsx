@@ -7,7 +7,7 @@ import { RelevancePieChart } from "@/components/charts/RelevancePieChart";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { loadDocuments, loadRelevant, loadEpisodesWithTaxonomy } from "@/lib/data";
 import { computeDiscoveryStats } from "@/lib/aggregation";
-import { computeMemoryDimensionFrequency, countBy } from "@/lib/statistics/episodeStats";
+import { computeMemoryDimensionFrequency, countBy, deriveObservedBreakdown } from "@/lib/statistics/episodeStats";
 
 export default async function DashboardPage() {
   const [documents, relevant, allEpisodes] = await Promise.all([loadDocuments(), loadRelevant(), loadEpisodesWithTaxonomy()]);
@@ -40,7 +40,12 @@ export default async function DashboardPage() {
   const primaryScenarioDistribution = countBy(primaryEpisodes, (e) => e.scenario.category);
   const primaryOutcomeDistribution = countBy(primaryEpisodes, (e) => e.outcome);
   const primaryMemoryDimensionFrequency = computeMemoryDimensionFrequency(primaryEpisodes);
-  const primaryObservedFailureDistribution = countBy(primaryEpisodes, (e) => e.taxonomy!.observedFailure);
+  // Breakdown (WHERE retrieval broke) is kept strictly separate from Outcome
+  // (WHAT eventually happened) -- deriveObservedBreakdown collapses the
+  // outcome-flavored taxonomy.observedFailure values (SUCCESS_AFTER_*,
+  // ABANDONED_OR_NOT_FOUND, NO_FAILURE_REPORTED) to UNKNOWN_BREAKDOWN rather
+  // than double-counting them here AND in Outcome Distribution above.
+  const primaryObservedBreakdownDistribution = countBy(primaryEpisodes, deriveObservedBreakdown);
 
   return (
     <>
@@ -109,11 +114,14 @@ export default async function DashboardPage() {
                 title={`Scenario Distribution (${qualifiedVagueMemoryCount} qualified vague-memory episodes)`}
                 data={primaryScenarioDistribution}
                 color="var(--series-orange)"
+                limit={20}
+                height="h-96"
               />
               <DistributionBarChart
-                title={`Observed Failure Distribution (${qualifiedVagueMemoryCount} qualified vague-memory episodes)`}
-                data={primaryObservedFailureDistribution}
+                title={`Observed Retrieval Breakdown (${qualifiedVagueMemoryCount} qualified vague-memory episodes) -- where retrieval broke, not what eventually happened`}
+                data={primaryObservedBreakdownDistribution}
                 color="var(--negative)"
+                height="h-80"
               />
               <DistributionBarChart
                 title={`Outcome Distribution (${qualifiedVagueMemoryCount} qualified vague-memory episodes)`}
@@ -124,6 +132,7 @@ export default async function DashboardPage() {
                 title={`Memory Dimensions Remembered (${qualifiedVagueMemoryCount} qualified vague-memory episodes)`}
                 data={primaryMemoryDimensionFrequency}
                 color="var(--series-yellow)"
+                height="h-80"
               />
             </div>
 

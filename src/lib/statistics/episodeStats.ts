@@ -1,4 +1,4 @@
-import type { RetrievalEpisode } from "@/types/episode";
+import type { ObservedBreakdown, RetrievalEpisode } from "@/types/episode";
 
 /** True for real memory-based retrieval attempts. Episodes extracted before
  * relevanceClass existed have no tag and are treated as direct. Use this
@@ -20,6 +20,38 @@ export function isDirectRetrieval(e: RetrievalEpisode): boolean {
  * or ADJACENT_RETRIEVAL, which the classifier skips) does not qualify. */
 export function isPrimaryAnalysis(e: RetrievalEpisode): boolean {
   return e.taxonomy?.scopeClass === "VAGUE_MEMORY_RETRIEVAL";
+}
+
+// taxonomy.observedFailure mixes two different things: WHERE retrieval broke
+// (a breakdown type) and WHAT eventually happened (an outcome/resolution
+// state). The 6 keys below are genuine breakdown types and map straight
+// across (REFINEMENT_FAILED is relabeled REFINEMENT_DIFFICULTY). The other 5
+// values describe an outcome, not a breakdown -- the classifier never
+// recorded which breakdown type (if any) preceded that outcome, so mapping
+// them to a specific breakdown bucket would be inventing precision the
+// evidence doesn't have. UNKNOWN_BREAKDOWN is the honest answer for those,
+// not a defect to chase down with another AI pass.
+const BREAKDOWN_FROM_OBSERVED_FAILURE: Record<string, ObservedBreakdown> = {
+  EXPRESSION_DIFFICULTY: "EXPRESSION_DIFFICULTY",
+  NO_USEFUL_RESULTS: "NO_USEFUL_RESULTS",
+  TARGET_HARD_TO_LOCATE: "TARGET_HARD_TO_LOCATE",
+  TARGET_HARD_TO_RECOGNIZE: "TARGET_HARD_TO_RECOGNIZE",
+  REFINEMENT_FAILED: "REFINEMENT_DIFFICULTY",
+  PRODUCT_LOCATION_CONFUSION: "PRODUCT_LOCATION_CONFUSION",
+  SUCCESS_AFTER_REFORMULATION: "UNKNOWN_BREAKDOWN",
+  SUCCESS_AFTER_BROWSING: "UNKNOWN_BREAKDOWN",
+  ABANDONED_OR_NOT_FOUND: "UNKNOWN_BREAKDOWN",
+  NO_FAILURE_REPORTED: "UNKNOWN_BREAKDOWN",
+  UNKNOWN: "UNKNOWN_BREAKDOWN",
+};
+
+/** Derives the breakdown-only view of an episode's observed failure, with
+ * outcome/resolution states collapsed to UNKNOWN_BREAKDOWN (see
+ * BREAKDOWN_FROM_OBSERVED_FAILURE). Use episode.outcome for the separate
+ * Outcome Distribution -- never this function. */
+export function deriveObservedBreakdown(e: RetrievalEpisode): ObservedBreakdown {
+  const of = e.taxonomy?.observedFailure;
+  return (of && BREAKDOWN_FROM_OBSERVED_FAILURE[of]) ?? "UNKNOWN_BREAKDOWN";
 }
 
 const MEMORY_DIMENSIONS = [
