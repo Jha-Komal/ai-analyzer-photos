@@ -22,6 +22,34 @@ export function isPrimaryAnalysis(e: RetrievalEpisode): boolean {
   return e.taxonomy?.scopeClass === "VAGUE_MEMORY_RETRIEVAL";
 }
 
+const MEMORY_DIMENSIONS = [
+  "people",
+  "places",
+  "objects",
+  "events",
+  "activities",
+  "visualAttributes",
+  "textInImage",
+  "time",
+  "relationships",
+  "context",
+] as const;
+
+/** Per-dimension frequency of the legacy `remembered` field (not
+ * taxonomy.memoryClues) -- how many of the given episodes have at least one
+ * entry under each memory dimension. Multi-label: dimensions are not
+ * mutually exclusive, so these counts can each range up to episodes.length
+ * independently, but no single dimension's count can exceed it. */
+export function computeMemoryDimensionFrequency(episodes: RetrievalEpisode[]): Record<string, number> {
+  const out: Record<string, number> = {};
+  for (const e of episodes) {
+    for (const dim of MEMORY_DIMENSIONS) {
+      if (e.remembered[dim]?.length > 0) out[dim] = (out[dim] ?? 0) + 1;
+    }
+  }
+  return out;
+}
+
 export function countBy<T extends string>(episodes: RetrievalEpisode[], pick: (e: RetrievalEpisode) => T): Record<string, number> {
   const out: Record<string, number> = {};
   for (const e of episodes) {

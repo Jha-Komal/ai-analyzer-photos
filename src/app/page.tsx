@@ -7,16 +7,18 @@ import { RelevancePieChart } from "@/components/charts/RelevancePieChart";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { loadDocuments, loadRelevant, loadEpisodesWithTaxonomy } from "@/lib/data";
 import { computeDiscoveryStats } from "@/lib/aggregation";
+import { computeMemoryDimensionFrequency, countBy } from "@/lib/statistics/episodeStats";
 
 export default async function DashboardPage() {
   const [documents, relevant, allEpisodes] = await Promise.all([loadDocuments(), loadRelevant(), loadEpisodesWithTaxonomy()]);
   // computeDiscoveryStats splits DIRECT_RETRIEVAL vs ADJACENT_RETRIEVAL
-  // internally -- scenario/outcome/memory breakdowns are retrieval-specific
-  // and never include adjacent (backup/sync) episodes. Within
-  // DIRECT_RETRIEVAL, taxonomyStats further isolates the primary analysis
-  // population (scopeClass=VAGUE_MEMORY_RETRIEVAL) from everything else.
+  // internally -- scenario/outcome/memory breakdowns inside `stats` are
+  // retrieval-specific but still span the full 524-episode legacy
+  // population. They stay that way deliberately (used only in the collapsed
+  // legacy debug section below, and by the research report's data-quality
+  // step) -- the headline charts on this page must NOT use them.
   const stats = computeDiscoveryStats(documents, relevant, allEpisodes);
-  // adjacentEpisodeCount/legacyEpisodeCount are EXTRACTED-EPISODE counts
+  // extractedEpisodeCount/adjacentEpisodeCount are EXTRACTED-EPISODE counts
   // (episodes.json), not document-level relevance-classification counts
   // (relevant.json) -- those two are different units (e.g. 2,779 documents
   // were tagged DIRECT_RETRIEVAL before extraction, but only 524 of them
@@ -24,9 +26,21 @@ export default async function DashboardPage() {
   // produced a meaningless "excluded/contrast" figure; relevanceClassDistribution
   // is still used below, but only in the explicitly document-level RelevancePieChart.
   const adjacentEpisodeCount = stats.adjacentEpisodeCount;
-  const legacyEpisodeCount = stats.totalEpisodes;
-  const qualifiedVagueMemoryCount = stats.taxonomyStats.primaryAnalysisCount;
-  const excludedContrastCount = legacyEpisodeCount - qualifiedVagueMemoryCount;
+  const extractedEpisodeCount = stats.totalEpisodes;
+
+  // The primary analysis population, computed directly here (not reused from
+  // `stats`) so every headline chart on this page is provably scoped to
+  // exactly these 157 episodes, independent of any other consumer of
+  // computeDiscoveryStats (Insights, Research Report, which keep their own
+  // copy of this same filter).
+  const primaryEpisodes = allEpisodes.filter((e) => e.taxonomy?.scopeClass === "VAGUE_MEMORY_RETRIEVAL");
+  const qualifiedVagueMemoryCount = primaryEpisodes.length;
+  const excludedContrastCount = extractedEpisodeCount - qualifiedVagueMemoryCount;
+
+  const primaryScenarioDistribution = countBy(primaryEpisodes, (e) => e.scenario.category);
+  const primaryOutcomeDistribution = countBy(primaryEpisodes, (e) => e.outcome);
+  const primaryMemoryDimensionFrequency = computeMemoryDimensionFrequency(primaryEpisodes);
+  const primaryObservedFailureDistribution = countBy(primaryEpisodes, (e) => e.taxonomy!.observedFailure);
 
   return (
     <>
@@ -60,7 +74,7 @@ export default async function DashboardPage() {
           <>
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
               <MetricCard label="Documents scanned" value={stats.totalDocuments.toLocaleString()} icon={FileText} />
-              <MetricCard label="Legacy retrieval episodes" value={legacyEpisodeCount.toLocaleString()} icon={MessageSquareText} />
+              <MetricCard label="Extracted retrieval episodes" value={extractedEpisodeCount.toLocaleString()} icon={MessageSquareText} />
               <MetricCard
                 label="Qualified vague-memory episodes"
                 value={qualifiedVagueMemoryCount.toLocaleString()}
@@ -80,7 +94,7 @@ export default async function DashboardPage() {
               />
             </div>
             <p className="text-xs text-muted">
-              {legacyEpisodeCount.toLocaleString()} legacy DIRECT_RETRIEVAL episodes were run through a taxonomy
+              {extractedEpisodeCount.toLocaleString()} extracted DIRECT_RETRIEVAL episodes were run through a taxonomy
               classifier; {qualifiedVagueMemoryCount.toLocaleString()} qualify as VAGUE_MEMORY_RETRIEVAL and are
               the primary analysis population for every finding below, in Insights, and in the Research Report.
               The other {excludedContrastCount.toLocaleString()} (precise-search-failure, organization/navigation,
@@ -91,19 +105,31 @@ export default async function DashboardPage() {
 
             <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
               <RelevancePieChart byClassification={stats.relevanceClassDistribution} />
-              <DistributionBarChart title="Scenario Distribution" data={stats.scenarioDistribution} color="var(--series-orange)" />
               <DistributionBarChart
-                title="Observed Failure Distribution (qualified vague-memory episodes)"
-                data={stats.taxonomyStats.observedFailureDistribution}
+                title={`Scenario Distribution (${qualifiedVagueMemoryCount} qualified vague-memory episodes)`}
+                data={primaryScenarioDistribution}
+                color="var(--series-orange)"
+              />
+              <DistributionBarChart
+                title={`Observed Failure Distribution (${qualifiedVagueMemoryCount} qualified vague-memory episodes)`}
+                data={primaryObservedFailureDistribution}
                 color="var(--negative)"
               />
-              <DistributionBarChart title="Outcome Distribution" data={stats.outcomeDistribution} color="var(--positive)" />
-              <DistributionBarChart title="Memory Dimensions Remembered" data={stats.memoryDimensionFrequency} color="var(--series-yellow)" />
+              <DistributionBarChart
+                title={`Outcome Distribution (${qualifiedVagueMemoryCount} qualified vague-memory episodes)`}
+                data={primaryOutcomeDistribution}
+                color="var(--positive)"
+              />
+              <DistributionBarChart
+                title={`Memory Dimensions Remembered (${qualifiedVagueMemoryCount} qualified vague-memory episodes)`}
+                data={primaryMemoryDimensionFrequency}
+                color="var(--series-yellow)"
+              />
             </div>
 
             <details className="rounded-2xl border border-border bg-card p-4">
               <summary className="cursor-pointer text-sm font-medium text-muted">
-                Legacy failure stage (debug/traceability only, {legacyEpisodeCount.toLocaleString()} DIRECT_RETRIEVAL
+                Legacy failure stage (debug/traceability only, {extractedEpisodeCount.toLocaleString()} DIRECT_RETRIEVAL
                 episodes, not the headline metric)
               </summary>
               <p className="mt-3 text-xs text-muted">

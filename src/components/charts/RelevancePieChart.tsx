@@ -18,7 +18,7 @@ export function RelevancePieChart({ byClassification }: { byClassification: Reco
     .filter((d) => d.value > 0);
 
   return (
-    <ChartWrapper title="Relevance Classification">
+    <ChartWrapper title="Document-level relevance classification -- corpus context">
       {data.length === 0 ? (
         <div className="flex h-full items-center justify-center text-sm text-muted">No data yet</div>
       ) : (
