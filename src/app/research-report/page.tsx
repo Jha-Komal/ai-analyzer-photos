@@ -71,7 +71,7 @@ export default function ResearchReportPage() {
     <>
       <TopNav
         title="Research Report"
-        subtitle="Evidence synthesis: data quality, discovery questions, failure-stage decomposition, ranked opportunity hypotheses"
+        subtitle="Part 1 synthesis: dataset, observed retrieval breakdown, competing research hypotheses -- not ranked"
       >
         <Button onClick={generate.start} disabled={generate.isRunning}>
           <RefreshCw className={`h-4 w-4 ${generate.isRunning ? "animate-spin" : ""}`} />

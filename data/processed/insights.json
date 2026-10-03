@@ -3,7 +3,7 @@
     "id": "32e211d8-8431-461d-9251-fa214a5eb083",
     "question": "What kinds of old photos, videos, screenshots, or documents do users struggle to retrieve?",
     "observation": "Among the 157 qualifying (VAGUE_MEMORY_RETRIEVAL) episodes, the target is an ordinary photo in 142/157 (90.4%), video in 9/157 (5.7%), screenshot in 5/157 (3.2%), and document in 1/157 (0.6%).",
-    "interpretation": "Vague-memory retrieval in this dataset is almost entirely a casual-photo problem, not a document- or screenshot-retrieval problem.",
+    "interpretation": "Vague-memory retrieval in this dataset is overwhelmingly a photo-retrieval problem rather than a video, screenshot, or document problem (142/157 vs. 15/157 combined).",
     "hypothesis": "Users retrieving documents or screenshots from memory may rely on different cues than photo-retrieval users, or may be underrepresented here because they give up or complain less publicly about those item types.",
     "limitation": "Target type is inferred from a short complaint, not confirmed by the user; the underlying scenario labels also skew toward OTHER/UNKNOWN (91/157), so this dataset has limited power to say anything about non-photo item types specifically.",
     "confidence": "HIGH",
@@ -70,27 +70,27 @@
   {
     "id": "0155e8c7-8f6d-4699-a89a-1a95ca9ab7ea",
     "question": "How do users reformulate their search after an initial attempt fails?",
-    "observation": "17/157 (10.8%) qualifying episodes are tagged observedFailure=SUCCESS_AFTER_REFORMULATION (changing the query/clue succeeded); 1/157 (0.6%) is tagged REFINEMENT_FAILED (reformulation attempted and still failed). Only 4/157 episodes show an explicit REFORMULATE action recorded in the search journey -- most reformulation is visible only in the before/after outcome, not as a distinct logged step.",
-    "interpretation": "Reformulation works for a meaningful minority when it's attempted, but it's rarely visible as a distinct, repeated step in these complaints -- most users who reformulate appear to do it once, if at all.",
-    "hypothesis": "Users may not have an established pattern of iterative query refinement (try, adjust, try again) for photo retrieval the way they might for web search -- if confirmed, a single early refinement nudge could capture much of this 10.8%.",
-    "limitation": "The search-journey log is reconstructed from a complaint's prose, not an instrumented UI trace, so an unreported reformulation attempt would look identical to one that never happened; this likely undercounts real reformulation behavior.",
+    "observation": "14/157 (8.9%) qualifying episodes have outcome=FOUND_AFTER_REFORMULATION (the user changed their query/clue and then found the item). Only 4/157 (2.5%) episodes show an explicit REFORMULATE action logged in the search journey -- most of the 14 reformulation successes are visible only in the before/after outcome, not as a distinct logged step.",
+    "interpretation": "Reformulation works for a meaningful minority when it happens, but it's rarely visible as a distinct, repeated step in these complaints -- most users who reformulate appear to do it once, if captured at all.",
+    "hypothesis": "Users may not have an established pattern of iterative query refinement (try, adjust, try again) for photo retrieval the way they might for web search -- if confirmed, a single early refinement nudge could capture much of this 8.9%.",
+    "limitation": "The search-journey log is reconstructed from a complaint's prose, not an instrumented UI trace, so an unreported reformulation attempt looks identical to one that never happened -- this likely undercounts real reformulation behavior. Outcome (FOUND_AFTER_REFORMULATION) and the explicit REFORMULATE search action are independently recorded fields and are not expected to match 1:1.",
     "confidence": "LOW",
     "supportingEpisodeIds": [
       "playstore_us_5813c7ea-ff5a-4197-8ac0-15734256b21e_ep0",
       "playstore_us_7c9b2022-2c6f-4794-80d3-f90df8d2c484_ep0",
       "playstore_us_dfffa932-bf42-4fd5-95a9-f915925493f7_ep0",
       "playstore_us_cba74328-7c78-4db2-9e06-c8b478518265_ep0",
-      "playstore_us_280a18e3-28e3-448a-b222-34372b454ae6_ep0"
+      "playstore_us_23675ade-3874-4451-90ea-4eec0a8178c5_ep0"
     ],
-    "evidenceCount": 17
+    "evidenceCount": 14
   },
   {
     "id": "aa0a78b1-b8d7-43a9-b39f-ffbe70ae8f28",
     "question": "Does Google Photos fail to understand the clues the user does provide?",
-    "observation": "61/157 (38.9%) qualifying episodes are tagged observedFailure=NO_USEFUL_RESULTS -- the user provided some retrieval clue or action but reported no useful candidates. This is the single largest observed-failure category in the primary population.",
+    "observation": "61/157 (38.9%) qualifying episodes have taxonomy.observed_breakdown=NO_USEFUL_RESULTS -- the user provided some retrieval clue or action but reported no useful candidates. This is the single largest observed-breakdown category in the primary population.",
     "interpretation": "This is the largest point where something breaks after the user has already provided a clue, but the data only shows the user-facing outcome (no useful results), not which internal step actually failed.",
     "hypothesis": "possibleSystemExplanation tags appear on many of these episodes as unverified hypotheses -- indexing (64 taxonomy tags across the primary population), ranking (49), semantic_matching (28), query_interpretation (28), metadata_gap (26) -- any of these could explain the 38.9% figure, but none is confirmed by this evidence; only user interviews or engineering telemetry could distinguish them.",
-    "limitation": "possibleSystemExplanation is an inferred guess about Google's internals from the outside, grounded in nothing the user can actually observe -- it must never be read as 'Google Photos fails to understand clues X% of the time.' The honest answer to this question is: we see the outcome, not the cause.",
+    "limitation": "possibleSystemExplanation is an inferred guess about Google's internals from the outside, grounded in nothing the user can actually observe -- it must never be read as \"Google Photos fails to understand clues X% of the time.\" The honest answer to this question is: we see the outcome, not the cause.",
     "confidence": "LOW",
     "supportingEpisodeIds": [
       "playstore_us_af95884a-ef09-48f4-9ef7-9de4efbf7568_ep0",
@@ -104,10 +104,10 @@
   {
     "id": "6f0b1688-2e62-4315-9fc7-0950ad15ccd3",
     "question": "Are potentially relevant results difficult for the user to evaluate or recognize?",
-    "observation": "0/157 qualifying episodes are tagged observedFailure=TARGET_HARD_TO_RECOGNIZE (candidate results existed but the user couldn't confidently identify the right one). A related but distinct pattern, TARGET_HARD_TO_LOCATE (results may exist but are buried or require excessive scanning), appears in 22/157 (14.0%).",
+    "observation": "This behavior was not clearly observed in the qualifying public-feedback evidence: 0/157 qualifying episodes have taxonomy.observed_breakdown=TARGET_HARD_TO_RECOGNIZE (candidate results existed but the user couldn't confidently identify the right one). A related but distinct pattern, TARGET_HARD_TO_LOCATE (results may exist but are buried or require excessive scanning), appears in 22/157 (14.0%).",
     "interpretation": "In this corpus, the dominant surfaced complaint is not finding candidates at all, or having to scan too much to find them -- not failing to recognize a correct result once it was seen.",
-    "hypothesis": "Insufficient evidence in the current dataset to say result-evaluation/recognition is a meaningful failure mode here; it may genuinely be rare, or users may simply not describe this specific moment in a public complaint even when it happens.",
-    "limitation": "Zero observed instances of one category is itself a finding to treat cautiously -- public complaints bias toward 'I couldn't find it at all' over the more subtle 'I found candidates but wasn't sure which one,' since the latter is a harder experience to put into words.",
+    "hypothesis": "Insufficient evidence in the current dataset to say result-evaluation/recognition is a meaningful breakdown type here; it may genuinely be rare, or users may simply not describe this specific moment in a public complaint even when it happens.",
+    "limitation": "Zero observed instances of one category is itself a finding to treat cautiously, not proof the behavior doesn't exist -- public reviews are incomplete journey descriptions, and complaints bias toward \"I couldn't find it at all\" over the more subtle \"I found candidates but wasn't sure which one,\" since the latter is a harder experience to put into words.",
     "confidence": "LOW",
     "supportingEpisodeIds": [
       "playstore_us_baae6c40-9512-4fd1-b632-33ef151faaed_ep0",
@@ -119,10 +119,10 @@
   {
     "id": "a55d44ba-7fe6-47ef-944d-b4f68c6cbf39",
     "question": "What workarounds do users fall back on after a search fails (browsing, asking someone, giving up)?",
-    "observation": "Among the 157 qualifying episodes, 42/157 (26.8%) name an explicit workaround action: 13 MANUAL_SCROLL, 7 TIMELINE_SCROLLING, 5 DATE_FILTERING, 2 explicit GIVE_UP, and single-digit counts for the rest (object search, external search, asking another person, etc.); the remaining 115/157 (73.2%) name none. Separately, taxonomy.observedFailure tags 26/157 (16.6%) ABANDONED_OR_NOT_FOUND and 11/157 (7.0%) SUCCESS_AFTER_BROWSING.",
-    "interpretation": "Manual scrolling/timeline browsing is the dominant named workaround when one is named at all, and abandonment (giving up, whether explicitly stated or just implied by an unresolved complaint) is more common than any single active workaround.",
-    "hypothesis": "If browsing/scrolling is the main fallback, a cheap improvement to chronological/visual browsing (not search) could capture real value even without improving search itself.",
-    "limitation": "The 73.2% 'no logged workaround' figure very likely undercounts real workaround behavior -- it means the complaint's text didn't describe a follow-up action, not that the user took none.",
+    "observation": "Among the 157 qualifying episodes, 42/157 (26.8%) name an explicit workaround action: 13 MANUAL_SCROLL, 7 TIMELINE_SCROLLING, 5 DATE_FILTERING, 2 explicit GIVE_UP, and single-digit counts for the rest (object search, external search, asking another person, etc.); the remaining 115/157 (73.2%) name none. By outcome (a separate field): 23/157 (14.6%) are ABANDONED and 20/157 (12.7%) are FOUND_AFTER_WORKAROUND.",
+    "interpretation": "Manual scrolling/timeline browsing is the dominant named workaround when one is named at all, and the ABANDONED outcome (14.6%) is more common than any single active workaround category.",
+    "hypothesis": "If browsing/scrolling is the main named fallback, a cheap improvement to chronological/visual browsing (not search) could capture real value even without improving search itself.",
+    "limitation": "The 73.2% \"no logged workaround\" figure very likely undercounts real workaround behavior -- it means the complaint's text didn't describe a follow-up action, not that the user took none. workaround and outcome are independently coded fields and are not expected to match 1:1 (e.g. a FOUND_AFTER_WORKAROUND outcome doesn't always have a named workaround value, and vice versa).",
     "confidence": "MEDIUM",
     "supportingEpisodeIds": [
       "playstore_us_c4b71877-cf1f-4ef2-953f-dff811a0a78c_ep0",
@@ -153,10 +153,10 @@
   {
     "id": "f686008e-f417-4db3-95e2-ce3763f3e4fa",
     "question": "How do these behaviors differ across scenarios (travel, family, documents, screenshots, etc.)?",
-    "observation": "Scenario labeling is dominated by OTHER (63/157, 40.1%) and UNKNOWN (28/157, 17.8%) -- together 58.0% of the primary population has no specific scenario. Among labeled scenarios, FAMILY (16), FRIENDS (10), and WORK (10) are the largest. Within FAMILY (n=16), NO_USEFUL_RESULTS is 8/16 (50%); within WORK (n=10), NO_USEFUL_RESULTS is 7/10 (70%); within HOBBY (n=8), SUCCESS_AFTER_BROWSING is 3/8, comparatively more common than in other scenarios.",
-    "interpretation": "Where a scenario is identifiable, NO_USEFUL_RESULTS looks consistently dominant across FAMILY and WORK specifically, suggesting the pattern isn't limited to one context; HOBBY may lean more toward successful manual browsing, though its N is small.",
-    "hypothesis": "Candidate behavioral pattern worth testing in interviews: does scenario (family vs. work vs. hobby) change which workaround a user reaches for, independent of the underlying failure mode? HOBBY's browsing-success tilt is the single most interesting signal here, not a confirmed pattern.",
-    "limitation": "58.0% OTHER/UNKNOWN scenario coverage severely limits this answer -- most within-scenario counts are small enough (n=8-16) that a single episode shifts the percentage by 6-12 points; none of this should be read as a stable scenario-level pattern without primary research, and none of these groups should be treated as a target segment.",
+    "observation": "Scenario labeling is dominated by OTHER (63/157, 40.1%) and UNKNOWN (28/157, 17.8%) -- together 58.0% of the primary population has no specific scenario. Among labeled scenarios, FAMILY (16), FRIENDS (10), and WORK (10) are the largest. By observed breakdown: within FAMILY, NO_USEFUL_RESULTS is 8/16 (50%); within WORK, NO_USEFUL_RESULTS is 7/10 (70%). By outcome (a separate field): within FAMILY, 10/16 (62.5%) are NOT_FOUND; within HOBBY (n=8), 3/8 (37.5%) are FOUND_AFTER_WORKAROUND, higher than in FAMILY or WORK.",
+    "interpretation": "Where a scenario is identifiable, NO_USEFUL_RESULTS looks consistently dominant across FAMILY and WORK specifically, suggesting the breakdown pattern isn't limited to one context; HOBBY shows a comparatively higher FOUND_AFTER_WORKAROUND outcome, though its N is small.",
+    "hypothesis": "Candidate behavioral pattern worth testing in interviews: does scenario (family vs. work vs. hobby) change which workaround a user reaches for, independent of the underlying breakdown type? HOBBY's outcome tilt is the single most interesting signal here, not a confirmed pattern.",
+    "limitation": "58.0% OTHER/UNKNOWN scenario coverage severely limits this answer -- most within-scenario counts are small enough (n=8-16) that a single episode shifts the percentage by 6-12 points; none of this should be read as a stable scenario-level pattern without primary research, and none of these groups should be treated as a target segment. Breakdown and outcome are reported as two separate fields here and are not combined into one distribution.",
     "confidence": "LOW",
     "supportingEpisodeIds": [
       "playstore_us_b7c27524-875f-49ed-b721-e0cd8c99d5e6_ep0",
