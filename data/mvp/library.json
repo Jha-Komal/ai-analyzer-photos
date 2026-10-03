@@ -1,0 +1,3615 @@
+[
+  {
+    "id": "IMG_4004",
+    "url": "/library/IMG_4004.jpg",
+    "filename": "IMG_4004.jpg",
+    "metadata": {
+      "date": "2019-07-20"
+    },
+    "aiTags": [
+      "concert",
+      "crowd",
+      "hands raised",
+      "heart hands",
+      "stage lights",
+      "live music"
+    ],
+    "description": "Crowd at a live concert with hands raised and two hands forming a heart shape in the foreground, warm stage spotlights behind.",
+    "attributes": {
+      "peopleCount": "crowd",
+      "scene": "concert",
+      "setting": "indoor",
+      "lighting": "dark with warm orange and white spotlights",
+      "objects": [
+        "stage",
+        "spotlights"
+      ],
+      "activity": "watching a live show",
+      "dominantColors": [
+        "orange",
+        "black",
+        "white"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4007",
+    "url": "/library/IMG_4007.jpg",
+    "filename": "IMG_4007.jpg",
+    "metadata": {
+      "date": "2022-12-10"
+    },
+    "aiTags": [
+      "concert",
+      "crowd",
+      "raised hand",
+      "stage glare",
+      "band",
+      "orange haze"
+    ],
+    "description": "Back view of a concert audience with one raised hand and a bright orange-white glare from the stage, band silhouettes in the haze.",
+    "attributes": {
+      "peopleCount": "crowd",
+      "scene": "concert",
+      "setting": "indoor",
+      "lighting": "hazy warm orange glow, backlit",
+      "objects": [
+        "stage",
+        "band",
+        "glare"
+      ],
+      "activity": "watching a live show",
+      "dominantColors": [
+        "orange",
+        "peach",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4015",
+    "url": "/library/IMG_4015.jpg",
+    "filename": "IMG_4015.jpg",
+    "metadata": {
+      "date": "2023-02-18"
+    },
+    "aiTags": [
+      "concert",
+      "arena",
+      "crowd",
+      "yellow lights",
+      "stage",
+      "large venue"
+    ],
+    "description": "Large arena concert with a packed crowd silhouette and bright yellow stage lights with white beams above.",
+    "attributes": {
+      "peopleCount": "crowd",
+      "scene": "concert",
+      "setting": "indoor",
+      "lighting": "dark with bright yellow and white stage beams",
+      "objects": [
+        "stage",
+        "light beams",
+        "crowd"
+      ],
+      "activity": "watching a live show",
+      "dominantColors": [
+        "yellow",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4024",
+    "url": "/library/IMG_4024.jpg",
+    "filename": "IMG_4024.jpg",
+    "metadata": {
+      "date": "2021-09-25"
+    },
+    "aiTags": [
+      "concert",
+      "band",
+      "smoke",
+      "stage lights",
+      "orange haze",
+      "live music"
+    ],
+    "description": "Band on a smoky stage under rows of square stage lights, orange-brown haze, audience hands raised in the dark foreground.",
+    "attributes": {
+      "peopleCount": "crowd",
+      "scene": "concert",
+      "setting": "indoor",
+      "lighting": "dark, smoky orange-brown stage light",
+      "objects": [
+        "stage",
+        "light rigs",
+        "instruments"
+      ],
+      "activity": "watching a live show",
+      "dominantColors": [
+        "orange",
+        "brown",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4032",
+    "url": "/library/IMG_4032.jpg",
+    "filename": "IMG_4032.jpg",
+    "metadata": {
+      "date": "2022-12-31"
+    },
+    "aiTags": [
+      "two people",
+      "friends",
+      "selfie",
+      "party",
+      "sunglasses",
+      "beads",
+      "close-up"
+    ],
+    "description": "Close-up selfie-style photo of two older people posing together at a restaurant or party: a man with white-rimmed sunglasses and a woman with cherry earrings and beaded necklaces.",
+    "attributes": {
+      "peopleCount": 2,
+      "scene": "party portrait",
+      "setting": "indoor",
+      "lighting": "warm indoor evening light",
+      "objects": [
+        "sunglasses",
+        "bead necklaces",
+        "earrings",
+        "restaurant"
+      ],
+      "activity": "posing for a photo together",
+      "dominantColors": [
+        "black",
+        "white",
+        "pink",
+        "warm tones"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4035",
+    "url": "/library/IMG_4035.jpg",
+    "filename": "IMG_4035.jpg",
+    "metadata": {
+      "date": "2022-10-14"
+    },
+    "aiTags": [
+      "concert",
+      "band",
+      "purple lighting",
+      "stage",
+      "phones",
+      "live music"
+    ],
+    "description": "Band performing on stage under purple and violet lighting in front of a colourful circular-pattern backdrop; audience silhouettes with phones in the foreground.",
+    "attributes": {
+      "peopleCount": "crowd",
+      "scene": "concert",
+      "setting": "indoor",
+      "lighting": "dark with purple and violet stage lights",
+      "objects": [
+        "stage",
+        "drum kit",
+        "keyboard",
+        "backdrop screen",
+        "phones"
+      ],
+      "activity": "watching a live show",
+      "dominantColors": [
+        "purple",
+        "violet",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4045",
+    "url": "/library/IMG_4045.jpg",
+    "filename": "IMG_4045.jpg",
+    "metadata": {
+      "date": "2023-05-06"
+    },
+    "aiTags": [
+      "fireworks",
+      "castle",
+      "night",
+      "crowd",
+      "phones",
+      "theme park"
+    ],
+    "description": "Fireworks above a lit fairy-tale castle at night with a huge crowd holding up phones in the foreground.",
+    "attributes": {
+      "peopleCount": "crowd",
+      "scene": "fireworks show",
+      "setting": "outdoor",
+      "lighting": "night with colourful firework glow",
+      "objects": [
+        "castle",
+        "fireworks",
+        "phones"
+      ],
+      "activity": "watching fireworks",
+      "dominantColors": [
+        "pink",
+        "blue",
+        "orange",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4052",
+    "url": "/library/IMG_4052.jpg",
+    "filename": "IMG_4052.jpg",
+    "metadata": {
+      "date": "2023-01-14"
+    },
+    "aiTags": [
+      "fireworks",
+      "night",
+      "water",
+      "pyrotechnics",
+      "show",
+      "blue light"
+    ],
+    "description": "Blue and white fireworks and pyrotechnic fountains over water at night with light beams.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "fireworks show",
+      "setting": "outdoor",
+      "lighting": "night with bright blue and white sparks",
+      "objects": [
+        "fireworks",
+        "water",
+        "light beams"
+      ],
+      "activity": "night show",
+      "dominantColors": [
+        "blue",
+        "white",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4061",
+    "url": "/library/IMG_4061.jpg",
+    "filename": "IMG_4061.jpg",
+    "metadata": {
+      "date": "2023-04-02"
+    },
+    "aiTags": [
+      "concert",
+      "purple lighting",
+      "blue lights",
+      "raised hands",
+      "lyrics screen",
+      "crowd",
+      "worship"
+    ],
+    "description": "Church-style concert with raised hands silhouetted against blue and purple stage beams; lyrics text visible on screen at the top.",
+    "attributes": {
+      "peopleCount": "crowd",
+      "scene": "concert",
+      "setting": "indoor",
+      "lighting": "dark with strong blue and purple light beams",
+      "objects": [
+        "stage",
+        "lyrics text",
+        "light beams"
+      ],
+      "activity": "watching a live show",
+      "dominantColors": [
+        "purple",
+        "blue",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4066",
+    "url": "/library/IMG_4066.jpg",
+    "filename": "IMG_4066.jpg",
+    "metadata": {
+      "date": "2020-02-08"
+    },
+    "aiTags": [
+      "violinist",
+      "black and white",
+      "music",
+      "woman",
+      "performance",
+      "audience"
+    ],
+    "description": "Black and white photo of a woman playing a violin, with onlookers standing behind her.",
+    "attributes": {
+      "peopleCount": 4,
+      "scene": "musical performance",
+      "setting": "indoor",
+      "lighting": "soft indoor light, monochrome",
+      "objects": [
+        "violin"
+      ],
+      "activity": "playing violin",
+      "dominantColors": [
+        "black",
+        "white",
+        "grey"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4074",
+    "url": "/library/IMG_4074.jpg",
+    "filename": "IMG_4074.jpg",
+    "metadata": {
+      "date": "2022-06-18"
+    },
+    "aiTags": [
+      "concert",
+      "festival",
+      "green lights",
+      "crowd",
+      "silhouette",
+      "arms raised"
+    ],
+    "description": "Festival stage with green laser and stage lights, one person with arms raised in silhouette in front of a crowd.",
+    "attributes": {
+      "peopleCount": "crowd",
+      "scene": "concert",
+      "setting": "outdoor",
+      "lighting": "very dark with bright green stage lights",
+      "objects": [
+        "stage",
+        "arched light rig"
+      ],
+      "activity": "watching a live show",
+      "dominantColors": [
+        "green",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4081",
+    "url": "/library/IMG_4081.jpg",
+    "filename": "IMG_4081.jpg",
+    "metadata": {
+      "date": "2023-06-24"
+    },
+    "aiTags": [
+      "concert",
+      "festival",
+      "orange arch",
+      "crowd",
+      "arms raised",
+      "flags",
+      "night"
+    ],
+    "description": "Festival stage with an orange glowing arch of lights and blue-green screen, a person standing with arms raised among a crowd silhouette.",
+    "attributes": {
+      "peopleCount": "crowd",
+      "scene": "concert",
+      "setting": "outdoor",
+      "lighting": "dark night with glowing orange and blue stage light",
+      "objects": [
+        "stage arch",
+        "flags",
+        "screen"
+      ],
+      "activity": "watching a live show",
+      "dominantColors": [
+        "orange",
+        "blue",
+        "green",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4089",
+    "url": "/library/IMG_4089.jpg",
+    "filename": "IMG_4089.jpg",
+    "metadata": {
+      "date": "2023-06-24"
+    },
+    "aiTags": [
+      "concert",
+      "festival",
+      "orange arch",
+      "crowd",
+      "night",
+      "flags"
+    ],
+    "description": "Same festival stage with orange glowing arch and blue-green screen, crowd silhouette, a couple of people with raised arms.",
+    "attributes": {
+      "peopleCount": "crowd",
+      "scene": "concert",
+      "setting": "outdoor",
+      "lighting": "dark night with glowing orange and blue stage light",
+      "objects": [
+        "stage arch",
+        "flags",
+        "screen"
+      ],
+      "activity": "watching a live show",
+      "dominantColors": [
+        "orange",
+        "blue",
+        "green",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4093",
+    "url": "/library/IMG_4093.jpg",
+    "filename": "IMG_4093.jpg",
+    "metadata": {
+      "date": "2022-07-09"
+    },
+    "aiTags": [
+      "concert",
+      "festival",
+      "metal band",
+      "blue lights",
+      "skull banner",
+      "crowd",
+      "outdoor stage"
+    ],
+    "description": "Wide shot of a metal band on an outdoor festival stage under blue lights, with a dense crowd in front and a skull banner behind.",
+    "attributes": {
+      "peopleCount": "crowd",
+      "scene": "concert",
+      "setting": "outdoor",
+      "lighting": "dusk with blue stage lights",
+      "objects": [
+        "stage",
+        "drum kit",
+        "guitars",
+        "skull banner"
+      ],
+      "activity": "watching a live show",
+      "dominantColors": [
+        "blue",
+        "black",
+        "grey"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4099",
+    "url": "/library/IMG_4099.jpg",
+    "filename": "IMG_4099.jpg",
+    "metadata": {
+      "date": "2021-11-20",
+      "location": "Cambridge"
+    },
+    "aiTags": [
+      "concert",
+      "singer",
+      "microphone",
+      "blue lights",
+      "white beams",
+      "stage",
+      "live music"
+    ],
+    "description": "Singer in an embellished white jacket performing on stage with a handheld microphone, bright white beams and blue backdrop.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "concert",
+      "setting": "indoor",
+      "lighting": "dark with blue light and bright white beams",
+      "objects": [
+        "microphone",
+        "stage",
+        "jacket"
+      ],
+      "activity": "singing on stage",
+      "dominantColors": [
+        "blue",
+        "white",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4110",
+    "url": "/library/IMG_4110.jpg",
+    "filename": "IMG_4110.jpg",
+    "metadata": {
+      "date": "2021-11-20",
+      "location": "Cambridge"
+    },
+    "aiTags": [
+      "concert",
+      "guitarist",
+      "electric guitar",
+      "amplifier",
+      "stage",
+      "band"
+    ],
+    "description": "Guitarist in dark clothes playing a yellow-necked electric guitar on stage next to an amplifier rack.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "concert",
+      "setting": "indoor",
+      "lighting": "dark with purple and blue stage light",
+      "objects": [
+        "electric guitar",
+        "amplifier",
+        "water bottle"
+      ],
+      "activity": "playing guitar on stage",
+      "dominantColors": [
+        "black",
+        "purple",
+        "yellow"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4114",
+    "url": "/library/IMG_4114.jpg",
+    "filename": "IMG_4114.jpg",
+    "metadata": {
+      "date": "2023-02-07"
+    },
+    "aiTags": [
+      "team",
+      "meeting",
+      "sticky notes",
+      "brainstorming",
+      "laptops",
+      "office",
+      "workshop"
+    ],
+    "description": "Team of six people around a table covered with colourful sticky notes and laptops, yellow sticky notes on a glass wall behind.",
+    "attributes": {
+      "peopleCount": 6,
+      "scene": "team workshop",
+      "setting": "indoor",
+      "lighting": "bright natural office daylight",
+      "objects": [
+        "sticky notes",
+        "laptops",
+        "table",
+        "glass wall"
+      ],
+      "activity": "brainstorming together",
+      "dominantColors": [
+        "white",
+        "yellow",
+        "pink",
+        "green"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4123",
+    "url": "/library/IMG_4123.jpg",
+    "filename": "IMG_4123.jpg",
+    "metadata": {
+      "date": "2021-12-05"
+    },
+    "aiTags": [
+      "handwritten recipe",
+      "recipe card",
+      "gnocchi soup",
+      "index card",
+      "coloured ink",
+      "english handwriting"
+    ],
+    "description": "Handwritten recipe for gnocchi soup on a lined index card in blue, red and black ink, in two columns with coloured asterisks.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "handwritten text",
+      "setting": "indoor",
+      "lighting": "flat even light",
+      "objects": [
+        "recipe card",
+        "handwriting",
+        "ingredient list"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "white",
+        "blue",
+        "red",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4137",
+    "url": "/library/IMG_4137.jpg",
+    "filename": "IMG_4137.jpg",
+    "metadata": {},
+    "aiTags": [
+      "handwritten note",
+      "old paper",
+      "faded ink",
+      "list",
+      "chemical formula",
+      "archive"
+    ],
+    "description": "Old cream-coloured paper with a short handwritten note listing chemicals and quantities (soda, bichromate, sulphuric acid, water).",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "handwritten text",
+      "setting": "indoor",
+      "lighting": "flat even light",
+      "objects": [
+        "old paper",
+        "handwriting"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "cream",
+        "grey"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4149",
+    "url": "/library/IMG_4149.jpg",
+    "filename": "IMG_4149.jpg",
+    "metadata": {
+      "date": "2021-10-09",
+      "location": "Missouri, USA"
+    },
+    "aiTags": [
+      "sunset",
+      "forest",
+      "hills",
+      "orange sky",
+      "landscape",
+      "rays"
+    ],
+    "description": "Orange and yellow sunset sky with rays over a wide forested hill valley and distant blue ridges.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "landscape sunset",
+      "setting": "outdoor",
+      "lighting": "golden hour, orange sky",
+      "objects": [
+        "forest",
+        "ridges",
+        "clouds"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "orange",
+        "yellow",
+        "green",
+        "blue"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4165",
+    "url": "/library/IMG_4165.jpg",
+    "filename": "IMG_4165.jpg",
+    "metadata": {
+      "date": "2023-11-06",
+      "location": "Chalem Kharka, Nepal"
+    },
+    "aiTags": [
+      "sunset",
+      "prayer flags",
+      "hillside",
+      "golden clouds",
+      "himalaya",
+      "pole"
+    ],
+    "description": "Sunset behind a hillside with a pole and a string of Buddhist prayer flags in the foreground and golden clouds.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "landscape sunset",
+      "setting": "outdoor",
+      "lighting": "golden hour, soft hazy light",
+      "objects": [
+        "prayer flags",
+        "pole",
+        "hill"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "gold",
+        "grey",
+        "dark green"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4172",
+    "url": "/library/IMG_4172.jpg",
+    "filename": "IMG_4172.jpg",
+    "metadata": {
+      "date": "2023-11-07",
+      "location": "Nepal"
+    },
+    "aiTags": [
+      "sunset",
+      "snow mountain",
+      "himalaya",
+      "clouds",
+      "golden light",
+      "peak"
+    ],
+    "description": "Snow mountain peak lit gold at sunset under heavy dark clouds with a blue sky gap.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "landscape sunset",
+      "setting": "outdoor",
+      "lighting": "golden light on peaks, dark cloud overhead",
+      "objects": [
+        "snow peak",
+        "clouds"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "gold",
+        "dark blue",
+        "white"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4191",
+    "url": "/library/IMG_4191.jpg",
+    "filename": "IMG_4191.jpg",
+    "metadata": {
+      "date": "2022-12-27",
+      "location": "Udaipur"
+    },
+    "aiTags": [
+      "sunset",
+      "palace",
+      "fort",
+      "hilltop",
+      "dramatic sky",
+      "udaipur",
+      "india"
+    ],
+    "description": "Hilltop palace on a rocky hill silhouetted against a vivid red, orange and blue sunset sky.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "landscape sunset",
+      "setting": "outdoor",
+      "lighting": "vivid sunset with red and orange sky",
+      "objects": [
+        "palace",
+        "rocky hill",
+        "clouds"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "red",
+        "orange",
+        "blue",
+        "brown"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4220",
+    "url": "/library/IMG_4220.jpg",
+    "filename": "IMG_4220.jpg",
+    "metadata": {
+      "date": "2021-09-18",
+      "location": "Oregon, USA"
+    },
+    "aiTags": [
+      "sunset",
+      "lake",
+      "mountain",
+      "reflection",
+      "rocks",
+      "golden hour"
+    ],
+    "description": "Sunset over a calm lake with dark rocks in the foreground and a snow-tipped volcano mountain silhouette on the horizon.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "landscape sunset",
+      "setting": "outdoor",
+      "lighting": "golden hour, orange glow with reflections",
+      "objects": [
+        "lake",
+        "rocks",
+        "mountain"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "orange",
+        "yellow",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4236",
+    "url": "/library/IMG_4236.jpg",
+    "filename": "IMG_4236.jpg",
+    "metadata": {
+      "date": "2023-11-04",
+      "location": "Nepal"
+    },
+    "aiTags": [
+      "sunset",
+      "bamboo",
+      "trees",
+      "haze",
+      "canopy",
+      "hillside",
+      "backlit"
+    ],
+    "description": "Sun glowing through haze behind green bamboo and trees on a hillside, viewed from below the canopy.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "landscape sunset",
+      "setting": "outdoor",
+      "lighting": "hazy backlit sun through foliage",
+      "objects": [
+        "bamboo",
+        "trees",
+        "sun"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "green",
+        "grey blue",
+        "white"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4271",
+    "url": "/library/IMG_4271.jpg",
+    "filename": "IMG_4271.jpg",
+    "metadata": {
+      "date": "2022-12-24"
+    },
+    "aiTags": [
+      "kitchen",
+      "baking",
+      "grandmother",
+      "child",
+      "christmas",
+      "cookies",
+      "santa hat",
+      "dough"
+    ],
+    "description": "Girl and an older woman in red Santa hats and aprons rolling dough and baking Christmas cookies in a bright white kitchen with wreaths.",
+    "attributes": {
+      "peopleCount": 2,
+      "scene": "home kitchen",
+      "setting": "indoor",
+      "lighting": "bright, even daylight kitchen",
+      "objects": [
+        "rolling pin",
+        "cookies",
+        "baking tray",
+        "wreaths",
+        "apron",
+        "milk jug"
+      ],
+      "activity": "baking cookies together",
+      "dominantColors": [
+        "white",
+        "red",
+        "wood"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4280",
+    "url": "/library/IMG_4280.jpg",
+    "filename": "IMG_4280.jpg",
+    "metadata": {
+      "date": "2022-12-24"
+    },
+    "aiTags": [
+      "kitchen",
+      "baking",
+      "grandmother",
+      "child",
+      "christmas tree",
+      "chef hat",
+      "cookies",
+      "tray"
+    ],
+    "description": "Child in a chef hat and an older woman in a Santa hat holding a tray of baked cookies in a Christmas-decorated kitchen.",
+    "attributes": {
+      "peopleCount": 2,
+      "scene": "home kitchen",
+      "setting": "indoor",
+      "lighting": "bright, warm indoor light with fairy lights",
+      "objects": [
+        "cookie tray",
+        "christmas tree",
+        "chef hat",
+        "santa hat",
+        "books"
+      ],
+      "activity": "baking cookies together",
+      "dominantColors": [
+        "white",
+        "red",
+        "grey"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4296",
+    "url": "/library/IMG_4296.jpg",
+    "filename": "IMG_4296.jpg",
+    "metadata": {
+      "date": "2021-08-14"
+    },
+    "aiTags": [
+      "kitchen",
+      "gas stove",
+      "pan",
+      "pots",
+      "blue flame",
+      "white tiles",
+      "cooking",
+      "no people"
+    ],
+    "description": "Close view of a kitchen with a two-burner steel gas stove, a lit blue flame under a cast-iron pan, pots, and white wall tiles.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "home kitchen",
+      "setting": "indoor",
+      "lighting": "bright indoor light",
+      "objects": [
+        "gas stove",
+        "cast iron pan",
+        "saucepans",
+        "white tiles"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "silver",
+        "white",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4340",
+    "url": "/library/IMG_4340.jpg",
+    "filename": "IMG_4340.jpg",
+    "metadata": {
+      "date": "2022-07-30",
+      "location": "Kauai"
+    },
+    "aiTags": [
+      "cooking",
+      "boat",
+      "man",
+      "galley",
+      "sea",
+      "outdoor kitchen",
+      "stainless steel"
+    ],
+    "description": "Older man in a black shirt cooking at a stainless-steel outdoor galley on a boat with the sea behind him.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "outdoor cooking",
+      "setting": "outdoor",
+      "lighting": "bright sunny daylight",
+      "objects": [
+        "steel cooking station",
+        "sink",
+        "sea",
+        "red drink"
+      ],
+      "activity": "cooking",
+      "dominantColors": [
+        "blue",
+        "silver",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4374",
+    "url": "/library/IMG_4374.jpg",
+    "filename": "IMG_4374.jpg",
+    "metadata": {
+      "date": "2021-12-25"
+    },
+    "aiTags": [
+      "family dinner",
+      "dining table",
+      "christmas",
+      "poinsettia",
+      "chandelier",
+      "gathering",
+      "food"
+    ],
+    "description": "Large family gathered around a dining table with a white tablecloth and red poinsettia centrepiece under a chandelier, warm orange light.",
+    "attributes": {
+      "peopleCount": 10,
+      "scene": "family dinner",
+      "setting": "indoor",
+      "lighting": "warm orange indoor light",
+      "objects": [
+        "dining table",
+        "poinsettia",
+        "chandelier",
+        "plates"
+      ],
+      "activity": "having a family dinner",
+      "dominantColors": [
+        "orange",
+        "white",
+        "red"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4382",
+    "url": "/library/IMG_4382.jpg",
+    "filename": "IMG_4382.jpg",
+    "metadata": {
+      "date": "2022-11-24"
+    },
+    "aiTags": [
+      "napkins",
+      "table setting",
+      "black and white",
+      "bokeh",
+      "restaurant",
+      "plates",
+      "no people"
+    ],
+    "description": "Black and white blurry close-up of folded napkins on plates at a restaurant table with soft bokeh lights behind.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "table setting",
+      "setting": "indoor",
+      "lighting": "dim, soft monochrome with bokeh",
+      "objects": [
+        "napkins",
+        "plates",
+        "cutlery"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "black",
+        "white",
+        "grey"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4389",
+    "url": "/library/IMG_4389.jpg",
+    "filename": "IMG_4389.jpg",
+    "metadata": {
+      "date": "2020-11-26"
+    },
+    "aiTags": [
+      "family",
+      "dining room",
+      "round table",
+      "sepia",
+      "deer head",
+      "indoor",
+      "home"
+    ],
+    "description": "Sepia-toned photo of several people seated around a round table in a cluttered home dining room with a deer head on the wall.",
+    "attributes": {
+      "peopleCount": 5,
+      "scene": "family at home",
+      "setting": "indoor",
+      "lighting": "dim warm indoor light, sepia tone",
+      "objects": [
+        "round table",
+        "deer head trophy",
+        "chairs",
+        "window door"
+      ],
+      "activity": "sitting together",
+      "dominantColors": [
+        "sepia",
+        "brown",
+        "cream"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4408",
+    "url": "/library/IMG_4408.jpg",
+    "filename": "IMG_4408.jpg",
+    "metadata": {
+      "date": "2021-07-04"
+    },
+    "aiTags": [
+      "group",
+      "party",
+      "restaurant",
+      "family gathering",
+      "coca-cola fridge",
+      "woman in white",
+      "child",
+      "celebration"
+    ],
+    "description": "Group of adults and a child at a small restaurant or shop with a Coca-Cola fridge, a woman in a white blouse in the centre, a pink metallic table cloth with food.",
+    "attributes": {
+      "peopleCount": 5,
+      "scene": "social gathering",
+      "setting": "indoor",
+      "lighting": "bright indoor daylight",
+      "objects": [
+        "Coca-Cola fridge",
+        "table",
+        "wooden counter",
+        "flowers"
+      ],
+      "activity": "gathering for an event",
+      "dominantColors": [
+        "red",
+        "pink",
+        "white",
+        "wood"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4425",
+    "url": "/library/IMG_4425.jpg",
+    "filename": "IMG_4425.jpg",
+    "metadata": {
+      "date": "2023-05-14"
+    },
+    "aiTags": [
+      "two women",
+      "friends",
+      "restaurant",
+      "laughing",
+      "brunch",
+      "glasses",
+      "orange juice"
+    ],
+    "description": "Two women at a restaurant table laughing, one with a strapless floral top, glasses of juice and champagne in front of them.",
+    "attributes": {
+      "peopleCount": 2,
+      "scene": "friends at a restaurant",
+      "setting": "indoor",
+      "lighting": "bright daylight from windows",
+      "objects": [
+        "wine glasses",
+        "orange juice",
+        "phone",
+        "plate"
+      ],
+      "activity": "having a meal and laughing",
+      "dominantColors": [
+        "white",
+        "pink",
+        "orange"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4432",
+    "url": "/library/IMG_4432.jpg",
+    "filename": "IMG_4432.jpg",
+    "metadata": {
+      "date": "2022-10-02"
+    },
+    "aiTags": [
+      "dog",
+      "cocker spaniel",
+      "bench",
+      "cobblestones",
+      "pet",
+      "outdoor",
+      "sitting"
+    ],
+    "description": "Brown cocker spaniel sitting on cobblestones next to a wooden bench, looking up.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "pet portrait",
+      "setting": "outdoor",
+      "lighting": "bright sunlight with shadows",
+      "objects": [
+        "dog",
+        "bench",
+        "leash"
+      ],
+      "activity": "sitting",
+      "dominantColors": [
+        "brown",
+        "grey",
+        "green"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4438",
+    "url": "/library/IMG_4438.jpg",
+    "filename": "IMG_4438.jpg",
+    "metadata": {
+      "date": "2023-02-11"
+    },
+    "aiTags": [
+      "dog",
+      "close-up",
+      "collar",
+      "pet",
+      "profile",
+      "brown dog"
+    ],
+    "description": "Close-up of a brown and tan dog face in profile wearing a colourful collar with a blurred background.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "pet portrait",
+      "setting": "outdoor",
+      "lighting": "soft natural light",
+      "objects": [
+        "dog",
+        "collar"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "brown",
+        "tan",
+        "teal"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4441",
+    "url": "/library/IMG_4441.jpg",
+    "filename": "IMG_4441.jpg",
+    "metadata": {
+      "date": "2021-05-16"
+    },
+    "aiTags": [
+      "dog",
+      "black dog",
+      "park",
+      "grass",
+      "fluffy",
+      "pet",
+      "goal"
+    ],
+    "description": "Fluffy black dog lying on green grass in a park with its tongue out; a person's shoe in the corner and a soccer goal behind.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "pet outdoors",
+      "setting": "outdoor",
+      "lighting": "bright sunny daylight",
+      "objects": [
+        "dog",
+        "grass",
+        "soccer goal",
+        "tree"
+      ],
+      "activity": "resting in the park",
+      "dominantColors": [
+        "green",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4449",
+    "url": "/library/IMG_4449.jpg",
+    "filename": "IMG_4449.jpg",
+    "metadata": {
+      "date": "2022-01-30"
+    },
+    "aiTags": [
+      "house",
+      "staircase",
+      "night",
+      "sepia",
+      "bushes",
+      "building",
+      "no people"
+    ],
+    "description": "Sepia-toned night view of a wooden house with an outdoor staircase and bushes under trees.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "house exterior",
+      "setting": "outdoor",
+      "lighting": "dusk, warm sepia tone",
+      "objects": [
+        "wooden house",
+        "stairs",
+        "bushes",
+        "trees"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "brown",
+        "sepia",
+        "green"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4456",
+    "url": "/library/IMG_4456.jpg",
+    "filename": "IMG_4456.jpg",
+    "metadata": {
+      "date": "2023-01-18",
+      "location": "Davos"
+    },
+    "aiTags": [
+      "conference",
+      "panel",
+      "stage",
+      "blue lighting",
+      "audience",
+      "cameras",
+      "event"
+    ],
+    "description": "Wide-angle shot of a conference panel on a round white stage under blue lighting with cameras and audience seated around.",
+    "attributes": {
+      "peopleCount": "crowd",
+      "scene": "conference",
+      "setting": "indoor",
+      "lighting": "blue lit hall",
+      "objects": [
+        "stage",
+        "cameras",
+        "screens",
+        "chairs"
+      ],
+      "activity": "attending a panel discussion",
+      "dominantColors": [
+        "blue",
+        "white"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4462",
+    "url": "/library/IMG_4462.jpg",
+    "filename": "IMG_4462.jpg",
+    "metadata": {
+      "date": "2019-12-14",
+      "location": "Bodh Gaya"
+    },
+    "aiTags": [
+      "street food",
+      "sugarcane juice",
+      "cart",
+      "india",
+      "vendor",
+      "market",
+      "bodhgaya"
+    ],
+    "description": "Street vendor's green cart with a sugarcane juice machine and stacked sugarcane, men standing nearby.",
+    "attributes": {
+      "peopleCount": 3,
+      "scene": "street market",
+      "setting": "outdoor",
+      "lighting": "bright daylight",
+      "objects": [
+        "sugarcane machine",
+        "sugarcane stalks",
+        "cart",
+        "stalls"
+      ],
+      "activity": "selling sugarcane juice",
+      "dominantColors": [
+        "green",
+        "yellow",
+        "red"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4469",
+    "url": "/library/IMG_4469.jpg",
+    "filename": "IMG_4469.jpg",
+    "metadata": {
+      "date": "2019-12-14"
+    },
+    "aiTags": [
+      "two people",
+      "street food",
+      "dabeli",
+      "pav",
+      "vendors",
+      "portrait",
+      "market",
+      "india"
+    ],
+    "description": "Two young men looking at the camera, one holding a plate of stuffed buns (dabeli) at a street market stall.",
+    "attributes": {
+      "peopleCount": 2,
+      "scene": "street food portrait",
+      "setting": "outdoor",
+      "lighting": "soft evening light",
+      "objects": [
+        "plate of buns",
+        "t-shirts",
+        "stall"
+      ],
+      "activity": "serving street food",
+      "dominantColors": [
+        "purple",
+        "black",
+        "tan"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4483",
+    "url": "/library/IMG_4483.jpg",
+    "filename": "IMG_4483.jpg",
+    "metadata": {
+      "date": "2022-12-28",
+      "location": "Goa"
+    },
+    "aiTags": [
+      "beach",
+      "goa",
+      "dog",
+      "sand",
+      "lifeguard",
+      "overcast",
+      "sea"
+    ],
+    "description": "Beach with people sitting near the sea, a lifeguard tower and a dog sleeping in the sand in the foreground under an overcast sky.",
+    "attributes": {
+      "peopleCount": "several",
+      "scene": "beach",
+      "setting": "outdoor",
+      "lighting": "overcast, soft grey light",
+      "objects": [
+        "dog",
+        "lifeguard tower",
+        "surfboard",
+        "sand"
+      ],
+      "activity": "relaxing on the beach",
+      "dominantColors": [
+        "tan",
+        "grey",
+        "blue"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4492",
+    "url": "/library/IMG_4492.jpg",
+    "filename": "IMG_4492.jpg",
+    "metadata": {
+      "date": "2022-01-08",
+      "location": "Agonda, Goa"
+    },
+    "aiTags": [
+      "beach",
+      "goa",
+      "agonda",
+      "palm trees",
+      "sand",
+      "headland",
+      "empty"
+    ],
+    "description": "Empty sandy beach curving toward a green headland with palm trees and hazy blue sky.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "beach",
+      "setting": "outdoor",
+      "lighting": "hazy bright daylight",
+      "objects": [
+        "sand",
+        "waves",
+        "palm trees",
+        "headland"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "tan",
+        "blue",
+        "green"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4499",
+    "url": "/library/IMG_4499.jpg",
+    "filename": "IMG_4499.jpg",
+    "metadata": {
+      "date": "2023-01-04",
+      "location": "Candolim, Goa"
+    },
+    "aiTags": [
+      "beach",
+      "goa",
+      "candolim",
+      "beach shack",
+      "umbrellas",
+      "sun loungers",
+      "string lights",
+      "checked tablecloth"
+    ],
+    "description": "Beach shack scene with thatched umbrellas, blue sun loungers, a red cloth and a checked tablecloth under strings of lights.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "beach",
+      "setting": "outdoor",
+      "lighting": "bright sunny daylight",
+      "objects": [
+        "thatched umbrellas",
+        "sun loungers",
+        "red cloth",
+        "table",
+        "fairy lights"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "blue",
+        "red",
+        "tan"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4508",
+    "url": "/library/IMG_4508.jpg",
+    "filename": "IMG_4508.jpg",
+    "metadata": {
+      "date": "2020-11-08"
+    },
+    "aiTags": [
+      "fishermen",
+      "dusk",
+      "nets",
+      "water",
+      "pink sky",
+      "palm trees",
+      "silhouette",
+      "sunset"
+    ],
+    "description": "Two fishermen wading in shallow water casting nets at dusk under a pink and purple sky with palm trees on the shore.",
+    "attributes": {
+      "peopleCount": 2,
+      "scene": "fishing at dusk",
+      "setting": "outdoor",
+      "lighting": "dusk with pink and purple sky",
+      "objects": [
+        "fishing nets",
+        "water",
+        "palm trees"
+      ],
+      "activity": "fishing",
+      "dominantColors": [
+        "pink",
+        "purple",
+        "navy"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4512",
+    "url": "/library/IMG_4512.jpg",
+    "filename": "IMG_4512.jpg",
+    "metadata": {
+      "date": "2021-02-20"
+    },
+    "aiTags": [
+      "cafe",
+      "coffee house",
+      "fireplace",
+      "wood interior",
+      "cosy",
+      "indoor"
+    ],
+    "description": "Interior of a cosy wooden coffee house with a central glass-fronted fireplace, wooden bar and shelves, few customers.",
+    "attributes": {
+      "peopleCount": 3,
+      "scene": "cafe interior",
+      "setting": "indoor",
+      "lighting": "warm indoor light",
+      "objects": [
+        "fireplace",
+        "wooden counter",
+        "shelves",
+        "chairs",
+        "menu board"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "brown",
+        "orange",
+        "green"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4523",
+    "url": "/library/IMG_4523.jpg",
+    "filename": "IMG_4523.jpg",
+    "metadata": {
+      "date": "2022-12-03"
+    },
+    "aiTags": [
+      "cafe",
+      "outdoor",
+      "women",
+      "black and white",
+      "coffee",
+      "winter coats",
+      "cobblestones"
+    ],
+    "description": "Black and white photo of three women sitting at an outdoor cafe table on cobblestones holding coffee cups, in winter coats.",
+    "attributes": {
+      "peopleCount": 3,
+      "scene": "outdoor cafe",
+      "setting": "outdoor",
+      "lighting": "overcast, monochrome",
+      "objects": [
+        "cafe table",
+        "coffee cups",
+        "chairs",
+        "bag"
+      ],
+      "activity": "having coffee together",
+      "dominantColors": [
+        "black",
+        "white",
+        "grey"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4530",
+    "url": "/library/IMG_4530.jpg",
+    "filename": "IMG_4530.jpg",
+    "metadata": {
+      "date": "2023-03-09"
+    },
+    "aiTags": [
+      "coffee shop",
+      "silhouette",
+      "person working",
+      "dark",
+      "window",
+      "laptop",
+      "low light"
+    ],
+    "description": "Very dark silhouette of a person working at a laptop beside a window in a coffee shop.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "cafe interior",
+      "setting": "indoor",
+      "lighting": "very dark, backlit by window",
+      "objects": [
+        "window",
+        "lamp",
+        "table"
+      ],
+      "activity": "working",
+      "dominantColors": [
+        "black",
+        "grey"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4532",
+    "url": "/library/IMG_4532.jpg",
+    "filename": "IMG_4532.jpg",
+    "metadata": {
+      "date": "2022-10-22"
+    },
+    "aiTags": [
+      "chai",
+      "coffee",
+      "glass",
+      "tea cup",
+      "cafe",
+      "table",
+      "moody",
+      "no people"
+    ],
+    "description": "Small glass of milky coffee or chai on a concrete table in a dim cafe with a dark wall and blurred shelves behind.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "drink closeup",
+      "setting": "indoor",
+      "lighting": "dim moody light with soft shadow",
+      "objects": [
+        "glass of chai",
+        "concrete table",
+        "plants"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "brown",
+        "grey",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4554",
+    "url": "/library/IMG_4554.jpg",
+    "filename": "IMG_4554.jpg",
+    "metadata": {
+      "date": "2022-09-14"
+    },
+    "aiTags": [
+      "whiteboard",
+      "timeline",
+      "sticky notes",
+      "sprint planning",
+      "weeks",
+      "blue notes",
+      "project plan",
+      "handwriting"
+    ],
+    "description": "Pink-tinted whiteboard with a project timeline labelled Week 3 to Week 7, blue sticky notes, arrows, and an 'Admin API' label in marker.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "whiteboard",
+      "setting": "indoor",
+      "lighting": "bright indoor light with pinkish tint",
+      "objects": [
+        "whiteboard",
+        "blue sticky notes",
+        "marker text",
+        "arrows"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "pink",
+        "white",
+        "blue"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4564",
+    "url": "/library/IMG_4564.jpg",
+    "filename": "IMG_4564.jpg",
+    "metadata": {
+      "date": "2022-03-02"
+    },
+    "aiTags": [
+      "whiteboard",
+      "man writing",
+      "glass wall",
+      "diagram",
+      "office",
+      "marker",
+      "planning"
+    ],
+    "description": "Man in a black T-shirt writing with a marker on a large glass whiteboard wall with diagrams and his reflection visible.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "whiteboard",
+      "setting": "indoor",
+      "lighting": "bright and washed out with reflections",
+      "objects": [
+        "glass whiteboard",
+        "marker",
+        "diagram boxes"
+      ],
+      "activity": "writing on a whiteboard",
+      "dominantColors": [
+        "white",
+        "black",
+        "green"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4567",
+    "url": "/library/IMG_4567.jpg",
+    "filename": "IMG_4567.jpg",
+    "metadata": {
+      "date": "2021-11-19"
+    },
+    "aiTags": [
+      "whiteboard",
+      "man writing",
+      "office",
+      "portable whiteboard",
+      "orange marker",
+      "cubicles",
+      "red can"
+    ],
+    "description": "Man in a black T-shirt writing with an orange marker on a small portable whiteboard in an office with cubicles.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "whiteboard",
+      "setting": "indoor",
+      "lighting": "flat fluorescent office light",
+      "objects": [
+        "portable whiteboard",
+        "marker",
+        "soda can",
+        "cubicle"
+      ],
+      "activity": "writing on a whiteboard",
+      "dominantColors": [
+        "white",
+        "grey",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4575",
+    "url": "/library/IMG_4575.jpg",
+    "filename": "IMG_4575.jpg",
+    "metadata": {
+      "date": "2020-10-12"
+    },
+    "aiTags": [
+      "diagram",
+      "window drawing",
+      "red marker",
+      "boxes and arrows",
+      "parking lot",
+      "trees",
+      "handwriting"
+    ],
+    "description": "Red marker diagram with boxes and arrows ('Exist', 'Stage 1') drawn on a window pane with a car park and trees visible behind.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "diagram on glass",
+      "setting": "indoor",
+      "lighting": "dusk, dim outside light",
+      "objects": [
+        "window",
+        "red marker diagram",
+        "trees",
+        "parking lot"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "red",
+        "grey",
+        "green"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4607",
+    "url": "/library/IMG_4607.jpg",
+    "filename": "IMG_4607.jpg",
+    "metadata": {
+      "date": "2023-01-25"
+    },
+    "aiTags": [
+      "team",
+      "sticky notes",
+      "wall",
+      "brainstorming",
+      "colleagues",
+      "workshop",
+      "pink notes",
+      "yellow notes"
+    ],
+    "description": "Three colleagues placing colourful sticky notes on a wall covered with notes and a diagram.",
+    "attributes": {
+      "peopleCount": 3,
+      "scene": "team workshop",
+      "setting": "indoor",
+      "lighting": "bright office light",
+      "objects": [
+        "sticky notes",
+        "wall",
+        "diagram"
+      ],
+      "activity": "arranging sticky notes",
+      "dominantColors": [
+        "pink",
+        "yellow",
+        "orange",
+        "white"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4612",
+    "url": "/library/IMG_4612.jpg",
+    "filename": "IMG_4612.jpg",
+    "metadata": {
+      "date": "2022-05-11"
+    },
+    "aiTags": [
+      "whiteboard",
+      "mathematics",
+      "teacher",
+      "triangle",
+      "parabola",
+      "plant",
+      "classroom",
+      "formulas"
+    ],
+    "description": "Man in dark T-shirt with his back to the camera writing math on a whiteboard labelled MATHEMATICS with triangle and parabola, plant and lemon on the desk.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "whiteboard",
+      "setting": "indoor",
+      "lighting": "warm bright indoor light",
+      "objects": [
+        "whiteboard",
+        "formulas",
+        "plant",
+        "lemon",
+        "markers"
+      ],
+      "activity": "writing on a whiteboard",
+      "dominantColors": [
+        "white",
+        "tan",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4619",
+    "url": "/library/IMG_4619.jpg",
+    "filename": "IMG_4619.jpg",
+    "metadata": {
+      "date": "2022-05-11"
+    },
+    "aiTags": [
+      "whiteboard",
+      "physics",
+      "teacher",
+      "atom",
+      "E=mc2",
+      "plant",
+      "classroom",
+      "diagrams"
+    ],
+    "description": "Man in dark T-shirt writing on a whiteboard labelled PHYSICS with atom, field lines, sine wave and E=mc2, same room as the maths one.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "whiteboard",
+      "setting": "indoor",
+      "lighting": "warm bright indoor light",
+      "objects": [
+        "whiteboard",
+        "atom diagram",
+        "plant",
+        "lemon",
+        "markers"
+      ],
+      "activity": "writing on a whiteboard",
+      "dominantColors": [
+        "white",
+        "tan",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4623",
+    "url": "/library/IMG_4623.jpg",
+    "filename": "IMG_4623.jpg",
+    "metadata": {
+      "date": "2023-04-16"
+    },
+    "aiTags": [
+      "whiteboard",
+      "woman",
+      "blonde hair",
+      "white blazer",
+      "blank board",
+      "back view",
+      "presenting"
+    ],
+    "description": "Woman with long blonde hair in a white blazer seen from behind, drawing on an almost empty white board.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "whiteboard",
+      "setting": "indoor",
+      "lighting": "bright, washed out white",
+      "objects": [
+        "whiteboard",
+        "marker"
+      ],
+      "activity": "writing on a whiteboard",
+      "dominantColors": [
+        "white",
+        "blonde"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4635",
+    "url": "/library/IMG_4635.jpg",
+    "filename": "IMG_4635.jpg",
+    "metadata": {
+      "date": "2022-10-03"
+    },
+    "aiTags": [
+      "whiteboard",
+      "flowchart",
+      "red marker",
+      "dashboard",
+      "web design",
+      "wireframe",
+      "hand",
+      "diagram"
+    ],
+    "description": "Close-up of a red-marker flowchart on a whiteboard (Sign In, Dashboard, Plans, Budget, Media, Select Plan) with a hand holding a red marker.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "whiteboard",
+      "setting": "indoor",
+      "lighting": "bright white light",
+      "objects": [
+        "whiteboard",
+        "flowchart",
+        "red marker",
+        "hand"
+      ],
+      "activity": "drawing a flowchart",
+      "dominantColors": [
+        "white",
+        "red"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4639",
+    "url": "/library/IMG_4639.jpg",
+    "filename": "IMG_4639.jpg",
+    "metadata": {
+      "date": "2021-04-22"
+    },
+    "aiTags": [
+      "whiteboard",
+      "probability",
+      "formulas",
+      "doodle",
+      "purple marker",
+      "portable board",
+      "classroom",
+      "blank"
+    ],
+    "description": "Portable whiteboard with probability formulas P(a|b) written at the top and a purple doodle of a creature, otherwise mostly blank.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "whiteboard",
+      "setting": "indoor",
+      "lighting": "bright with glare reflection",
+      "objects": [
+        "whiteboard",
+        "formula",
+        "doodle",
+        "markers"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "white",
+        "purple",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4648",
+    "url": "/library/IMG_4648.jpg",
+    "filename": "IMG_4648.jpg",
+    "metadata": {
+      "date": "2019-11-05"
+    },
+    "aiTags": [
+      "whiteboard",
+      "students",
+      "three people",
+      "classroom",
+      "presentation",
+      "biology",
+      "posing",
+      "window blinds"
+    ],
+    "description": "Three students posing next to a flip whiteboard explaining TSH negative feedback, in a classroom with window blinds and oranges on the counter.",
+    "attributes": {
+      "peopleCount": 3,
+      "scene": "whiteboard",
+      "setting": "indoor",
+      "lighting": "daylight from blinds",
+      "objects": [
+        "whiteboard",
+        "diagram",
+        "oranges",
+        "window blinds"
+      ],
+      "activity": "posing with their whiteboard",
+      "dominantColors": [
+        "white",
+        "navy",
+        "purple"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4655",
+    "url": "/library/IMG_4655.jpg",
+    "filename": "IMG_4655.jpg",
+    "metadata": {
+      "date": "2023-04-16"
+    },
+    "aiTags": [
+      "whiteboard",
+      "woman",
+      "blonde",
+      "cream blazer",
+      "writing",
+      "meeting",
+      "side view"
+    ],
+    "description": "Woman with wavy blonde hair in a cream blazer writing on a large whiteboard, seen from the side.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "whiteboard",
+      "setting": "indoor",
+      "lighting": "bright soft white",
+      "objects": [
+        "whiteboard",
+        "marker",
+        "watch"
+      ],
+      "activity": "writing on a whiteboard",
+      "dominantColors": [
+        "white",
+        "cream",
+        "blonde"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4661",
+    "url": "/library/IMG_4661.jpg",
+    "filename": "IMG_4661.jpg",
+    "metadata": {
+      "date": "2020-12-20"
+    },
+    "aiTags": [
+      "recipe",
+      "ice cream pyramid",
+      "notebook page",
+      "pasted cutting",
+      "lined paper",
+      "dessert",
+      "pink background"
+    ],
+    "description": "Recipe book page ('Ice Cream Pyramid') with a printed photo of ice cream scoops pasted on lined notebook paper, on a pink background.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "recipe page",
+      "setting": "indoor",
+      "lighting": "flat even light",
+      "objects": [
+        "notebook page",
+        "printed photo",
+        "typed text",
+        "ring holes"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "pink",
+        "white",
+        "brown"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4690",
+    "url": "/library/IMG_4690.jpg",
+    "filename": "IMG_4690.jpg",
+    "metadata": {
+      "date": "2020-03-12"
+    },
+    "aiTags": [
+      "kitchen",
+      "woman",
+      "cook",
+      "apron",
+      "face mask",
+      "commercial kitchen",
+      "white tiles",
+      "green bowl"
+    ],
+    "description": "Woman in a blue apron and green face mask standing in a commercial kitchen with white tiles, holding a green bowl of dough or rice.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "commercial kitchen",
+      "setting": "indoor",
+      "lighting": "bright flat indoor light",
+      "objects": [
+        "green bowl",
+        "steel counter",
+        "white tiles",
+        "apron",
+        "face mask"
+      ],
+      "activity": "preparing food",
+      "dominantColors": [
+        "white",
+        "blue",
+        "green"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4704",
+    "url": "/library/IMG_4704.jpg",
+    "filename": "IMG_4704.jpg",
+    "metadata": {
+      "date": "2023-01-21"
+    },
+    "aiTags": [
+      "cooking",
+      "steam",
+      "large pot",
+      "market",
+      "black and white",
+      "man",
+      "stock pots",
+      "food stall"
+    ],
+    "description": "Black and white photo of a bearded man lifting the lid off a huge pot with steam rising, among large stock pots under a market canopy.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "outdoor cooking",
+      "setting": "outdoor",
+      "lighting": "monochrome with bright backlight",
+      "objects": [
+        "stock pots",
+        "steam",
+        "canopy",
+        "lid"
+      ],
+      "activity": "cooking",
+      "dominantColors": [
+        "black",
+        "white",
+        "grey"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4712",
+    "url": "/library/IMG_4712.jpg",
+    "filename": "IMG_4712.jpg",
+    "metadata": {
+      "date": "2022-02-26"
+    },
+    "aiTags": [
+      "kitchen",
+      "steam",
+      "chef",
+      "restaurant kitchen",
+      "large pots",
+      "cooking",
+      "warm light"
+    ],
+    "description": "Chef in an apron in a busy restaurant kitchen with two large steel pots of food, steam filling the air and warm lights.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "commercial kitchen",
+      "setting": "indoor",
+      "lighting": "warm hazy light through heavy steam",
+      "objects": [
+        "steel pots",
+        "steam",
+        "apron",
+        "lights"
+      ],
+      "activity": "cooking",
+      "dominantColors": [
+        "purple",
+        "orange",
+        "silver"
+      ]
+    }
+  },
+  {
+    "id": "IMG_4721",
+    "url": "/library/IMG_4721.jpg",
+    "filename": "IMG_4721.jpg",
+    "metadata": {
+      "date": "2021-03-07"
+    },
+    "aiTags": [
+      "cooking",
+      "steam",
+      "frying pan",
+      "sizzling",
+      "burger patty",
+      "stove",
+      "close-up"
+    ],
+    "description": "Close-up of a hamburger patty sizzling in a black pan on a stove with a plume of white steam.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "food closeup",
+      "setting": "indoor",
+      "lighting": "dark kitchen with bright steam",
+      "objects": [
+        "frying pan",
+        "patty",
+        "steam",
+        "spatula handle"
+      ],
+      "activity": "cooking",
+      "dominantColors": [
+        "black",
+        "white",
+        "brown"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8280",
+    "url": "/library/IMG_8280.jpg",
+    "filename": "IMG_8280.jpg",
+    "metadata": {
+      "date": "2022-02-19"
+    },
+    "aiTags": [
+      "woman cooking",
+      "indian kitchen",
+      "wood fire",
+      "green tiles",
+      "red sari",
+      "steel vessels",
+      "traditional stove",
+      "chulha"
+    ],
+    "description": "Woman in a bright red and green sari bending to tend a wood fire in a traditional stove, with green-and-white floral tiles on the wall behind her and steel vessels in front.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "home kitchen",
+      "setting": "indoor",
+      "lighting": "dim indoor with fire glow",
+      "objects": [
+        "wood stove",
+        "green floral tiles",
+        "steel plate",
+        "vessels",
+        "sari"
+      ],
+      "activity": "cooking over a wood fire",
+      "dominantColors": [
+        "red",
+        "green",
+        "white"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8281",
+    "url": "/library/IMG_8281.jpg",
+    "filename": "IMG_8281.jpg",
+    "metadata": {
+      "date": "2022-02-19"
+    },
+    "aiTags": [
+      "woman cooking",
+      "courtyard",
+      "clay stove",
+      "firewood",
+      "village",
+      "india",
+      "steel pots",
+      "outdoor kitchen"
+    ],
+    "description": "Woman in red sari and green clothes cooking on a clay stove in a courtyard with firewood, steel pots and mud walls.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "outdoor cooking",
+      "setting": "outdoor",
+      "lighting": "bright daylight",
+      "objects": [
+        "clay stove",
+        "firewood",
+        "pots",
+        "mud wall"
+      ],
+      "activity": "cooking",
+      "dominantColors": [
+        "tan",
+        "red",
+        "brown"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8282",
+    "url": "/library/IMG_8282.jpg",
+    "filename": "IMG_8282.jpg",
+    "metadata": {
+      "date": "2021-10-17"
+    },
+    "aiTags": [
+      "woman cooking",
+      "veil",
+      "teal sari",
+      "pressure cooker",
+      "ladle",
+      "courtyard",
+      "india",
+      "outdoor"
+    ],
+    "description": "Woman in a teal sari with a veil covering her face crouched on the ground ladling food from a pot next to a pressure cooker, wooden door behind.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "outdoor cooking",
+      "setting": "outdoor",
+      "lighting": "bright daylight",
+      "objects": [
+        "ladle",
+        "pot",
+        "pressure cooker",
+        "wooden door",
+        "broom"
+      ],
+      "activity": "cooking",
+      "dominantColors": [
+        "teal",
+        "grey",
+        "orange"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8283",
+    "url": "/library/IMG_8283.jpg",
+    "filename": "IMG_8283.jpg",
+    "metadata": {
+      "date": "2022-01-09"
+    },
+    "aiTags": [
+      "elderly woman",
+      "fire cooking",
+      "young man",
+      "steel plates",
+      "courtyard",
+      "chai",
+      "family",
+      "india"
+    ],
+    "description": "Elderly woman tending a small wood fire in a doorway while a young man sits cross-legged on a mat with steel plates and cups in front of him.",
+    "attributes": {
+      "peopleCount": 2,
+      "scene": "home cooking",
+      "setting": "outdoor",
+      "lighting": "bright natural light with shade",
+      "objects": [
+        "wood fire",
+        "steel plates",
+        "mat",
+        "wooden door",
+        "plants"
+      ],
+      "activity": "cooking and sitting together",
+      "dominantColors": [
+        "grey",
+        "pink",
+        "blue"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8284",
+    "url": "/library/IMG_8284.jpg",
+    "filename": "IMG_8284.jpg",
+    "metadata": {
+      "date": "2021-03-07"
+    },
+    "aiTags": [
+      "woman cooking",
+      "griddle",
+      "steam",
+      "orange bowl",
+      "basket",
+      "dark kitchen",
+      "stir fry",
+      "spatula"
+    ],
+    "description": "Woman in a white lace-trim top cooking noodles or onions on a flat griddle with steam and orange bowls beside her in a dim kitchen.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "home kitchen",
+      "setting": "indoor",
+      "lighting": "dim warm kitchen light with steam",
+      "objects": [
+        "griddle",
+        "spatula",
+        "orange bowl",
+        "basket",
+        "steam"
+      ],
+      "activity": "cooking",
+      "dominantColors": [
+        "white",
+        "orange",
+        "brown"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8285",
+    "url": "/library/IMG_8285.jpg",
+    "filename": "IMG_8285.jpg",
+    "metadata": {
+      "date": "2021-10-17",
+      "location": "Baghpat"
+    },
+    "aiTags": [
+      "woman",
+      "smiling",
+      "courtyard",
+      "rice",
+      "steel plates",
+      "paint bucket",
+      "india",
+      "food prep"
+    ],
+    "description": "Smiling woman in a black headscarf crouched on a courtyard floor sorting rice onto steel plates, with a paint bucket and a red box beside her.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "food preparation",
+      "setting": "outdoor",
+      "lighting": "bright daylight",
+      "objects": [
+        "rice",
+        "steel plates",
+        "paint bucket",
+        "cardboard box"
+      ],
+      "activity": "preparing food",
+      "dominantColors": [
+        "black",
+        "grey",
+        "teal"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8286",
+    "url": "/library/IMG_8286.jpg",
+    "filename": "IMG_8286.jpg",
+    "metadata": {
+      "date": "2022-11-13",
+      "location": "Uttan, Maharashtra"
+    },
+    "aiTags": [
+      "woman cooking",
+      "outdoor kitchen",
+      "turquoise dress",
+      "yellow wall",
+      "basket",
+      "brick stove",
+      "india"
+    ],
+    "description": "Woman in a bright turquoise floral dress leaning over an outdoor cooking area under a roof, yellow-green wall behind her and a basket of cloth beside her.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "outdoor cooking",
+      "setting": "outdoor",
+      "lighting": "shaded daylight",
+      "objects": [
+        "brick stove",
+        "basket",
+        "vessels",
+        "electric meter box"
+      ],
+      "activity": "making bhakri",
+      "dominantColors": [
+        "turquoise",
+        "yellow-green",
+        "grey"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8287",
+    "url": "/library/IMG_8287.jpg",
+    "filename": "IMG_8287.jpg",
+    "metadata": {
+      "date": "2020-12-05"
+    },
+    "aiTags": [
+      "two women",
+      "flatbread",
+      "roti",
+      "top view",
+      "clay stove",
+      "rolling dough",
+      "steel pots",
+      "cooking together"
+    ],
+    "description": "Top-down view of two women kneeling on the ground rolling flatbread dough beside a clay stove with a frying pan and steel pots.",
+    "attributes": {
+      "peopleCount": 2,
+      "scene": "home cooking",
+      "setting": "outdoor",
+      "lighting": "bright daylight from above",
+      "objects": [
+        "flatbread",
+        "stove",
+        "pan",
+        "steel pots",
+        "wood sticks"
+      ],
+      "activity": "making flatbread",
+      "dominantColors": [
+        "tan",
+        "grey",
+        "red"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8289",
+    "url": "/library/IMG_8289.jpg",
+    "filename": "IMG_8289.jpg",
+    "metadata": {},
+    "aiTags": [
+      "handwritten recipe",
+      "old manuscript",
+      "elixir recipe",
+      "cursive",
+      "antique",
+      "17th century",
+      "paper"
+    ],
+    "description": "Aged manuscript page in old cursive handwriting, a recipe for 'Daffy's Elixir' with ingredient quantities in a single column.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "handwritten text",
+      "setting": "indoor",
+      "lighting": "flat even light",
+      "objects": [
+        "manuscript page",
+        "handwriting"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "cream",
+        "brown",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8290",
+    "url": "/library/IMG_8290.jpg",
+    "filename": "IMG_8290.jpg",
+    "metadata": {},
+    "aiTags": [
+      "handwritten recipe",
+      "old manuscript",
+      "cursive",
+      "antique",
+      "medical receipt",
+      "paper",
+      "children"
+    ],
+    "description": "Aged manuscript page headed 'Mr Russell's Receipt for Children', dense old cursive handwriting.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "handwritten text",
+      "setting": "indoor",
+      "lighting": "flat even light",
+      "objects": [
+        "manuscript page",
+        "handwriting"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "cream",
+        "brown",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8291",
+    "url": "/library/IMG_8291.jpg",
+    "filename": "IMG_8291.jpg",
+    "metadata": {},
+    "aiTags": [
+      "handwritten recipe",
+      "old manuscript",
+      "cursive",
+      "antique",
+      "medical receipt",
+      "brown ink",
+      "paper"
+    ],
+    "description": "Aged manuscript page titled 'Mr Ratcliffe's Receipt for the Rheumatism' in dense brown cursive handwriting.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "handwritten text",
+      "setting": "indoor",
+      "lighting": "flat even light",
+      "objects": [
+        "manuscript page",
+        "handwriting"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "cream",
+        "brown"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8292",
+    "url": "/library/IMG_8292.jpg",
+    "filename": "IMG_8292.jpg",
+    "metadata": {},
+    "aiTags": [
+      "recipe book",
+      "handwritten",
+      "antique",
+      "open book",
+      "cake recipes",
+      "museum",
+      "cursive"
+    ],
+    "description": "Open antique recipe book on display with handwritten recipes for baked dishes and cakes across both pages, in a museum case.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "handwritten text",
+      "setting": "indoor",
+      "lighting": "dim museum lighting",
+      "objects": [
+        "open book",
+        "handwritten recipes"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "tan",
+        "brown",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8293",
+    "url": "/library/IMG_8293.jpg",
+    "filename": "IMG_8293.jpg",
+    "metadata": {},
+    "aiTags": [
+      "recipe book",
+      "handwritten",
+      "antique",
+      "open book",
+      "cake recipes",
+      "cursive",
+      "18th century"
+    ],
+    "description": "Open old recipe book with handwritten cake and pudding recipes on two pages and a dark background.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "handwritten text",
+      "setting": "indoor",
+      "lighting": "dim, spot lit",
+      "objects": [
+        "open book",
+        "handwritten recipes"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "tan",
+        "brown",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8294",
+    "url": "/library/IMG_8294.jpg",
+    "filename": "IMG_8294.jpg",
+    "metadata": {
+      "date": "2022-02-13"
+    },
+    "aiTags": [
+      "recipe",
+      "pudding",
+      "custard",
+      "handwritten recipe",
+      "blue plate",
+      "spoon",
+      "wooden table",
+      "notebook"
+    ],
+    "description": "Overhead photo of a small pudding on a blue-and-white plate with custard and a spoon on a wooden table, with a handwritten recipe notebook page beside it.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "food and recipe",
+      "setting": "indoor",
+      "lighting": "soft natural light from above",
+      "objects": [
+        "pudding",
+        "blue plate",
+        "spoon",
+        "handwritten page",
+        "jug"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "blue",
+        "cream",
+        "brown"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8295",
+    "url": "/library/IMG_8295.jpg",
+    "filename": "IMG_8295.jpg",
+    "metadata": {},
+    "aiTags": [
+      "manuscript",
+      "latin",
+      "medieval",
+      "handwritten",
+      "gothic script",
+      "aged paper",
+      "miscellany"
+    ],
+    "description": "Page from a medieval Latin manuscript with neat black gothic script in a single column, age-stained margins.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "handwritten text",
+      "setting": "indoor",
+      "lighting": "dim spot light",
+      "objects": [
+        "manuscript page",
+        "script"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "cream",
+        "black",
+        "brown"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8296",
+    "url": "/library/IMG_8296.jpg",
+    "filename": "IMG_8296.jpg",
+    "metadata": {},
+    "aiTags": [
+      "manuscript",
+      "handwritten",
+      "cursive",
+      "aged paper",
+      "medical recipes",
+      "dark ink"
+    ],
+    "description": "Page from an old manuscript with loose cursive handwriting in dark ink, a worn edge on the left.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "handwritten text",
+      "setting": "indoor",
+      "lighting": "dim spot light",
+      "objects": [
+        "manuscript page",
+        "script"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "cream",
+        "dark brown"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8297",
+    "url": "/library/IMG_8297.jpg",
+    "filename": "IMG_8297.jpg",
+    "metadata": {
+      "date": "2020-05-30"
+    },
+    "aiTags": [
+      "recipe card",
+      "pound cake",
+      "typed",
+      "index card",
+      "ingredients",
+      "baking",
+      "lined card"
+    ],
+    "description": "Typed pound cake recipe on a lined index card with ingredients in two columns and mixing instructions underneath.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "recipe card",
+      "setting": "indoor",
+      "lighting": "flat even light",
+      "objects": [
+        "recipe card",
+        "typed text"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "cream",
+        "grey",
+        "red"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8298",
+    "url": "/library/IMG_8298.jpg",
+    "filename": "IMG_8298.jpg",
+    "metadata": {
+      "date": "2021-11-27"
+    },
+    "aiTags": [
+      "recipe card",
+      "gingerbread",
+      "typed",
+      "typewriter",
+      "tan card",
+      "ingredients",
+      "baking"
+    ],
+    "description": "Aged tan recipe card for Spicy Gingerbread typed with a typewriter, with 'Shirley G.' in red at the top.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "recipe card",
+      "setting": "indoor",
+      "lighting": "flat even light",
+      "objects": [
+        "recipe card",
+        "typed text"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "tan",
+        "brown",
+        "red"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8299",
+    "url": "/library/IMG_8299.jpg",
+    "filename": "IMG_8299.jpg",
+    "metadata": {},
+    "aiTags": [
+      "menu",
+      "vintage",
+      "booklet",
+      "pencil note",
+      "green border",
+      "printed",
+      "narrow card"
+    ],
+    "description": "Narrow vintage printed menu or booklet cover with ornate green border and a faded pencil note of a few items in the top corner.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "printed paper",
+      "setting": "indoor",
+      "lighting": "flat even light",
+      "objects": [
+        "menu cover",
+        "pencil note"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "cream",
+        "green"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8300",
+    "url": "/library/IMG_8300.jpg",
+    "filename": "IMG_8300.jpg",
+    "metadata": {
+      "date": "2019-08-15",
+      "location": "Karonga, Malawi"
+    },
+    "aiTags": [
+      "woman cooking",
+      "outdoor",
+      "brick wall",
+      "stirring pot",
+      "malawi",
+      "basin",
+      "africa",
+      "wooden spoon"
+    ],
+    "description": "Woman in a blue patterned top squatting outdoors stirring a pot beside a basin of food in front of a brick wall.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "outdoor cooking",
+      "setting": "outdoor",
+      "lighting": "bright harsh daylight",
+      "objects": [
+        "pot",
+        "basin",
+        "wooden spoon",
+        "brick wall"
+      ],
+      "activity": "cooking",
+      "dominantColors": [
+        "blue",
+        "red",
+        "brown"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8301",
+    "url": "/library/IMG_8301.jpg",
+    "filename": "IMG_8301.jpg",
+    "metadata": {
+      "date": "2023-03-21",
+      "location": "Uzbekistan"
+    },
+    "aiTags": [
+      "two women",
+      "stirring pot",
+      "steam",
+      "courtyard",
+      "village",
+      "wooden paddle",
+      "cooking together",
+      "festival food"
+    ],
+    "description": "Two older women in headscarves stirring a large steaming pot with long wooden paddles in a village courtyard.",
+    "attributes": {
+      "peopleCount": 2,
+      "scene": "outdoor cooking",
+      "setting": "outdoor",
+      "lighting": "overcast daylight",
+      "objects": [
+        "large cauldron",
+        "wooden paddles",
+        "steam",
+        "tree"
+      ],
+      "activity": "cooking together",
+      "dominantColors": [
+        "teal",
+        "black",
+        "grey"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8302",
+    "url": "/library/IMG_8302.jpg",
+    "filename": "IMG_8302.jpg",
+    "metadata": {
+      "date": "2021-05-02"
+    },
+    "aiTags": [
+      "woman cooking",
+      "flatbread",
+      "griddle",
+      "smoky",
+      "dramatic light",
+      "headscarf",
+      "kneeling",
+      "traditional"
+    ],
+    "description": "Woman in a patterned headscarf and striped skirt kneeling over a hot flat-bread griddle in a smoky dark room with dramatic light.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "home cooking",
+      "setting": "indoor",
+      "lighting": "dark with dramatic warm light and smoke",
+      "objects": [
+        "griddle",
+        "dough",
+        "bowl",
+        "flatbread"
+      ],
+      "activity": "making flatbread",
+      "dominantColors": [
+        "teal",
+        "orange",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8303",
+    "url": "/library/IMG_8303.jpg",
+    "filename": "IMG_8303.jpg",
+    "metadata": {
+      "date": "1964-06-01"
+    },
+    "aiTags": [
+      "woman cooking",
+      "vintage",
+      "black and white",
+      "kitchen",
+      "stove",
+      "lid",
+      "1960s",
+      "portrait"
+    ],
+    "description": "Vintage black and white portrait of a young woman with a fringe standing at a stove in a kitchen holding a metal lid, shelves and a pot behind her.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "home kitchen",
+      "setting": "indoor",
+      "lighting": "flat indoor flash light, monochrome",
+      "objects": [
+        "pot lid",
+        "stove",
+        "pot",
+        "shelves",
+        "tiles"
+      ],
+      "activity": "cooking",
+      "dominantColors": [
+        "black",
+        "white",
+        "grey"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8304",
+    "url": "/library/IMG_8304.jpg",
+    "filename": "IMG_8304.jpg",
+    "metadata": {
+      "date": "2020-02-22",
+      "location": "Cappadocia"
+    },
+    "aiTags": [
+      "woman cooking",
+      "smiling",
+      "knife",
+      "head wrap",
+      "kitchen",
+      "sepia",
+      "framed photo"
+    ],
+    "description": "Smiling woman in a head wrap holding a knife while preparing food in a kitchen, sepia-toned with a framed border.",
+    "attributes": {
+      "peopleCount": 1,
+      "scene": "home kitchen",
+      "setting": "indoor",
+      "lighting": "soft indoor light, sepia tone",
+      "objects": [
+        "knife",
+        "pans",
+        "head wrap"
+      ],
+      "activity": "preparing food",
+      "dominantColors": [
+        "sepia",
+        "grey",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8305",
+    "url": "/library/IMG_8305.jpg",
+    "filename": "IMG_8305.jpg",
+    "metadata": {
+      "date": "2022-05-21",
+      "location": "Himachal Pradesh"
+    },
+    "aiTags": [
+      "sunset",
+      "pine",
+      "silhouette",
+      "branches",
+      "dusk",
+      "hills",
+      "grey sky",
+      "himachal"
+    ],
+    "description": "Silhouette of pine needle branches against a grey-blue sky at dusk with dark hills below.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "landscape dusk",
+      "setting": "outdoor",
+      "lighting": "dim dusk, dark silhouette against pale sky",
+      "objects": [
+        "pine branches",
+        "sky",
+        "hills"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "black",
+        "grey",
+        "blue"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8307",
+    "url": "/library/IMG_8307.jpg",
+    "filename": "IMG_8307.jpg",
+    "metadata": {
+      "date": "2022-05-22",
+      "location": "Manali"
+    },
+    "aiTags": [
+      "sunset",
+      "flowers",
+      "silhouette",
+      "clouds",
+      "valley",
+      "hazy",
+      "peach sky",
+      "manali"
+    ],
+    "description": "Sun low behind clouds with a silhouette of a flowering bush in the foreground and a hazy valley, muted peach and grey sky.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "landscape sunset",
+      "setting": "outdoor",
+      "lighting": "muted hazy sunset",
+      "objects": [
+        "flowering bush",
+        "clouds",
+        "sun"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "peach",
+        "grey",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8308",
+    "url": "/library/IMG_8308.jpg",
+    "filename": "IMG_8308.jpg",
+    "metadata": {
+      "date": "2022-06-18",
+      "location": "Manali"
+    },
+    "aiTags": [
+      "sunset",
+      "manali",
+      "tree silhouette",
+      "orange sky",
+      "clouds",
+      "hills",
+      "shimla",
+      "golden hour"
+    ],
+    "description": "Orange sunset with scattered clouds, the sun dipping behind hills and a bare silhouetted tree and shrubs in the foreground, photographed on the Manali to Shimla road.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "landscape sunset",
+      "setting": "outdoor",
+      "lighting": "golden orange sunset",
+      "objects": [
+        "bare tree",
+        "shrubs",
+        "clouds",
+        "sun",
+        "hills"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "orange",
+        "grey",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8310",
+    "url": "/library/IMG_8310.jpg",
+    "filename": "IMG_8310.jpg",
+    "metadata": {
+      "date": "2022-06-19",
+      "location": "Manali-Leh highway"
+    },
+    "aiTags": [
+      "sunset",
+      "valley",
+      "mountains",
+      "dusk",
+      "blue sky",
+      "pink clouds",
+      "leh",
+      "highway"
+    ],
+    "description": "Wide dusk landscape of a flat valley with dark mountains on the left under a blue sky with a few pink-orange clouds.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "landscape dusk",
+      "setting": "outdoor",
+      "lighting": "blue dusk with pink-orange cloud tints",
+      "objects": [
+        "valley",
+        "mountains",
+        "clouds"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "blue",
+        "pink",
+        "dark green"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8311",
+    "url": "/library/IMG_8311.jpg",
+    "filename": "IMG_8311.jpg",
+    "metadata": {
+      "date": "2022-06-17",
+      "location": "Beas valley, Manali"
+    },
+    "aiTags": [
+      "sunset",
+      "river",
+      "gorge",
+      "beas",
+      "golden reflection",
+      "hills",
+      "pylon",
+      "manali"
+    ],
+    "description": "Bright sun low over a narrow river gorge between dark hills with golden reflections on the water and a pylon on the ridge, in the Beas valley.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "landscape sunset",
+      "setting": "outdoor",
+      "lighting": "strong golden sun, silhouetted hills",
+      "objects": [
+        "river",
+        "sun",
+        "pylon",
+        "hills"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "gold",
+        "brown",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8312",
+    "url": "/library/IMG_8312.jpg",
+    "filename": "IMG_8312.jpg",
+    "metadata": {
+      "date": "2022-10-08",
+      "location": "Himachal Pradesh"
+    },
+    "aiTags": [
+      "sunset",
+      "mountain ridges",
+      "snow",
+      "dusk",
+      "clouds",
+      "blue haze",
+      "himachal"
+    ],
+    "description": "Layers of blue mountain ridges at dusk with a peach and orange glow under dark clouds and a snowy slope in the lower-left corner.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "landscape sunset",
+      "setting": "outdoor",
+      "lighting": "dusk with peach glow on the horizon",
+      "objects": [
+        "ridges",
+        "clouds",
+        "snow slope"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "blue",
+        "peach",
+        "dark grey"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8313",
+    "url": "/library/IMG_8313.jpg",
+    "filename": "IMG_8313.jpg",
+    "metadata": {
+      "date": "2023-04-29",
+      "location": "Kalpa"
+    },
+    "aiTags": [
+      "sunset",
+      "snow mountains",
+      "panorama",
+      "kalpa",
+      "golden peaks",
+      "range",
+      "himachal"
+    ],
+    "description": "Very wide panorama of a jagged snow-capped mountain range lit gold by sunset light over Kalpa, sky blue above.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "landscape sunset",
+      "setting": "outdoor",
+      "lighting": "golden light on peaks, dark foreground",
+      "objects": [
+        "snow peaks",
+        "ridge"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "blue",
+        "gold",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8314",
+    "url": "/library/IMG_8314.jpg",
+    "filename": "IMG_8314.jpg",
+    "metadata": {
+      "date": "2023-04-30",
+      "location": "Chitkul"
+    },
+    "aiTags": [
+      "sunset",
+      "snow peak",
+      "alpenglow",
+      "chitkul",
+      "clouds",
+      "ridge",
+      "mountains",
+      "himachal"
+    ],
+    "description": "Snow-covered peak glowing pink-orange at sunset with a cloud bank beside it and rocky snowy ridges below, hazy grey sky.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "landscape sunset",
+      "setting": "outdoor",
+      "lighting": "alpenglow, pink-orange light on the peak",
+      "objects": [
+        "snow peak",
+        "cloud",
+        "rocks"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "pink",
+        "orange",
+        "grey",
+        "white"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8315",
+    "url": "/library/IMG_8315.jpg",
+    "filename": "IMG_8315.jpg",
+    "metadata": {
+      "date": "2022-08-24"
+    },
+    "aiTags": [
+      "whiteboard",
+      "retrospective",
+      "meeting",
+      "timeline",
+      "video call",
+      "two men",
+      "red marker",
+      "team"
+    ],
+    "description": "Video-call screenshot of a team retrospective in a meeting room: a man in a red plaid shirt talking at a whiteboard covered with timelines, another man in red seated, small participant thumbnails in the corner.",
+    "attributes": {
+      "peopleCount": 3,
+      "scene": "meeting",
+      "setting": "indoor",
+      "lighting": "flat indoor light",
+      "objects": [
+        "whiteboard",
+        "timeline",
+        "video call thumbnails",
+        "table"
+      ],
+      "activity": "discussing at a whiteboard",
+      "dominantColors": [
+        "white",
+        "red",
+        "grey"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8316",
+    "url": "/library/IMG_8316.jpg",
+    "filename": "IMG_8316.jpg",
+    "metadata": {
+      "date": "2022-08-24"
+    },
+    "aiTags": [
+      "whiteboard",
+      "retrospective",
+      "meeting",
+      "timeline",
+      "video call",
+      "man writing",
+      "hoodie",
+      "team"
+    ],
+    "description": "Video-call screenshot of the same retrospective: a man in a black hoodie writing on the whiteboard timeline while a man in a red sweater sits with arms folded, thumbnails bottom right.",
+    "attributes": {
+      "peopleCount": 3,
+      "scene": "meeting",
+      "setting": "indoor",
+      "lighting": "flat indoor light",
+      "objects": [
+        "whiteboard",
+        "timeline",
+        "video call thumbnails",
+        "table"
+      ],
+      "activity": "writing on a whiteboard",
+      "dominantColors": [
+        "white",
+        "red",
+        "black"
+      ]
+    }
+  },
+  {
+    "id": "IMG_8317",
+    "url": "/library/IMG_8317.jpg",
+    "filename": "IMG_8317.jpg",
+    "metadata": {
+      "date": "2022-08-24"
+    },
+    "aiTags": [
+      "whiteboard",
+      "retrospective",
+      "timeline",
+      "red marker",
+      "blue marker",
+      "dense notes",
+      "project plan",
+      "handwriting",
+      "beta features"
+    ],
+    "description": "Straight-on photo of a whiteboard densely covered with red and blue marker timelines, notes and a line labelled '75% beta features', dated months along the left.",
+    "attributes": {
+      "peopleCount": 0,
+      "scene": "whiteboard",
+      "setting": "indoor",
+      "lighting": "flat white light",
+      "objects": [
+        "whiteboard",
+        "timeline lines",
+        "handwritten notes",
+        "light switch"
+      ],
+      "activity": null,
+      "dominantColors": [
+        "white",
+        "red",
+        "blue"
+      ]
+    }
+  }
+]

@@ -46,3 +46,6 @@ next-env.d.ts
 
 # claude code session state (not project content)
 .claude/scheduled_tasks.lock
+
+# Local retrieval-session logs (dev fallback when SHEETS_WEBHOOK_URL is unset)
+/data/mvp/logs/

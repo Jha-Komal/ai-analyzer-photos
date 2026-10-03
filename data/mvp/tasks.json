@@ -1,0 +1,47 @@
+[
+  {
+    "id": "concert",
+    "title": "The concert",
+    "narrative": "A couple of years ago you went to a concert. It was dark, a band was on stage under coloured lights. You can't remember the exact date or which venue.",
+    "targetId": "IMG_4035",
+    "suggestedQuery": "A concert I went to a couple of years ago",
+    "anchorId": "IMG_4061",
+    "refinement": "Same purple lighting, but the band was visible with a big patterned screen behind them"
+  },
+  {
+    "id": "whiteboard",
+    "title": "The planning whiteboard",
+    "narrative": "After a planning meeting you took a photo of the whiteboard. It laid out a plan week by week. You don't remember the date.",
+    "targetId": "IMG_4554",
+    "suggestedQuery": "A photo of a whiteboard from some meeting",
+    "anchorId": "IMG_8317",
+    "refinement": "It had week by week boxes with blue sticky notes"
+  },
+  {
+    "id": "recipe",
+    "title": "The handwritten recipe",
+    "narrative": "You photographed a handwritten recipe card for a soup. It was written in several coloured pens.",
+    "targetId": "IMG_4123",
+    "suggestedQuery": "A recipe I had saved as a photo",
+    "anchorId": "IMG_8297",
+    "refinement": "It was written in different coloured pens, in two columns"
+  },
+  {
+    "id": "sunset",
+    "title": "The Manali sunset",
+    "narrative": "On a trip to the mountains around Manali you shot a sunset with a lone tree in it. You don't remember the day.",
+    "targetId": "IMG_8308",
+    "suggestedQuery": "A sunset I took in the mountains in 2022",
+    "anchorId": "IMG_8312",
+    "refinement": "There was a lone bare tree on the right side"
+  },
+  {
+    "id": "kitchen",
+    "title": "Mom cooking",
+    "narrative": "You have a photo of your mom cooking in the old kitchen. Behind her there was a wall with patterned tiles.",
+    "targetId": "IMG_8280",
+    "suggestedQuery": "My mom cooking in our old kitchen",
+    "anchorId": "IMG_4296",
+    "refinement": "There was green patterned tiling on the wall behind her"
+  }
+]
