@@ -96,6 +96,15 @@ export function usePhotoFinder(ctx: Context) {
     [session, refill, sendEvent],
   );
 
+  // The server already logs "clue_added" with the full text when it handles this request.
+  const addClue = useCallback(
+    (text: string) => {
+      if (!session) return Promise.resolve(false);
+      return run("narrowing", () => apiPost<RetrievalResponse>("/api/photo-finder/refine", { session, text, ...ctx }));
+    },
+    [session, ctx, run],
+  );
+
   const removeClue = useCallback(
     (index: number) => {
       if (!session) return;
@@ -176,7 +185,7 @@ export function usePhotoFinder(ctx: Context) {
 
   return {
     stage, session, candidates, anchor, found, busy, error, degraded,
-    start, reject, removeClue, openAnchor, cancelRefine, submitRefinement, markFound, reset,
+    start, reject, removeClue, addClue, openAnchor, cancelRefine, submitRefinement, markFound, reset,
     finalStats,
   };
 }

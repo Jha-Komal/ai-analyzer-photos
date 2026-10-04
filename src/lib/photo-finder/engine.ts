@@ -252,6 +252,26 @@ export async function refineRetrieval(input: RetrievalSession, anchorId: string,
   return respond(index, session, top, degraded || !interpretation);
 }
 
+/** Adds a clue directly to the session (no anchor photo involved) and reranks. Used for free-text "Add another clue". */
+export async function addClue(input: RetrievalSession, text: string): Promise<RetrievalResponse> {
+  const index = await getIndex();
+  const session: RetrievalSession = structuredClone(input);
+  const extraction = await extractClues(text, index.vocabulary);
+  const clues = extraction ? toClues(extraction.clues, "refinement", "positive") : fallbackClues(text).map((c) => ({ ...c, source: "refinement" as const }));
+  session.clues.push(...clues);
+  if (extraction?.time) session.time = extraction.time;
+
+  const { top, degraded } = await rank(index, session, true);
+  session.rounds.push({
+    roundNumber: session.rounds.length + 1,
+    userInput: text,
+    extractedClues: clues.map((c) => c.text),
+    candidateImageIds: top.map((t) => t.id),
+    timestamp: new Date().toISOString(),
+  });
+  return respond(index, session, top, degraded || !extraction);
+}
+
 /** Local-only re-rank (no LLM call): used after "Not this" or removing a clue so the grid refills instantly. */
 export async function refreshRetrieval(input: RetrievalSession): Promise<RetrievalResponse> {
   const index = await getIndex();

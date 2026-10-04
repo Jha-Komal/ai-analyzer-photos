@@ -32,3 +32,10 @@ export async function loadTasks(): Promise<Task[]> {
 export function toPublic(photo: Photo): PublicPhoto {
   return { id: photo.id, url: photo.url, date: photo.metadata.date, location: photo.metadata.location };
 }
+
+/** A random slice of the library, shown as a decorative backdrop before any search -- not search results. */
+export async function sampleLibrary(count: number): Promise<PublicPhoto[]> {
+  const photos = await loadLibrary();
+  const shuffled = [...photos].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count).map(toPublic);
+}

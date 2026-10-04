@@ -58,6 +58,7 @@ export const EventBody = z.object({
     "retrieval_abandoned",
     "retrieval_completed",
     "clue_removed",
+    "clue_added",
   ]),
   session: SessionSchema,
   imageId: Id.optional(),
