@@ -57,7 +57,7 @@ export function ClueTrail({
         </div>
       )}
 
-      <p className="mt-2.5 text-[10px] font-semibold uppercase tracking-wide text-muted">Remembered clues</p>
+      <p className="mt-2.5 text-[10px] font-semibold uppercase tracking-wide text-muted">Memory trail</p>
       <div className="mt-1 flex flex-wrap items-center gap-1.5">
         {visible.map(({ c, i }) => (
           <span
@@ -82,8 +82,8 @@ export function ClueTrail({
               onKeyDown={(e) => e.key === "Enter" && submit()}
               onBlur={() => !draft.trim() && setAdding(false)}
               maxLength={120}
-              placeholder="probably at night"
-              className="w-28 bg-transparent py-1 text-xs text-foreground outline-none placeholder:text-muted"
+              placeholder="Add another clue…"
+              className="w-32 bg-transparent py-1 text-xs text-foreground outline-none placeholder:text-muted"
             />
             <button type="button" onClick={submit} disabled={busy} aria-label="Add clue" className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-white">
               <ArrowRight className="h-3 w-3" />

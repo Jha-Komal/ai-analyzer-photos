@@ -4,15 +4,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { apiPost } from "@/lib/api-client";
 import type { PublicPhoto, RetrievalResponse, RetrievalSession } from "@/types/photo-finder";
 
-export type Stage = "describe" | "results" | "refine" | "found";
+export type Stage = "describe" | "results" | "found";
 type Context = { testerId?: string; taskId?: string };
 
-/** Client state machine for the retrieval loop: describe -> results -> (anchor + refine -> results)* -> found. */
+/** Client state machine for the retrieval loop: describe -> results (anchor + refine stays on results) -> found. */
 export function usePhotoFinder(ctx: Context) {
   const [stage, setStage] = useState<Stage>("describe");
   const [session, setSession] = useState<RetrievalSession | null>(null);
   const [candidates, setCandidates] = useState<PublicPhoto[]>([]);
-  const [anchor, setAnchor] = useState<PublicPhoto | null>(null);
   const [found, setFound] = useState<PublicPhoto | null>(null);
   const [busy, setBusy] = useState<null | "searching" | "narrowing" | "refilling">(null);
   const [error, setError] = useState<string | null>(null);
@@ -116,33 +115,15 @@ export function usePhotoFinder(ctx: Context) {
     [session, refill, sendEvent],
   );
 
-  const openAnchor = useCallback(
-    (photo: PublicPhoto) => {
-      if (!session) return;
-      setAnchor(photo);
-      setStage("refine");
-      sendEvent("anchor_selected", session, { imageId: photo.id });
-    },
-    [session, sendEvent],
-  );
-
-  const cancelRefine = useCallback(() => {
-    setAnchor(null);
-    setStage("results");
-  }, []);
-
+  // Anchor-based refinement stays on the same screen -- the caller supplies the
+  // tapped photo directly (no separate "selecting an anchor" stage/step).
   const submitRefinement = useCallback(
-    async (text: string, chips: string[]) => {
-      if (!session || !anchor) return;
-      const ok = await run("narrowing", () =>
-        apiPost<RetrievalResponse>("/api/photo-finder/refine", { session, anchorId: anchor.id, text, chips, ...ctx }),
-      );
-      if (ok) {
-        setAnchor(null);
-        setStage("results");
-      }
+    (anchor: PublicPhoto, text: string, chips: string[]) => {
+      if (!session) return Promise.resolve(false);
+      sendEvent("anchor_selected", session, { imageId: anchor.id });
+      return run("narrowing", () => apiPost<RetrievalResponse>("/api/photo-finder/refine", { session, anchorId: anchor.id, text, chips, ...ctx }));
     },
-    [session, anchor, ctx, run],
+    [session, ctx, run, sendEvent],
   );
 
   const markFound = useCallback(
@@ -162,11 +143,10 @@ export function usePhotoFinder(ctx: Context) {
 
   const reset = useCallback(() => {
     const { session: s, stage: st } = live.current;
-    if (s && (st === "results" || st === "refine")) sendEvent("retrieval_abandoned", s, { metrics: metrics() });
+    if (s && st === "results") sendEvent("retrieval_abandoned", s, { metrics: metrics() });
     requestId.current++;
     setSession(null);
     setCandidates([]);
-    setAnchor(null);
     setFound(null);
     setError(null);
     setBusy(null);
@@ -177,15 +157,15 @@ export function usePhotoFinder(ctx: Context) {
   useEffect(() => {
     const onHide = () => {
       const { session: s, stage: st } = live.current;
-      if (s && (st === "results" || st === "refine")) sendEvent("retrieval_abandoned", s, { metrics: metrics() });
+      if (s && st === "results") sendEvent("retrieval_abandoned", s, { metrics: metrics() });
     };
     window.addEventListener("pagehide", onHide);
     return () => window.removeEventListener("pagehide", onHide);
   }, [sendEvent]);
 
   return {
-    stage, session, candidates, anchor, found, busy, error, degraded,
-    start, reject, removeClue, addClue, openAnchor, cancelRefine, submitRefinement, markFound, reset,
+    stage, session, candidates, found, busy, error, degraded,
+    start, reject, removeClue, addClue, submitRefinement, markFound, reset,
     finalStats,
   };
 }

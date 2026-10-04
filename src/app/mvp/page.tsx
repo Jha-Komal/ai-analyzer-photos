@@ -7,7 +7,7 @@ import { GPhotosTopBar } from "@/components/photo-finder/mobile/GPhotosTopBar";
 import { SearchMemoryCard } from "@/components/photo-finder/mobile/SearchMemoryCard";
 import { ClueTrail } from "@/components/photo-finder/mobile/ClueTrail";
 import { MobilePhotoGrid } from "@/components/photo-finder/mobile/MobilePhotoGrid";
-import { DecideSheet, AnchorSheet } from "@/components/photo-finder/mobile/PhotoSheet";
+import { PhotoDetailSheet } from "@/components/photo-finder/mobile/PhotoDetailSheet";
 import { FoundOverlay } from "@/components/photo-finder/mobile/FoundOverlay";
 import { Loader } from "@/components/shared/Loader";
 import { usePhotoFinder } from "@/hooks/usePhotoFinder";
@@ -35,18 +35,24 @@ function MvpApp() {
     apiFetch<TaskInfo[]>("/api/photo-finder/task").then((all) => setTask(all.find((t) => t.id === taskId) ?? null)).catch(() => {});
   }, [taskId]);
 
-  const { stage, session, candidates, anchor, found, busy, error } = finder;
-
-  const handleLooksClose = (photo: PublicPhoto) => {
-    setAnchorCache((prev) => ({ ...prev, [photo.id]: photo }));
-    finder.openAnchor(photo);
-    setActivePhoto(null);
-  };
+  const { stage, session, candidates, found, busy, error } = finder;
 
   const handleRestart = () => {
     setActivePhoto(null);
     setAnchorCache({});
     finder.reset();
+  };
+
+  const handleMoreLikeThis = (photo: PublicPhoto) => {
+    setAnchorCache((prev) => ({ ...prev, [photo.id]: photo }));
+    void finder.submitRefinement(photo, "More like this", ["more_like_this"]);
+    setActivePhoto(null);
+  };
+
+  const handleSubmitText = (photo: PublicPhoto, text: string) => {
+    setAnchorCache((prev) => ({ ...prev, [photo.id]: photo }));
+    void finder.submitRefinement(photo, text, []);
+    setActivePhoto(null);
   };
 
   return (
@@ -60,7 +66,7 @@ function MvpApp() {
         </>
       )}
 
-      {(stage === "results" || stage === "refine") && session && (
+      {stage === "results" && session && (
         <>
           <ClueTrail
             originalQuery={session.originalQuery}
@@ -76,24 +82,22 @@ function MvpApp() {
       )}
 
       {stage === "results" && activePhoto && (
-        <DecideSheet
+        <PhotoDetailSheet
           photo={activePhoto}
           busy={!!busy}
+          error={error}
           onFound={() => {
             finder.markFound(activePhoto);
             setActivePhoto(null);
           }}
-          onLooksClose={() => handleLooksClose(activePhoto)}
-          onReject={() => {
+          onMoreLikeThis={() => handleMoreLikeThis(activePhoto)}
+          onSubmitText={(text) => handleSubmitText(activePhoto, text)}
+          onKeepLooking={() => {
             finder.reject(activePhoto);
             setActivePhoto(null);
           }}
           onClose={() => setActivePhoto(null)}
         />
-      )}
-
-      {stage === "refine" && anchor && (
-        <AnchorSheet anchor={anchor} busy={busy === "narrowing"} error={error} onSubmit={finder.submitRefinement} onClose={finder.cancelRefine} />
       )}
 
       {stage === "found" && found && session && <FoundOverlay photo={found} session={session} stats={finder.finalStats} onAgain={handleRestart} />}

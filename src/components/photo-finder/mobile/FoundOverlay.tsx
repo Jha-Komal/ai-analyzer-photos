@@ -18,7 +18,7 @@ export function FoundOverlay({
   return (
     <div className="absolute inset-0 z-50 flex flex-col items-center bg-background px-6 pt-16 text-center">
       <CircleCheck className="h-10 w-10 text-positive" />
-      <p className="mt-2 text-lg font-semibold text-foreground">Found it</p>
+      <p className="mt-2 text-lg font-semibold text-foreground">Found</p>
       <div className="mt-5 w-full max-w-[260px] overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={photo.url} alt="The photo you found" className="max-h-72 w-full object-contain bg-muted-background" />
