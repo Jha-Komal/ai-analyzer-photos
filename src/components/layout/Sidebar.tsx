@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, MessageSquareText, Lightbulb, FileText, ScanSearch } from "lucide-react";
+import { LayoutDashboard, MessageSquareText, Lightbulb, FileText, ScanSearch, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { GlossaryModal } from "@/components/shared/GlossaryModal";
 
@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { href: "/insights", label: "Insights", icon: Lightbulb },
   { href: "/research-report", label: "Research Report", icon: FileText },
   { href: "/photo-finder", label: "Photo Finder", icon: ScanSearch },
+  { href: "/mvp", label: "MVP (Part 5)", icon: Sparkles },
 ];
 
 export function Sidebar() {
