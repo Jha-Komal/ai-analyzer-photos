@@ -9,17 +9,29 @@ export function DebugPanel({
   photos,
   log,
   aiMeta,
+  targetId,
 }: {
   session: RetrievalSession | null;
   photos: DemoPhoto[];
   log: EventLogEntry[];
   aiMeta: (AiRetrievalResponse & { source: "ai" | "deterministic" }) | null;
+  /** Scripted scenario's target photo id (from ?scenario=), if any -- shows a live rank check. */
+  targetId?: string;
 }) {
   const scored = session ? scorePhotos(photos, session).slice(0, 15) : [];
+  const targetRank = targetId && session ? session.candidateIds.indexOf(targetId) : -1;
 
   return (
     <div className="h-[min(844px,90vh)] w-[360px] shrink-0 overflow-y-auto rounded-[1rem] border border-border bg-card p-4 font-mono text-xs text-foreground">
       <p className="mb-2 font-sans text-sm font-semibold">Debug panel</p>
+
+      {targetId && (
+        <Section title="Scripted target check">
+          <p className={targetRank === 0 ? "font-sans font-semibold text-positive" : "font-sans text-negative"}>
+            {targetId}: {targetRank === -1 ? "not in current results" : `rank #${targetRank + 1}`}
+          </p>
+        </Section>
+      )}
 
       <Section title="Session">
         <pre className="whitespace-pre-wrap">{JSON.stringify({ status: session?.status, originalQuery: session?.originalQuery, negativeSignals: session?.negativeSignals }, null, 2)}</pre>

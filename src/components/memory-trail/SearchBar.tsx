@@ -4,7 +4,15 @@ import { useState } from "react";
 import { Search, ArrowRight } from "lucide-react";
 import { DEMO_PHOTOS } from "@/lib/memory-trail/demoPhotos";
 
-export function SearchBar({ busy, onSubmit }: { busy: boolean; onSubmit: (query: string) => void }) {
+export function SearchBar({
+  busy,
+  onSubmit,
+  task,
+}: {
+  busy: boolean;
+  onSubmit: (query: string) => void;
+  task?: { title: string; narrative: string } | null;
+}) {
   const [text, setText] = useState("");
   // Shuffled once per mount (not on every render) -- a decorative "your photos" backdrop, not search results.
   const [recent] = useState(() => [...DEMO_PHOTOS].sort(() => Math.random() - 0.5));
@@ -12,6 +20,12 @@ export function SearchBar({ busy, onSubmit }: { busy: boolean; onSubmit: (query:
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
+      {task && (
+        <div className="mx-4 mb-2 rounded-2xl border border-[#4285F4]/30 bg-[#e8f0fe] p-3">
+          <p className="text-[10px] font-semibold uppercase tracking-wide text-[#1a73e8]">{task.title}</p>
+          <p className="mt-0.5 text-sm text-[#3c4043]">{task.narrative}</p>
+        </div>
+      )}
       <div className="shrink-0 px-4 pb-2">
         <div className="flex items-center gap-2.5 rounded-full bg-[#f1f3f4] px-4 py-2.5">
           <Search className="h-4.5 w-4.5 shrink-0 text-[#5f6368]" />

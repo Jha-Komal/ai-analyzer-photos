@@ -17,11 +17,13 @@ import { Loader } from "@/components/shared/Loader";
 import { TopNav } from "@/components/layout/TopNav";
 import { useMemoryTrail } from "@/hooks/useMemoryTrail";
 import { DEMO_PHOTOS } from "@/lib/memory-trail/demoPhotos";
+import { SCENARIOS } from "@/lib/memory-trail/scenarios";
 import type { DemoPhoto } from "@/types/memory-trail";
 
 function MemoryTrailApp() {
   const params = useSearchParams();
   const debug = params.get("debug") === "true";
+  const scenario = SCENARIOS.find((s) => s.id === params.get("scenario")) ?? null;
   const mt = useMemoryTrail();
 
   const [activePhoto, setActivePhoto] = useState<DemoPhoto | null>(null);
@@ -48,7 +50,9 @@ function MemoryTrailApp() {
       <AppShell>
         <PhotosHeader onInfo={() => setShowWhy(true)} />
 
-        {!session && <SearchBar busy={busy} onSubmit={mt.start} />}
+        {!session && (
+          <SearchBar busy={busy} onSubmit={mt.start} task={scenario ? { title: "Your task", narrative: `Think of this memory: ${scenario.startingMemory}` } : null} />
+        )}
 
         {session && (
           <>
@@ -87,7 +91,7 @@ function MemoryTrailApp() {
         {showWhy && <WhyMemoryTrail onClose={() => setShowWhy(false)} />}
       </AppShell>
 
-      {debug && <DebugPanel session={session} photos={DEMO_PHOTOS} log={log} aiMeta={aiMeta} />}
+      {debug && <DebugPanel session={session} photos={DEMO_PHOTOS} log={log} aiMeta={aiMeta} targetId={scenario?.targetId} />}
     </div>
   );
 }
