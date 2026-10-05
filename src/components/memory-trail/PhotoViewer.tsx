@@ -34,7 +34,7 @@ export function PhotoViewer({
           <ArrowLeft className="h-4.5 w-4.5" />
         </button>
       </div>
-      <div className="min-h-0 flex-1 overflow-y-auto">
+      <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto">
         <div className="flex max-h-[46%] items-center justify-center bg-[#f1f3f4]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={photo.imageUrl} alt="Selected photo" className="max-h-[320px] w-full object-contain" />

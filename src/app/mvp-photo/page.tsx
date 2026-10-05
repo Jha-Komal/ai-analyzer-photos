@@ -44,7 +44,7 @@ function MemoryTrailApp() {
   };
 
   return (
-    <div className="flex items-start justify-center gap-4 p-4">
+    <div className="flex items-start justify-center sm:gap-4 sm:p-4">
       <AppShell>
         <PhotosHeader onInfo={() => setShowWhy(true)} />
 
@@ -54,7 +54,7 @@ function MemoryTrailApp() {
           <>
             <MemoryTrail session={session} photos={DEMO_PHOTOS} onRemoveClue={mt.removeClue} onRemoveSignal={mt.removeSignal} />
             <RetrievalProgress busy={busy} clueCount={clueCount} />
-            <div className="min-h-0 flex-1 overflow-y-auto">
+            <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto">
               <PhotoGrid photos={candidates} busy={busy} onOpen={handleOpen} />
               <AddClueInput busy={busy} suggested={aiMeta?.suggestedRefinements} onAdd={(value) => mt.addClue("visual", value)} />
             </div>

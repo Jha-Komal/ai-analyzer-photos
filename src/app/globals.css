@@ -89,3 +89,12 @@ body {
 * {
   border-color: var(--border);
 }
+
+/* Hides the scrollbar inside mobile-mockup surfaces (Memory Trail, etc.) while keeping scroll functional -- real apps don't show one either. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
