@@ -50,9 +50,7 @@ function MemoryTrailApp() {
       <AppShell>
         <PhotosHeader onInfo={() => setShowWhy(true)} />
 
-        {!session && (
-          <SearchBar busy={busy} onSubmit={mt.start} task={scenario ? { title: "Your task", narrative: `Think of this memory: ${scenario.startingMemory}` } : null} />
-        )}
+        {!session && <SearchBar busy={busy} onSubmit={mt.start} />}
 
         {session && (
           <>
